@@ -6,9 +6,9 @@ const MyProfile = () => {
   return (
     <div className="border-2 border-solid rounded-lg border-pastelPink p-10 h-fit">
       <div className="flex justify-between items-center">
-        <span className="text-light font-Alphaget text-5xl">Lucky</span>
+        <span className="text-light font-Alphaget text-6xl">Lucky</span>
         <span className="text-light font-LouisBold text-sm">
-          Full-stack Developer
+          Full-Stack Developer
         </span>
       </div>
       <div className="justify-center items-center my-16">
@@ -24,7 +24,9 @@ const MyProfile = () => {
         <span className="text-light font-Louis text-xl">
           angelorabosa5@gmail.com
         </span>
-        <span className="text-light font-Louis text-xl">Base in PH</span>
+        <span className="text-light font-Louis text-xl">
+          Base in Philippines
+        </span>
         <span className="text-light font-Louis text-xl">
           @2023 Lucky. All Rights Reserved
         </span>

@@ -9,7 +9,7 @@ const DetailsColumn = () => {
         <span className="text-greenApple text-7xl font-LouisBold max-w-2xl">
           Lucky
         </span>
-        , Full-stack Developer
+        , Full-Stack Developer
       </p>
       <span className="text-light font-Louis text-xl">
         I do Front-end and Back-end programming. Im using Javascript Frameworks
