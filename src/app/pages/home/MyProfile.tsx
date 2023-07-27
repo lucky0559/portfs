@@ -4,7 +4,7 @@ import myProfile from "../../assets/imgs/profile.jpg";
 
 const MyProfile = () => {
   return (
-    <div className="border-2 border-solid rounded-lg border-pastelPink p-10">
+    <div className="border-2 border-solid rounded-lg border-pastelPink p-10 h-fit">
       <div className="flex justify-between items-center">
         <span className="text-light font-Alphaget text-5xl">Lucky</span>
         <span className="text-light font-LouisBold text-sm">

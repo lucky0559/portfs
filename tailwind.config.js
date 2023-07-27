@@ -22,7 +22,8 @@ module.exports = {
       primaryBackground: "#331D2C",
       secondaryBackground: "#3F2E3E",
       pastelPink: "#A78295",
-      light: "#EFE1D1"
+      light: "#EFE1D1",
+      greenApple: "#CECE5A"
     }
   },
   plugins: []
