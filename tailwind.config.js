@@ -24,6 +24,11 @@ module.exports = {
       pastelPink: "#A78295",
       light: "#EFE1D1",
       greenApple: "#CECE5A"
+    },
+    screens: {
+      mobile: "340px",
+      laptop: "1024px",
+      desktop: "1280px"
     }
   },
   plugins: []

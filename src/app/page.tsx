@@ -3,7 +3,7 @@ import HomePage from "./pages/home/HomePage";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen bg-primaryBackground p-10">
+    <main className="overflow-hiden">
       <HomePage />
     </main>
   );
