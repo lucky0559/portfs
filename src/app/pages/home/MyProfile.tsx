@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 import myProfile from "../../assets/imgs/profile.jpg";
+import { FaFacebook, FaGithub, FaInstagram } from "react-icons/fa";
 
 const MyProfile = () => {
   return (
@@ -31,11 +34,21 @@ const MyProfile = () => {
           @2023 Lucky. All Rights Reserved
         </span>
       </div>
-      <div className="flex justify-center">
-        <span className="text-light">1</span>
-        <span className="text-light">2</span>
-        <span className="text-light">3</span>
-        <span className="text-light">4</span>
+      <div className="flex justify-evenly mt-8">
+        <FaFacebook
+          size={25}
+          className="text-primaryBackground hover:text-light bg-light hover:bg-secondaryBackground h-auto w-auto rounded-2xl ease-in-out duration-300 hover:shadow-lg hover:shadow-pastelPink border-pastelPink border-2 border-solid flex justify-center items-center p-2 hover:cursor-pointer"
+          onClick={() => (window.location.href = "https://google.com")}
+          target="_blank"
+        />
+        <FaInstagram
+          size={25}
+          className="text-primaryBackground hover:text-light bg-light hover:bg-secondaryBackground h-auto w-auto rounded-2xl ease-in-out duration-300 hover:shadow-lg hover:shadow-pastelPink border-pastelPink border-2 border-solid flex justify-center items-center p-2 hover:cursor-pointer"
+        />
+        <FaGithub
+          size={25}
+          className="text-primaryBackground hover:text-light bg-light hover:bg-secondaryBackground h-auto w-auto rounded-2xl ease-in-out duration-300 hover:shadow-lg hover:shadow-pastelPink border-pastelPink border-2 border-solid flex justify-center items-center p-2 hover:cursor-pointer"
+        />
       </div>
     </div>
   );
