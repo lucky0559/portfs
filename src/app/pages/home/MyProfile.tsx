@@ -7,30 +7,30 @@ import { FaFacebook, FaGithub, FaInstagram } from "react-icons/fa";
 
 const MyProfile = () => {
   return (
-    <div className="border-2 border-solid rounded-lg border-pastelPink p-10 h-fit">
+    <div className="border-2 border-solid rounded-lg border-pastelPink p-10 h-fit ">
       <div className="flex justify-between items-center">
-        <span className="text-light font-Alphaget laptop:text-6xl mobile:text-5xl">
+        <span className="text-light font-Alphaget text-5xl md:text-6xl xl:text-7xl">
           Lucky
         </span>
-        <span className="text-light font-LouisBold laptop:text-sm mobile:text-xs">
+        <span className="text-light font-LouisBold text-xs md:text-sm xl:text-lg">
           Full-Stack Developer
         </span>
       </div>
-      <div className="justify-center items-center laptop:my-16 mobile:my-10">
+      <div className="justify-center items-center my-10 xl:my-16">
         <Image
           src={myProfile}
           alt="myProfile"
-          className="m-auto rounded-lg laptop:w-80 mobile:w-60"
+          className="m-auto rounded-lg w-60 xl:w-80"
         />
       </div>
       <div className="flex flex-col items-center">
-        <span className="text-light font-Louis laptop:text-xl mobile:text-base text-center">
+        <span className="text-light font-Louis text-base md:text-lg xl:text-xl text-center">
           angelorabosa5@gmail.com
         </span>
-        <span className="text-light font-Louis laptop:text-xl mobile:text-base text-center">
+        <span className="text-light font-Louis text-base md:text-lg xl:text-xl text-center">
           Base in Philippines
         </span>
-        <span className="text-light font-Louis laptop:text-xl mobile:text-base text-center">
+        <span className="text-light font-Louis text-base md:text-lg xl:text-xl text-center">
           @2023 Lucky. All Rights Reserved
         </span>
       </div>
