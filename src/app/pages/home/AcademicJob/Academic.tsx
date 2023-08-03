@@ -7,14 +7,31 @@ import {
   TimelineItem,
   TimelineSeparator
 } from "@mui/lab";
-import React from "react";
+import { Slide } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { FaBook, FaChalkboard, FaGraduationCap } from "react-icons/fa";
+import { animated, useSpring, useSpringRef } from "@react-spring/web";
 
 const Academic = () => {
+  const myRef = useSpringRef();
+
+  const onScrollAnimate = () => {
+    console.log("scrolling");
+  };
+
+  const springs = useSpring({
+    from: { y: 0 },
+    to: { y: 100 },
+    ref: myRef
+  });
+
   return (
-    <div className="my-10">
-      <div className="justify-center items-center flex">
+    <animated.div className="my-10" style={{ ...springs }}>
+      <div
+        className="justify-center items-center flex"
+        onScroll={onScrollAnimate}
+      >
         <span className="text-base md:text-2xl xl:text-4xl text-light font-LouisBold text-center">
           Academic <span className="text-greenApple">Qualification</span>
         </span>
@@ -60,7 +77,7 @@ const Academic = () => {
           </TimelineContent>
         </TimelineItem>
       </Timeline>
-    </div>
+    </animated.div>
   );
 };
 
