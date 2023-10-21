@@ -20,8 +20,19 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["*"],
+      "@/pages/academicJob/*": ["pages/AcademicJob/*"],
+      "@/assets/images/*": ["assets/imgs/*"],
+      "@/pages/DetailsColumn/*": ["pages/DetailsColumn/*"],
+      "@/pages/AcademicJob/*": ["pages/AcademicJob/*"],
+      "@/pages/Skills/*": ["pages/Skills/*"],
+      "@/pages/*": ["pages/*"],
+      "@/components/AcademicJob/*": ["components/AcademicJob/*"],
+      "@/components/DetailsColumn/*": ["components/DetailsColumn/*"],
+      "@/components/Skills/*": ["components/Skills/*"],
+      "@/lib/animation*": ["lib/animation/*"]
+    },
+    "baseUrl": "src/app/"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

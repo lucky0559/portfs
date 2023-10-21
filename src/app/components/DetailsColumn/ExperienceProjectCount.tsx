@@ -1,3 +1,4 @@
+import Trail from "@/lib/animation/trail";
 import React from "react";
 
 const ExperienceProjectCount = () => {

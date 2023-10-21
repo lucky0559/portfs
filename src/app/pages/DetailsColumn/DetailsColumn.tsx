@@ -1,10 +1,10 @@
 import React from "react";
-import ExperienceProjectCount from "./DetailsColumn/ExperienceProjectCount";
-import { Fade } from "@mui/material";
+import ExperienceProjectCount from "@/components/DetailsColumn/ExperienceProjectCount";
+import Trail from "@/lib/animation/trail";
 
 const DetailsColumn = () => {
   return (
-    <Fade in={true} style={{ transitionDelay: "200ms" }}>
+    <Trail open={true} height={500}>
       <div className="p-10 xl:ml-16">
         <p className="text-light text-5xl md:text-6xl xl:text-7xl font-LouisBold max-w-2xl mb-5">
           Say Hi to{" "}
@@ -19,7 +19,7 @@ const DetailsColumn = () => {
         </span>
         <ExperienceProjectCount />
       </div>
-    </Fade>
+    </Trail>
   );
 };
 

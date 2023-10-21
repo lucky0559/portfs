@@ -1,7 +1,8 @@
+import MyProfile from "@/components/MyProfile";
+import AcademicJob from "@/pages/AcademicJob/AcademicJob";
+import DetailsColumn from "@/pages/DetailsColumn/DetailsColumn";
+import Skills from "@/pages/Skills/Skills";
 import React from "react";
-import MyProfile from "./MyProfile";
-import DetailsColumn from "./DetailsColumn";
-import AcademicJob from "./AcademicJob";
 
 const HomePage = () => {
   return (
@@ -12,8 +13,11 @@ const HomePage = () => {
         <DetailsColumn />
         {/* </div> */}
       </div>
-      <div className="bg-secondaryBackground  p-3 xl:p-10">
+      <div className="bg-secondaryBackground p-3 xl:p-10">
         <AcademicJob />
+      </div>
+      <div className="bg-primaryBackground">
+        <Skills />
       </div>
     </>
   );
