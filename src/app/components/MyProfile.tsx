@@ -5,10 +5,7 @@ import React from "react";
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import Trail from "@/lib/animation/trail";
 import { useCustomMediaQuery } from "@/lib/hooks/useMediaQuery";
-
-const openInNewTabHandler = (url: string) => {
-  window.open(url, "_blank", "noreferrer");
-};
+import { openInNewTabHandler } from "@/lib/hooks/useOpenNewTab";
 
 const MyProfile = () => {
   const { isTabletOrMobile } = useCustomMediaQuery();
