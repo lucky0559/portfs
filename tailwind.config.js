@@ -16,6 +16,22 @@ module.exports = {
         Alphaget: "Alphaget",
         Louis: "Louis",
         LouisBold: "LouisBold"
+      },
+      skew: {
+        15: "15deg",
+        45: "45deg"
+      },
+      translate: {
+        "50-px": "50px"
+      },
+      spacing: {
+        "15%": "15%"
+      },
+      content: {
+        profile: 'url("/src/app/assets/icons/profile.svg")',
+        experience: 'url("/src/app/assets/icons/experience.png.png")',
+        skills: 'url("/src/app/assets/icons/skills.png")',
+        projects: 'url("/src/app/assets/icons/projects.png")'
       }
     },
     colors: {
@@ -23,7 +39,9 @@ module.exports = {
       secondaryBackground: "#3F2E3E",
       pastelPink: "#A78295",
       light: "#EFE1D1",
-      greenApple: "#CECE5A"
+      greenApple: "#CECE5A",
+      menuPrimary: "#aed8b3",
+      menuLightPrimary: "#C1D8C3"
     },
     screens: {
       xs: "390px",

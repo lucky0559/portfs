@@ -23,6 +23,7 @@
       "@/*": ["*"],
       "@/pages/academicJob/*": ["pages/AcademicJob/*"],
       "@/assets/images/*": ["assets/imgs/*"],
+      "@/assets/icons/*": ["assets/icons/*"],
       "@/pages/DetailsColumn/*": ["pages/DetailsColumn/*"],
       "@/pages/AcademicJob/*": ["pages/AcademicJob/*"],
       "@/pages/Skills/*": ["pages/Skills/*"],
