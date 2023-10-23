@@ -8,7 +8,7 @@ const Menu = () => {
   return (
     <div className="fixed bottom-15% right-8 z-10">
       <ul className="text-light relative -skew-y-15">
-        <li className={`${liClassname} z-[4] before:content-profile`}>
+        <li className={`${liClassname} z-[4]`}>
           <a href="#profile" className={aClassname}>
             Profile
           </a>
@@ -18,12 +18,12 @@ const Menu = () => {
             Academic/Job
           </a>
         </li>
-        <li className={`${liClassname} z-[2] before:content-skills`}>
+        <li className={`${liClassname} z-[2]`}>
           <a href="#skills" className={aClassname}>
             Skills
           </a>
         </li>
-        <li className={`${liClassname} z-[1] before:content-projects`}>
+        <li className={`${liClassname} z-[1]`}>
           <a href="#projects" className={aClassname}>
             Projects
           </a>

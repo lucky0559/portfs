@@ -38,7 +38,7 @@ const MyProfile = () => {
             angelorabosa5@gmail.com
           </span>
           <span className="text-light font-Louis text-base md:text-lg xl:text-xl text-center">
-            Base in Philippines
+            Based in Philippines
           </span>
           <span className="text-light font-Louis text-base md:text-lg xl:text-xl text-center">
             @2023 Lucky. All Rights Reserved

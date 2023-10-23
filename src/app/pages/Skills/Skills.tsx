@@ -5,15 +5,12 @@ import { openInNewTabHandler } from "@/lib/hooks/useOpenNewTab";
 import { FaReact } from "react-icons/fa";
 import {
   SiAmazons3,
-  SiApollographql,
   SiAxios,
   SiBitbucket,
   SiCss3,
   SiGit,
   SiGithub,
-  SiGraphql,
   SiHtml5,
-  SiJest,
   SiJira,
   SiNestjs,
   SiNextdotjs,

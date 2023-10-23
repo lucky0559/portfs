@@ -1,9 +1,12 @@
+const { nextui } = require("@nextui-org/react");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}"
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     extend: {
@@ -28,10 +31,10 @@ module.exports = {
         "15%": "15%"
       },
       content: {
-        profile: 'url("/src/app/assets/icons/profile.svg")',
-        experience: 'url("/src/app/assets/icons/experience.png.png")',
-        skills: 'url("/src/app/assets/icons/skills.png")',
-        projects: 'url("/src/app/assets/icons/projects.png")'
+        // profile: 'url("/src/app/assets/icons/profile.svg")',
+        // experience: 'url("/src/app/assets/icons/experience.png.png")',
+        // skills: 'url("/src/app/assets/icons/skills.png")',
+        // projects: 'url("/src/app/assets/icons/projects.png")'
       }
     },
     colors: {
@@ -63,5 +66,6 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     }
   },
-  plugins: []
+  darkMode: "class",
+  plugins: [nextui()]
 };

@@ -24,7 +24,7 @@ const HomePage = () => {
         <Skills />
       </div>
       <div className="bg-secondaryBackground" id="projects">
-        {/* <Projects /> */}
+        <Projects />
       </div>
     </>
   );
