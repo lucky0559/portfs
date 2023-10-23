@@ -40,8 +40,8 @@ module.exports = {
       pastelPink: "#A78295",
       light: "#EFE1D1",
       greenApple: "#CECE5A",
-      menuPrimary: "#aed8b3",
-      menuLightPrimary: "#C1D8C3"
+      menuPrimary: "#48594a",
+      menuLightPrimary: "#9abf9e"
     },
     screens: {
       xs: "390px",
