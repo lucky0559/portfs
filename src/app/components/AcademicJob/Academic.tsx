@@ -21,7 +21,7 @@ const Academic = () => {
         <TimelineItem className="justify-center items-end flex">
           <TimelineSeparator>
             <TimelineConnector className="bg-pastelPink h-10 md:h-14 xl:h-20" />
-            <TimelineDot className="bg-primaryBackground p-2">
+            <TimelineDot className="p-2" style={{ backgroundColor: "#331D2C" }}>
               <FaGraduationCap size={isMobile ? 20 : 30} />
             </TimelineDot>
           </TimelineSeparator>
@@ -34,7 +34,7 @@ const Academic = () => {
         <TimelineItem className="justify-center items-end flex">
           <TimelineSeparator>
             <TimelineConnector className="bg-pastelPink h-10 md:h-14 xl:h-20" />
-            <TimelineDot className="bg-primaryBackground p-2">
+            <TimelineDot className="p-2" style={{ backgroundColor: "#331D2C" }}>
               <FaBook size={isMobile ? 20 : 30} />
             </TimelineDot>
           </TimelineSeparator>
@@ -47,7 +47,7 @@ const Academic = () => {
         <TimelineItem className="justify-center items-end flex">
           <TimelineSeparator>
             <TimelineConnector className="bg-pastelPink h-10 md:h-14 xl:h-20" />
-            <TimelineDot className="bg-primaryBackground p-2">
+            <TimelineDot className="p-2" style={{ backgroundColor: "#331D2C" }}>
               <FaChalkboard size={isMobile ? 20 : 30} />
             </TimelineDot>
           </TimelineSeparator>
