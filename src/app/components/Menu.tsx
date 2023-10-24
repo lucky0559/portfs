@@ -6,7 +6,7 @@ const Menu = () => {
     "uppercase tracking-wider duration-400 m-0 block w-full h-full";
 
   return (
-    <div className="fixed bottom-15% right-8 z-10">
+    <div className="fixed bottom-15% right-8 z-20">
       <ul className="text-light relative -skew-y-15">
         <li className={`${liClassname} z-[4]`}>
           <a href="#profile" className={aClassname}>

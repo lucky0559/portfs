@@ -1,7 +1,9 @@
 "use client";
 
 import Card from "@/components/Projects/Card";
+import { cards, projects } from "@/constants/Projects";
 import { useCustomMediaQuery } from "@/lib/hooks/useMediaQuery";
+import { openInNewTabHandler } from "@/lib/hooks/useOpenNewTab";
 import { CardType } from "@/types/CardType";
 import { ViewingDeckProject } from "@/types/ViewingProject";
 import {
@@ -16,17 +18,6 @@ import { useSprings, animated, to as interpolate } from "@react-spring/web";
 import React, { useState } from "react";
 import { useDrag } from "react-use-gesture";
 
-const projects: ViewingDeckProject[] = [
-  {
-    name: "Chloe by People Science",
-    from: "Internet Strategy Branding and Execution",
-    imageURLs: [
-      "https://storage.googleapis.com/chloe/Screenshot_2023-10-24-00-01-26-204_com.android.vending.png",
-      "https://storage.googleapis.com/chloe/Screenshot_2023-10-24-00-01-17-606_com.android.vending.png",
-      "https://storage.googleapis.com/chloe/Screenshot_2023-10-24-00-01-06-619_com.android.vending.png"
-    ]
-  }
-];
 // These two are just helpers, they curate spring data, values that are later being interpolated into css
 const to = (i: number) => ({
   x: 0,
@@ -106,14 +97,6 @@ const Deck = ({ project }: DeckProps) => {
 const Projects = () => {
   const { isTabletOrMobile, isMobile } = useCustomMediaQuery();
 
-  const cards: CardType[] = [
-    {
-      name: "Chloe by People Science",
-      from: "Internet Strategy Branding and Execution",
-      imageURL: "https://storage.googleapis.com/chloe/chloe-logo.png"
-    }
-  ];
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [deckViewingProject, setDeckViewingProject] = useState<
@@ -137,7 +120,7 @@ const Projects = () => {
           Projects
         </span>
       </div>
-      <div>
+      <div className="flex flex-row flex-wrap">
         {cards.map((card, index) => (
           <Card
             cardImageUrl={card.imageURL}
@@ -155,7 +138,7 @@ const Projects = () => {
       >
         <ModalContent>
           {onClose => (
-            <div className="bg-secondaryBackground h-[79%]">
+            <div className="bg-secondaryBackground h-[76%]">
               <ModalHeader className="flex flex-col gap-1">
                 <p className="text-tiny uppercase text-light font-LouisBold">
                   Project in:
@@ -168,15 +151,34 @@ const Projects = () => {
                 </h4>
               </ModalHeader>
               <ModalBody className="flex items-center justify-center h-full bg-secondaryBackground">
-                <Deck project={deckViewingProject} />
+                {!!deckViewingProject?.imageURLs.length ? (
+                  <Deck project={deckViewingProject} />
+                ) : (
+                  <span className="font-LouisBold text-light">
+                    No Available Preview
+                  </span>
+                )}
               </ModalBody>
+              <div className="flex items-center justify-center bg-secondaryBackground">
+                <span className="font-LouisBold text-light">
+                  Visit:{" "}
+                  <a
+                    onClick={() =>
+                      openInNewTabHandler(deckViewingProject?.projectUrl!)
+                    }
+                    className="text-greenApple cursor-pointer hover:opacity-70"
+                  >
+                    {deckViewingProject?.name}
+                  </a>{" "}
+                </span>
+              </div>
               <ModalFooter className="bg-secondaryBackground">
                 <Button
                   color="danger"
                   variant="light"
                   onPress={() => {
                     setDeckViewingProject(undefined);
-                    onClose;
+                    onClose();
                   }}
                   className="font-LouisBold"
                 >

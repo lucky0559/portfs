@@ -9,7 +9,7 @@ type CardProps = {
 
 const Card = ({ cardImageUrl, onClick, name, from }: CardProps) => {
   return (
-    <CardC className="py-4 w-fit bg-light">
+    <CardC className="py-4 w-fit bg-light m-5 max-w-[281px]">
       <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
         <p className="text-tiny uppercase font-bold">Project in:</p>
         <small className="text-default-500">{from}</small>
