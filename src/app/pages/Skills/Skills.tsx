@@ -27,6 +27,7 @@ import {
   SiTailwindcss,
   SiTrello,
   SiTypescript,
+  SiVercel,
   SiVisualstudiocode
 } from "react-icons/si";
 
@@ -75,7 +76,8 @@ const otherSkills: SkillEntry[] = [
   { label: "GitLab", url: "https://gitlab.com/", Icon: SiGitlab },
   { label: "Bitbucket", url: "https://bitbucket.org/", Icon: SiBitbucket },
   { label: "Jira", url: "https://www.atlassian.com/software/jira", Icon: SiJira },
-  { label: "Trello", url: "https://trello.com/", Icon: SiTrello }
+  { label: "Trello", url: "https://trello.com/", Icon: SiTrello },
+  { label: "Vercel", url: "https://vercel.com/", Icon: SiVercel }
 ];
 
 const containerVariants = {
