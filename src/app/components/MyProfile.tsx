@@ -3,18 +3,22 @@
 import Image from "next/image";
 import React from "react";
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
-import Trail from "@/lib/animation/trail";
-import { useCustomMediaQuery } from "@/lib/hooks/useMediaQuery";
+import { motion } from "framer-motion";
 import { openInNewTabHandler } from "@/lib/hooks/useOpenNewTab";
 
-const MyProfile = () => {
-  const { isTabletOrMobile } = useCustomMediaQuery();
+const socialClass =
+  "text-primaryBackground hover:text-light bg-light hover:bg-secondaryBackground h-auto w-auto rounded-2xl ease-in-out duration-300 hover:shadow-lg hover:shadow-pastelPink border-pastelPink border-2 border-solid flex justify-center items-center p-2 hover:cursor-pointer";
 
-  const trailHeight = isTabletOrMobile ? 650 : 800;
+const MyProfile = () => {
+  const year = new Date().getFullYear();
 
   return (
-    <Trail open={true} height={trailHeight}>
-      <div className="border-2 border-solid rounded-lg border-pastelPink p-10 h-fit ">
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+    >
+      <div className="border-2 border-solid rounded-lg border-pastelPink p-6 xl:p-10">
         <div className="flex justify-between items-center">
           <span className="text-light font-Alphaget text-5xl md:text-6xl xl:text-7xl">
             Lucky
@@ -23,38 +27,36 @@ const MyProfile = () => {
             Full-Stack Developer
           </span>
         </div>
-        <div className="justify-center items-center my-10 xl:my-16">
+        <div className="flex justify-center items-center my-8 xl:my-12">
           <Image
             src="https://storage.googleapis.com/portfs-images/profile.jpg"
             alt="myProfile"
-            className="m-auto rounded-lg w-60 xl:w-80"
+            className="rounded-lg w-52 md:w-60 xl:w-72"
             width={500}
             height={500}
             priority
           />
         </div>
-        <div className="flex flex-col items-center">
-          <span className="text-light font-Louis text-base md:text-lg xl:text-xl text-center">
+        <div className="flex flex-col items-center gap-1">
+          <span className="text-light font-Louis text-sm md:text-base xl:text-lg text-center">
             angelorabosa5@gmail.com
           </span>
-          <span className="text-light font-Louis text-base md:text-lg xl:text-xl text-center">
+          <span className="text-light font-Louis text-sm md:text-base xl:text-lg text-center">
             Based in Philippines
           </span>
-          <span className="text-light font-Louis text-base md:text-lg xl:text-xl text-center">
-            @2023 Lucky. All Rights Reserved
+          <span className="text-pastelPink font-Louis text-xs xl:text-sm text-center">
+            @{year} Lucky. All Rights Reserved
           </span>
         </div>
-        <div className="flex justify-evenly mt-8">
+        <div className="flex justify-evenly mt-6">
           <FaFacebook
-            size={25}
-            className="text-primaryBackground hover:text-light bg-light hover:bg-secondaryBackground h-auto w-auto rounded-2xl ease-in-out duration-300 hover:shadow-lg hover:shadow-pastelPink border-pastelPink border-2 border-solid flex justify-center items-center p-2 hover:cursor-pointer"
-            onClick={() =>
-              openInNewTabHandler("https://www.facebook.com/Geloyzxc")
-            }
+            size={22}
+            className={socialClass}
+            onClick={() => openInNewTabHandler("https://www.facebook.com/Geloyzxc")}
           />
           <FaInstagram
-            size={25}
-            className="text-primaryBackground hover:text-light bg-light hover:bg-secondaryBackground h-auto w-auto rounded-2xl ease-in-out duration-300 hover:shadow-lg hover:shadow-pastelPink border-pastelPink border-2 border-solid flex justify-center items-center p-2 hover:cursor-pointer"
+            size={22}
+            className={socialClass}
             onClick={() =>
               openInNewTabHandler(
                 "https://www.instagram.com/luckyangelorbs/?fbclid=IwAR2UAIS2nohcLzpUOodZ0PLQgUiHBmKdf_t9ZlkCYkiPxeaYLBjusdbDd-Y"
@@ -62,13 +64,13 @@ const MyProfile = () => {
             }
           />
           <FaGithub
-            size={25}
-            className="text-primaryBackground hover:text-light bg-light hover:bg-secondaryBackground h-auto w-auto rounded-2xl ease-in-out duration-300 hover:shadow-lg hover:shadow-pastelPink border-pastelPink border-2 border-solid flex justify-center items-center p-2 hover:cursor-pointer"
+            size={22}
+            className={socialClass}
             onClick={() => openInNewTabHandler("https://github.com/lucky0559")}
           />
           <FaLinkedin
-            size={25}
-            className="text-primaryBackground hover:text-light bg-light hover:bg-secondaryBackground h-auto w-auto rounded-2xl ease-in-out duration-300 hover:shadow-lg hover:shadow-pastelPink border-pastelPink border-2 border-solid flex justify-center items-center p-2 hover:cursor-pointer"
+            size={22}
+            className={socialClass}
             onClick={() =>
               openInNewTabHandler(
                 "https://www.linkedin.com/in/lucky-angelo-aa7253217/"
@@ -77,7 +79,7 @@ const MyProfile = () => {
           />
         </div>
       </div>
-    </Trail>
+    </motion.div>
   );
 };
 

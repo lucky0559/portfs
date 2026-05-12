@@ -1,25 +1,52 @@
-import Trail from "@/lib/animation/trail";
-import React from "react";
+"use client";
+
+import { computeTotalYearsExperience } from "@/constants/Experience";
+import { projects } from "@/constants/Projects";
+import { motion } from "framer-motion";
 
 const ExperienceProjectCount = () => {
+  const years = computeTotalYearsExperience();
+  const projectCount = projects.length;
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.2 + 0.3, duration: 0.6, ease: "easeOut" }
+    })
+  };
+
   return (
     <div className="flex flex-row py-10 xl:py-20 justify-between max-w-sm">
-      <div className="flex flex-col">
+      <motion.div
+        className="flex flex-col"
+        custom={0}
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <span className="text-5xl md:text-6xl xl:text-7xl text-greenApple font-LouisBold">
-          1+
+          {years}+
         </span>
-        <span className="text-xs xl:text-sm text-light font-Louis pt-1">
+        <span className="text-xs xl:text-sm text-pastelPink font-Louis pt-1">
           Years of Experience
         </span>
-      </div>
-      <div className="flex flex-col">
+      </motion.div>
+      <motion.div
+        className="flex flex-col"
+        custom={1}
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <span className="text-5xl md:text-6xl xl:text-7xl text-greenApple font-LouisBold">
-          5+
+          {projectCount}+
         </span>
-        <span className="text-xs xl:text-sm text-light font-Louis pt-1">
-          Total Project Handled
+        <span className="text-xs xl:text-sm text-pastelPink font-Louis pt-1">
+          Total Projects Handled
         </span>
-      </div>
+      </motion.div>
     </div>
   );
 };

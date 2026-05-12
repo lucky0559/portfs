@@ -3,4 +3,5 @@ export type ViewingDeckProject = {
   from: string;
   imageURLs: string[];
   projectUrl: string;
+  isPrivate?: boolean;
 };

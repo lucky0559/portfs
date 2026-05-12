@@ -1,25 +1,30 @@
-import React from "react";
+"use client";
+
 import ExperienceProjectCount from "@/components/DetailsColumn/ExperienceProjectCount";
-import Trail from "@/lib/animation/trail";
+import { motion } from "framer-motion";
 
 const DetailsColumn = () => {
   return (
-    <Trail open={true} height={500}>
-      <div className="p-10 xl:ml-16">
-        <p className="text-light text-5xl md:text-6xl xl:text-7xl font-LouisBold max-w-2xl mb-5">
-          Say Hi to{" "}
-          <span className="text-greenApple text-5xl md:text-6xl xl:text-7xl font-LouisBold max-w-2xl">
-            Lucky
-          </span>
-          , Full-Stack Developer
-        </p>
-        <span className="text-light font-Louis text-base md:text-lg xl:text-xl">
-          I do Front-end and Back-end programming. Im using Javascript
-          Frameworks and I love it.
-        </span>
-        <ExperienceProjectCount />
-      </div>
-    </Trail>
+    <motion.div
+      className="p-6 xl:p-10 xl:ml-12 xl:flex-1 flex flex-col justify-center"
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
+    >
+      <p className="text-light text-4xl md:text-5xl xl:text-6xl font-LouisBold max-w-2xl mb-4 leading-tight">
+        Say Hi to{" "}
+        <span className="text-greenApple">Lucky</span>
+        ,{" "}
+        <br className="hidden xl:block" />
+        Full-Stack Developer
+      </p>
+      <span className="text-pastelPink font-Louis text-base md:text-lg xl:text-xl leading-relaxed max-w-lg">
+        Full-stack developer specializing in JavaScript frameworks. I build
+        scalable, high-performance applications with a focus on clean code and
+        exceptional user experiences.
+      </span>
+      <ExperienceProjectCount />
+    </motion.div>
   );
 };
 
