@@ -18,7 +18,7 @@ const ExperienceProjectCount = () => {
   };
 
   return (
-    <div className="flex flex-row py-10 xl:py-20 justify-between max-w-sm">
+    <div className="flex flex-row py-8 xl:py-10 justify-between max-w-sm">
       <motion.div
         className="flex flex-col"
         custom={0}

@@ -46,7 +46,7 @@ const CompanyLogo = ({ exp }: { exp: WorkExperienceEntry }) => {
 
 const Job = () => {
   return (
-    <div className="p-4 xl:p-8 xl:min-w-[420px]">
+    <div className="p-4 xl:p-8">
       <div className="justify-center items-center flex mb-8">
         <span className="text-base md:text-2xl xl:text-4xl text-light font-LouisBold">
           Job <span className="text-greenApple">Experience</span>

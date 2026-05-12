@@ -11,7 +11,7 @@ import { FaBook, FaChalkboard, FaGraduationCap } from "react-icons/fa";
 
 const Academic = () => {
   return (
-    <div>
+    <div className="p-4 xl:p-8">
       <div className="justify-center items-center flex">
         <span className="text-base md:text-2xl xl:text-4xl text-light font-LouisBold text-center">
           Academic <span className="text-greenApple">Qualification</span>
@@ -29,6 +29,9 @@ const Academic = () => {
             <span className="text-light font-Louis text-xs sm:text-sm xl:text-base">
               Bachelor of Science in Information Technology
             </span>
+            <p className="text-pastelPink font-Louis text-xs xl:text-sm mt-0.5">
+              Cavite State University Main – Indang Campus
+            </p>
           </TimelineContent>
         </TimelineItem>
         <TimelineItem className="justify-center items-end flex">
@@ -42,6 +45,9 @@ const Academic = () => {
             <span className="text-light font-Louis text-xs sm:text-sm xl:text-base">
               Higher Secondary Certificate
             </span>
+            <p className="text-pastelPink font-Louis text-xs xl:text-sm mt-0.5">
+              Tagaytay City Science National High School
+            </p>
           </TimelineContent>
         </TimelineItem>
         <TimelineItem className="justify-center items-end flex">
@@ -55,6 +61,9 @@ const Academic = () => {
             <span className="text-light font-Louis text-xs sm:text-sm xl:text-base">
               Secondary School Certificate
             </span>
+            <p className="text-pastelPink font-Louis text-xs xl:text-sm mt-0.5">
+              Maitim 2nd Elementary School Tagaytay
+            </p>
           </TimelineContent>
         </TimelineItem>
       </Timeline>

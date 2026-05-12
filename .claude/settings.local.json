@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm install *)",
+      "WebFetch(domain:vertere-gs.com)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://vertere-gs.com/wp-content/uploads/2021/11/Vertere-Logo.png\")",
+      "Bash(curl -sI \"https://vertere-gs.com/favicon.ico\")",
+      "Bash(curl -sI \"https://vertere-gs.com/wp-content/uploads/2021/11/vertere-logo.png\")",
+      "Bash(curl -sI \"https://vertere-gs.com/wp-content/uploads/2022/01/vertere.png\")",
+      "Bash(curl -sI \"https://vertere-gs.com/wp-content/uploads/2021/11/unnamed.png\")",
+      "Bash(convert --version)",
+      "Bash(python3 -c \"from PIL import Image; print\\('PIL ok'\\)\")",
+      "Bash(magick --version)",
+      "Bash(ffmpeg -version)",
+      "Bash(brew list *)",
+      "Bash(pip3 install *)",
+      "Bash(curl -sL \"https://p16-common-sign.tiktokcdn.com/tos-alisg-avt-0068/1be65d27d34ee21744115cac8307edf8~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=d8ef604f&x-expires=1778770800&x-signature=fuSjDLFStHYh2nGrKFtMxBlHQ9A%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=my2\" -o vss_logo_raw.jpg)",
+      "Bash(curl -sL \"https://scontent.fmnl3-2.fna.fbcdn.net/v/t39.30808-6/449681706_996595175807648_5646540912407359086_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGzcCuDgusWDIplDrxf9w9wmvszfxymF0ma-zN_HKYXSWYwbfKBjny6yxPJ3iGs7l-Hja3DyB_4PUo0X3QF0Flb&_nc_ohc=jefzbZQ6c0cQ7kNvwFZlv9c&_nc_oc=Ado4P8hmxXQv8jmVbxu3h8Cp3CKfmFMlOhDVl18dzINEL4dT0lv9oXM5u2osAlikp2Y&_nc_zt=23&_nc_ht=scontent.fmnl3-2.fna&_nc_gid=cA9BeOc6_Q2xU7RtQ9NrzA&_nc_ss=7b2a8&oh=00_Af7u8OYAqfUvo4tOJfkC7T07-nGsZHNrDLoO5D9FF7RMBA&oe=6A08FBDE\" -o vertere_logo_raw.jpg)",
+      "Bash(curl -sL \"https://ccap.ph/wp-content/uploads/2023/06/absi276x206.png\" -o absi_logo_raw.png)",
+      "Bash(python3 *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(node *)",
+      "Bash(curl *)"
+    ]
+  }
+}
