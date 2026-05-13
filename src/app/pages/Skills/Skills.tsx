@@ -76,7 +76,8 @@ const otherSkills: SkillEntry[] = [
   { label: "Bitbucket", url: "https://bitbucket.org/", Icon: SiBitbucket },
   { label: "Jira", url: "https://www.atlassian.com/software/jira", Icon: SiJira },
   { label: "Trello", url: "https://trello.com/", Icon: SiTrello },
-  { label: "Vercel", url: "https://vercel.com/", Icon: SiVercel }
+  { label: "Vercel", url: "https://vercel.com/", Icon: SiVercel },
+  { label: "Claude", url: "https://claude.ai/", abbr: "AI" }
 ];
 
 const containerVariants = {
