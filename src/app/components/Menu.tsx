@@ -46,7 +46,7 @@ const Menu = () => {
 
       {/* Mobile / tablet: fixed bottom navigation bar */}
       <div className="xl:hidden fixed bottom-0 left-0 right-0 z-20 bg-primaryBackground/95 backdrop-blur-md border-t border-pastelPink/20">
-        <nav className="flex justify-around items-center py-2 px-1">
+        <nav aria-label="Main navigation" className="flex justify-around items-center py-2 px-1">
           {mobileItems.map(({ label, href, Icon }) => (
             <a
               key={label}
@@ -54,7 +54,7 @@ const Menu = () => {
               className="flex flex-col items-center gap-1 text-pastelPink hover:text-light transition-colors duration-200 flex-1 py-1"
             >
               <Icon size={17} />
-              <span className="font-Louis text-[8px] text-center leading-tight w-full text-center">
+              <span className="font-Louis text-[8px] text-center leading-tight w-full">
                 {label}
               </span>
             </a>

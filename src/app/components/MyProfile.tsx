@@ -3,18 +3,18 @@
 import Image from "next/image";
 import React from "react";
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { motion } from "framer-motion";
-import { openInNewTabHandler } from "@/lib/hooks/useOpenNewTab";
+import { motion, useReducedMotion } from "framer-motion";
 
 const socialClass =
-  "text-primaryBackground hover:text-light bg-light hover:bg-secondaryBackground h-auto w-auto rounded-2xl ease-in-out duration-300 hover:shadow-lg hover:shadow-pastelPink border-pastelPink border-2 border-solid flex justify-center items-center p-2 hover:cursor-pointer";
+  "text-primaryBackground hover:text-light bg-light hover:bg-secondaryBackground h-auto w-auto rounded-2xl ease-in-out duration-300 hover:shadow-lg hover:shadow-pastelPink border-pastelPink border-2 border-solid flex justify-center items-center p-2";
 
 const MyProfile = () => {
   const year = new Date().getFullYear();
+  const shouldReduce = useReducedMotion();
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
+      initial={shouldReduce ? false : { opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
     >
@@ -30,7 +30,7 @@ const MyProfile = () => {
         <div className="flex justify-center items-center my-8 xl:my-12">
           <Image
             src="https://storage.googleapis.com/portfs-images/profile.jpg"
-            alt="myProfile"
+            alt="Lucky Angelo Rabosa"
             className="rounded-lg w-52 md:w-60 xl:w-72"
             width={500}
             height={500}
@@ -49,34 +49,42 @@ const MyProfile = () => {
           </span>
         </div>
         <div className="flex justify-evenly mt-6">
-          <FaFacebook
-            size={22}
+          <a
+            href="https://www.facebook.com/Geloyzxc"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
             className={socialClass}
-            onClick={() => openInNewTabHandler("https://www.facebook.com/Geloyzxc")}
-          />
-          <FaInstagram
-            size={22}
+          >
+            <FaFacebook size={22} aria-hidden="true" />
+          </a>
+          <a
+            href="https://www.instagram.com/luckyangelorbs/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
             className={socialClass}
-            onClick={() =>
-              openInNewTabHandler(
-                "https://www.instagram.com/luckyangelorbs/?fbclid=IwAR2UAIS2nohcLzpUOodZ0PLQgUiHBmKdf_t9ZlkCYkiPxeaYLBjusdbDd-Y"
-              )
-            }
-          />
-          <FaGithub
-            size={22}
+          >
+            <FaInstagram size={22} aria-hidden="true" />
+          </a>
+          <a
+            href="https://github.com/lucky0559"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
             className={socialClass}
-            onClick={() => openInNewTabHandler("https://github.com/lucky0559")}
-          />
-          <FaLinkedin
-            size={22}
+          >
+            <FaGithub size={22} aria-hidden="true" />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/lucky-angelo-aa7253217/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
             className={socialClass}
-            onClick={() =>
-              openInNewTabHandler(
-                "https://www.linkedin.com/in/lucky-angelo-aa7253217/"
-              )
-            }
-          />
+          >
+            <FaLinkedin size={22} aria-hidden="true" />
+          </a>
         </div>
       </div>
     </motion.div>

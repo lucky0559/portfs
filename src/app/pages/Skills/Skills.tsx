@@ -1,7 +1,6 @@
 "use client";
 
-import { openInNewTabHandler } from "@/lib/hooks/useOpenNewTab";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { IconType } from "react-icons";
 import { FaReact } from "react-icons/fa";
 import {
@@ -92,52 +91,62 @@ const cardVariants = {
 
 type SkillCardProps = SkillEntry;
 
-const SkillCard = ({ label, url, Icon, abbr }: SkillCardProps) => (
-  <motion.div
-    variants={cardVariants}
-    whileHover={{ y: -6, scale: 1.08 }}
-    whileTap={{ scale: 0.95 }}
-    onClick={() => openInNewTabHandler(url)}
-    className="flex flex-col items-center justify-center gap-2 w-20 h-20 bg-primaryBackground/70 border border-pastelPink/20 rounded-2xl cursor-pointer hover:border-pastelPink/60 hover:bg-primaryBackground hover:shadow-lg hover:shadow-pastelPink/10 transition-colors duration-200"
-  >
-    {Icon ? (
-      <Icon size={22} className="text-light" />
-    ) : (
-      <span className="text-light font-LouisBold text-[11px] tracking-wider">{abbr}</span>
-    )}
-    <span className="text-pastelPink font-Louis text-[9px] text-center leading-tight px-1">
-      {label}
-    </span>
-  </motion.div>
-);
+const SkillCard = ({ label, url, Icon, abbr }: SkillCardProps) => {
+  const shouldReduce = useReducedMotion();
+  return (
+    <motion.a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      variants={shouldReduce ? {} : cardVariants}
+      whileHover={shouldReduce ? {} : { y: -6, scale: 1.08 }}
+      whileTap={shouldReduce ? {} : { scale: 0.95 }}
+      className="flex flex-col items-center justify-center gap-2 w-20 h-20 bg-primaryBackground/70 border border-pastelPink/20 rounded-2xl cursor-pointer hover:border-pastelPink/60 hover:bg-primaryBackground hover:shadow-lg hover:shadow-pastelPink/10 transition-colors duration-200 no-underline"
+    >
+      {Icon ? (
+        <Icon size={22} className="text-light" aria-hidden="true" />
+      ) : (
+        <span className="text-light font-LouisBold text-[11px] tracking-wider" aria-hidden="true">{abbr}</span>
+      )}
+      <span className="text-pastelPink font-Louis text-[9px] text-center leading-tight px-1">
+        {label}
+      </span>
+    </motion.a>
+  );
+};
 
 type SkillGroupProps = {
   title: string;
   skills: SkillEntry[];
 };
 
-const SkillGroup = ({ title, skills }: SkillGroupProps) => (
-  <div className="mb-10">
-    <p className="text-greenApple font-LouisBold text-lg xl:text-2xl mb-5">{title}</p>
-    <motion.div
-      className="flex flex-wrap gap-3"
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-40px" }}
-    >
-      {skills.map((skill) => (
-        <SkillCard key={skill.label} {...skill} />
-      ))}
-    </motion.div>
-  </div>
-);
+const SkillGroup = ({ title, skills }: SkillGroupProps) => {
+  const shouldReduce = useReducedMotion();
+  return (
+    <div className="mb-10">
+      <p className="text-greenApple font-LouisBold text-lg xl:text-2xl mb-5">{title}</p>
+      <motion.div
+        className="flex flex-wrap gap-3"
+        variants={shouldReduce ? {} : containerVariants}
+        initial={shouldReduce ? false : "hidden"}
+        whileInView="visible"
+        viewport={{ once: true, margin: "-40px" }}
+      >
+        {skills.map((skill) => (
+          <SkillCard key={skill.label} {...skill} />
+        ))}
+      </motion.div>
+    </div>
+  );
+};
 
 const Skills = () => {
+  const shouldReduce = useReducedMotion();
   return (
     <div className="p-8 xl:p-10">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={shouldReduce ? false : { opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}

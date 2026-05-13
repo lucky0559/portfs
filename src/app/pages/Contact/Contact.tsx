@@ -1,7 +1,6 @@
 "use client";
 
-import { openInNewTabHandler } from "@/lib/hooks/useOpenNewTab";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FormEvent, useRef, useState } from "react";
 import {
   FaCheckCircle,
@@ -14,13 +13,14 @@ import {
 } from "react-icons/fa";
 
 const inputClass =
-  "w-full bg-secondaryBackground border border-pastelPink/30 rounded-xl px-4 py-3 text-light font-Louis text-sm placeholder:text-pastelPink/40 focus:outline-none focus:border-pastelPink/70 focus:ring-1 focus:ring-pastelPink/30 transition-colors duration-200";
+  "w-full bg-secondaryBackground border border-pastelPink/30 rounded-xl px-4 py-3 text-light font-Louis text-sm placeholder:text-pastelPink/40 focus-visible:outline-none focus:border-pastelPink/70 focus-visible:ring-2 focus-visible:ring-pastelPink/40 transition-colors duration-200";
 
 type Status = "idle" | "loading" | "success" | "error";
 
 const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<Status>("idle");
+  const shouldReduce = useReducedMotion();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -64,7 +64,7 @@ const Contact = () => {
     <div className="px-4 py-10 xl:px-10 xl:py-16">
       <motion.div
         className="mb-10"
-        initial={{ opacity: 0, y: 30 }}
+        initial={shouldReduce ? false : { opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
@@ -84,33 +84,42 @@ const Contact = () => {
           ref={formRef}
           onSubmit={handleSubmit}
           className="flex-1"
-          variants={containerVariants}
-          initial="hidden"
+          variants={shouldReduce ? {} : containerVariants}
+          initial={shouldReduce ? false : "hidden"}
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
         >
           <div className="flex flex-col md:flex-row gap-4 mb-4">
-            <motion.div className="flex-1" variants={itemVariants}>
+            <motion.div className="flex-1" variants={shouldReduce ? {} : itemVariants}>
+              <label htmlFor="from_name" className="sr-only">Your name</label>
               <input
+                id="from_name"
                 name="from_name"
                 type="text"
                 placeholder="Your name"
                 required
+                autoComplete="name"
                 className={inputClass}
               />
             </motion.div>
-            <motion.div className="flex-1" variants={itemVariants}>
+            <motion.div className="flex-1" variants={shouldReduce ? {} : itemVariants}>
+              <label htmlFor="from_email" className="sr-only">Your email</label>
               <input
+                id="from_email"
                 name="from_email"
                 type="email"
                 placeholder="Your email"
+                required
+                autoComplete="email"
                 className={inputClass}
               />
             </motion.div>
           </div>
 
-          <motion.div className="mb-4" variants={itemVariants}>
+          <motion.div className="mb-4" variants={shouldReduce ? {} : itemVariants}>
+            <label htmlFor="subject" className="sr-only">Subject</label>
             <input
+              id="subject"
               name="subject"
               type="text"
               placeholder="Subject"
@@ -119,8 +128,10 @@ const Contact = () => {
             />
           </motion.div>
 
-          <motion.div className="mb-6" variants={itemVariants}>
+          <motion.div className="mb-6" variants={shouldReduce ? {} : itemVariants}>
+            <label htmlFor="message" className="sr-only">Your message</label>
             <textarea
+              id="message"
               name="message"
               placeholder="Your message..."
               required
@@ -138,8 +149,10 @@ const Contact = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 className="flex items-center gap-2 mb-4 text-greenApple font-Louis text-sm"
+                role="status"
+                aria-live="polite"
               >
-                <FaCheckCircle size={16} />
+                <FaCheckCircle size={16} aria-hidden="true" />
                 Message sent! I&apos;ll get back to you soon.
               </motion.div>
             )}
@@ -150,29 +163,31 @@ const Contact = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 className="flex items-center gap-2 mb-4 text-red-400 font-Louis text-sm"
+                role="alert"
+                aria-live="assertive"
               >
-                <FaExclamationCircle size={16} />
+                <FaExclamationCircle size={16} aria-hidden="true" />
                 Something went wrong. Please try again or email me directly.
               </motion.div>
             )}
           </AnimatePresence>
 
-          <motion.div variants={itemVariants}>
+          <motion.div variants={shouldReduce ? {} : itemVariants}>
             <motion.button
               type="submit"
               disabled={status === "loading"}
-              whileHover={status !== "loading" ? { scale: 1.03, y: -2 } : {}}
-              whileTap={status !== "loading" ? { scale: 0.97 } : {}}
+              whileHover={shouldReduce || status === "loading" ? {} : { scale: 1.03, y: -2 }}
+              whileTap={shouldReduce || status === "loading" ? {} : { scale: 0.97 }}
               className="flex items-center gap-2 bg-greenApple text-primaryBackground font-LouisBold px-8 py-3 rounded-xl disabled:opacity-60 disabled:cursor-not-allowed transition-opacity duration-200"
             >
               {status === "loading" ? (
                 <>
-                  <FaSpinner size={14} className="animate-spin" />
+                  <FaSpinner size={14} className="animate-spin" aria-hidden="true" />
                   Sending…
                 </>
               ) : (
                 <>
-                  <FaPaperPlane size={14} />
+                  <FaPaperPlane size={14} aria-hidden="true" />
                   Send Message
                 </>
               )}
@@ -183,7 +198,7 @@ const Contact = () => {
         {/* Info panel */}
         <motion.div
           className="xl:w-64 flex flex-col gap-6"
-          initial={{ opacity: 0, x: 30 }}
+          initial={shouldReduce ? false : { opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -196,7 +211,7 @@ const Contact = () => {
               href="mailto:angelorabosa5@gmail.com"
               className="flex items-center gap-2 text-light font-Louis text-sm hover:text-pastelPink transition-colors duration-200"
             >
-              <FaEnvelope size={14} className="text-pastelPink flex-shrink-0" />
+              <FaEnvelope size={14} className="text-pastelPink flex-shrink-0" aria-hidden="true" />
               angelorabosa5@gmail.com
             </a>
           </div>
@@ -213,24 +228,26 @@ const Contact = () => {
               Socials
             </p>
             <div className="flex gap-3">
-              <motion.button
-                whileHover={{ y: -3 }}
-                onClick={() => openInNewTabHandler("https://github.com/lucky0559")}
+              <motion.a
+                href="https://github.com/lucky0559"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                whileHover={shouldReduce ? {} : { y: -3 }}
                 className="w-10 h-10 rounded-xl border border-pastelPink/30 flex items-center justify-center text-pastelPink hover:border-pastelPink hover:text-light transition-colors duration-200"
               >
-                <FaGithub size={16} />
-              </motion.button>
-              <motion.button
-                whileHover={{ y: -3 }}
-                onClick={() =>
-                  openInNewTabHandler(
-                    "https://www.linkedin.com/in/lucky-angelo-aa7253217/"
-                  )
-                }
+                <FaGithub size={16} aria-hidden="true" />
+              </motion.a>
+              <motion.a
+                href="https://www.linkedin.com/in/lucky-angelo-aa7253217/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                whileHover={shouldReduce ? {} : { y: -3 }}
                 className="w-10 h-10 rounded-xl border border-pastelPink/30 flex items-center justify-center text-pastelPink hover:border-pastelPink hover:text-light transition-colors duration-200"
               >
-                <FaLinkedin size={16} />
-              </motion.button>
+                <FaLinkedin size={16} aria-hidden="true" />
+              </motion.a>
             </div>
           </div>
         </motion.div>

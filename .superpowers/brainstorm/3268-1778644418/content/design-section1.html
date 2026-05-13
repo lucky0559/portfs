@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio UI/UX Design</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #1a1025; color: #EFE1D1; font-family: sans-serif; padding: 24px; font-size: 14px; }
+  h1 { font-size: 22px; color: #EFE1D1; margin-bottom: 4px; }
+  .subtitle { color: #A78295; font-size: 13px; margin-bottom: 24px; }
+  h2 { font-size: 16px; color: #CECE5A; margin-bottom: 12px; margin-top: 0; }
+  h3 { font-size: 13px; color: #EFE1D1; margin-bottom: 6px; }
+  .section-card { background: #2a1e28; border: 1px solid #A7829530; border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+  .section-card.approved { border-color: #CECE5A60; }
+  .tag { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 20px; margin-right: 4px; margin-bottom: 4px; font-weight: bold; letter-spacing: 0.5px; }
+  .tag-fix { background: #e74c3c22; color: #e74c3c; border: 1px solid #e74c3c40; }
+  .tag-new { background: #CECE5A22; color: #CECE5A; border: 1px solid #CECE5A40; }
+  .tag-enhance { background: #A7829522; color: #A78295; border: 1px solid #A7829540; }
+  .change-list { list-style: none; padding: 0; }
+  .change-list li { display: flex; gap: 8px; align-items: flex-start; padding: 5px 0; border-bottom: 1px solid #ffffff08; font-size: 12px; color: #EFE1D1cc; }
+  .change-list li:last-child { border-bottom: none; }
+  .icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mockup-box { background: #331D2C; border: 1px solid #A7829530; border-radius: 8px; padding: 12px; font-size: 11px; color: #A78295; }
+  .mockup-label { font-size: 10px; color: #CECE5A; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: bold; }
+  .mock-bar { height: 3px; background: linear-gradient(90deg, #CECE5A, #A78295); border-radius: 2px; width: 60%; margin-bottom: 12px; }
+  .mock-nav-item { display: inline-block; padding: 4px 10px; background: #A7829530; border-radius: 4px; margin-right: 4px; font-size: 10px; }
+  .mock-nav-item.active { background: #CECE5A30; color: #CECE5A; border: 1px solid #CECE5A40; }
+  .mock-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: #CECE5A; color: #331D2C; border-radius: 8px; font-size: 11px; font-weight: bold; }
+  .mock-profile { display: flex; gap: 12px; align-items: center; }
+  .mock-avatar { width: 56px; height: 56px; border-radius: 8px; background: linear-gradient(135deg, #A78295, #331D2C); border: 2px solid #CECE5A40; flex-shrink: 0; box-shadow: 0 0 16px #CECE5A20; }
+  .mock-typewriter { font-size: 13px; color: #CECE5A; }
+  .mock-typewriter span { border-right: 2px solid #CECE5A; padding-right: 2px; }
+  .mock-social { width: 28px; height: 28px; border-radius: 8px; border: 1px solid #A7829550; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; margin-right: 6px; }
+  .mock-social:hover { background: #A78295; }
+  .mock-timeline { position: relative; padding-left: 20px; }
+  .mock-tl-item { position: relative; padding-bottom: 12px; padding-left: 12px; border-left: 1px solid #A7829540; }
+  .mock-tl-dot { position: absolute; left: -5px; top: 3px; width: 8px; height: 8px; background: #CECE5A; border-radius: 50%; }
+  .mock-tl-date { font-size: 10px; color: #CECE5A; margin-bottom: 2px; }
+  .mock-tl-title { font-size: 11px; color: #EFE1D1; }
+  .mock-tl-sub { font-size: 10px; color: #A78295; }
+  .mock-skill { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; width: 52px; height: 52px; border: 1px solid #A7829530; border-radius: 10px; padding: 6px; font-size: 9px; color: #A78295; background: #331D2C80; }
+  .mock-progress-ring { width: 32px; height: 32px; border-radius: 50%; background: conic-gradient(#CECE5A 85%, #A7829530 0); display: flex; align-items: center; justify-content: center; font-size: 8px; color: #CECE5A; }
+  .scroll-bar { position: fixed; top: 0; left: 0; height: 3px; width: 100%; background: #A7829520; }
+  .scroll-bar-fill { height: 100%; width: 40%; background: linear-gradient(90deg, #CECE5A, #A78295); border-radius: 0 2px 2px 0; }
+  .fab { position: fixed; bottom: 80px; right: 20px; width: 36px; height: 36px; background: #CECE5A22; border: 1px solid #CECE5A50; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #CECE5A; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent, #A7829530, transparent); margin: 4px 0 12px 0; }
+  .badge-current { padding: 2px 8px; background: #CECE5A20; color: #CECE5A; border-radius: 20px; font-size: 9px; font-weight: bold; }
+  .form-field { background: #3F2E3E; border: 1px solid #A7829330; border-radius: 8px; padding: 8px 10px; font-size: 11px; color: #EFE1D1; margin-bottom: 6px; width: 100%; }
+  .form-error { font-size: 10px; color: #e74c3c; margin-top: -4px; margin-bottom: 6px; }
+  .form-ok { font-size: 10px; color: #CECE5A; margin-top: -4px; margin-bottom: 6px; }
+  .char-count { font-size: 10px; color: #A78295; text-align: right; margin-top: -4px; margin-bottom: 6px; }
+  .cursor-glow { width: 80px; height: 80px; background: radial-gradient(circle, #CECE5A15, transparent 70%); border-radius: 50%; display: inline-block; }
+  .swipe-hint { font-size: 10px; color: #A78295; display: flex; align-items: center; gap: 4px; }
+  .approve-btn { margin-top: 14px; padding: 8px 20px; background: #CECE5A; color: #331D2C; border: none; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; }
+  .approve-btn:hover { opacity: 0.9; }
+</style>
+</head>
+<body>
+
+<div class="scroll-bar"><div class="scroll-bar-fill"></div></div>
+<div class="fab">↑</div>
+
+<h1>Complete UI/UX Design — All Approaches (A + B + C)</h1>
+<p class="subtitle">Full section-by-section breakdown of every change. Scroll through and review.</p>
+
+<!-- GLOBAL -->
+<div class="section-card">
+  <h2>🌐 Global / Cross-Cutting</h2>
+  <div class="grid" style="margin-bottom:12px">
+    <div class="mockup-box">
+      <div class="mockup-label">Scroll Progress Bar</div>
+      <div style="height:3px;background:#A7829520;border-radius:2px;overflow:hidden">
+        <div style="height:100%;width:45%;background:linear-gradient(90deg,#CECE5A,#A78295)"></div>
+      </div>
+      <p style="margin-top:8px;font-size:10px">Thin gradient bar at top of viewport — tracks scroll position across all sections.</p>
+    </div>
+    <div class="mockup-box">
+      <div class="mockup-label">Scroll-to-Top Button</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:36px;height:36px;background:#CECE5A22;border:1px solid #CECE5A50;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#CECE5A">↑</div>
+        <p style="font-size:10px">Fixed bottom-right (above mobile nav). Appears after 300px scroll. Smooth return to top.</p>
+      </div>
+    </div>
+  </div>
+  <ul class="change-list">
+    <li><span class="icon">🆕</span><div><span class="tag tag-new">NEW</span> Scroll progress bar (top edge, gradient #CECE5A → #A78295)</div></li>
+    <li><span class="icon">🆕</span><div><span class="tag tag-new">NEW</span> Scroll-to-top floating button (appears at 300px scroll)</div></li>
+    <li><span class="icon">🆕</span><div><span class="tag tag-new">NEW</span> Smooth scroll behavior via CSS <code>scroll-behavior: smooth</code> in globals</div></li>
+    <li><span class="icon">🔧</span><div><span class="tag tag-fix">FIX</span> Add <code>aria-label</code> to all icon-only buttons throughout the site</div></li>
+    <li><span class="icon">✨</span><div><span class="tag tag-enhance">ENHANCE</span> Subtle cursor glow (desktop only) — soft radial gradient follows cursor</div></li>
+    <li><span class="icon">✨</span><div><span class="tag tag-enhance">ENHANCE</span> Section gradient transitions — soft gradient blend between primaryBackground ↔ secondaryBackground instead of hard cut</div></li>
+    <li><span class="icon">🔧</span><div><span class="tag tag-fix">FIX</span> Add <code>.superpowers/</code> to <code>.gitignore</code></div></li>
+  </ul>
+</div>
+
+<!-- NAVIGATION -->
+<div class="section-card">
+  <h2>🧭 Navigation (Menu)</h2>
+  <div class="grid" style="margin-bottom:12px">
+    <div class="mockup-box">
+      <div class="mockup-label">Before — No active state</div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <span class="mock-nav-item">Profile</span>
+        <span class="mock-nav-item">Academic/Job</span>
+        <span class="mock-nav-item">Skills</span>
+        <span class="mock-nav-item">Projects</span>
+        <span class="mock-nav-item">Contact</span>
+      </div>
+    </div>
+    <div class="mockup-box">
+      <div class="mockup-label">After — Active section highlight</div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <span class="mock-nav-item">Profile</span>
+        <span class="mock-nav-item">Academic/Job</span>
+        <span class="mock-nav-item active">● Skills</span>
+        <span class="mock-nav-item">Projects</span>
+        <span class="mock-nav-item">Contact</span>
+      </div>
+    </div>
+  </div>
+  <ul class="change-list">
+    <li><span class="icon">🆕</span><div><span class="tag tag-new">NEW</span> Active section detection via <code>IntersectionObserver</code> — highlights current section in desktop menu</div></li>
+    <li><span class="icon">✨</span><div><span class="tag tag-enhance">ENHANCE</span> Mobile bottom nav: active item gets <code>text-greenApple</code> + scale-up icon treatment</div></li>
+    <li><span class="icon">🔧</span><div><span class="tag tag-fix">FIX</span> Add <code>aria-label</code> and <code>aria-current="page"</code> on active nav links</div></li>
+  </ul>
+</div>
+
+<!-- HERO SECTION -->
+<div class="section-card">
+  <h2>👤 Hero / Profile Section</h2>
+  <div class="grid" style="margin-bottom:12px">
+    <div class="mockup-box">
+      <div class="mockup-label">Profile Card — After</div>
+      <div class="mock-profile">
+        <div class="mock-avatar"></div>
+        <div>
+          <div style="font-size:18px;color:#EFE1D1;font-weight:bold">Lucky</div>
+          <div class="mock-typewriter">Full-Stack Dev<span>|</span></div>
+          <div style="font-size:10px;color:#A78295;margin-top:3px">📍 Philippines</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:6px">
+        <span class="mock-social">f</span>
+        <span class="mock-social">in</span>
+        <span class="mock-social">gh</span>
+        <span class="mock-social">ig</span>
+      </div>
+    </div>
+    <div class="mockup-box">
+      <div class="mockup-label">Details Column — After</div>
+      <div style="font-size:16px;color:#EFE1D1;font-weight:bold;line-height:1.3">Say Hi to <span style="color:#CECE5A">Lucky</span>,<br/>Full-Stack Dev</div>
+      <div style="font-size:11px;color:#A78295;margin:6px 0">Full-stack developer specializing in JavaScript frameworks...</div>
+      <div style="display:flex;gap:12px;margin:8px 0">
+        <div><div style="font-size:18px;color:#CECE5A;font-weight:bold">3+</div><div style="font-size:9px;color:#A78295">Years Exp.</div></div>
+        <div><div style="font-size:18px;color:#CECE5A;font-weight:bold">10+</div><div style="font-size:9px;color:#A78295">Projects</div></div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <span class="mock-btn">✉ Hire Me</span>
+        <span style="padding:6px 14px;border:1px solid #CECE5A50;border-radius:8px;font-size:11px;color:#CECE5A">View Work ↓</span>
+      </div>
+    </div>
+  </div>
+  <ul class="change-list">
+    <li><span class="icon">🆕</span><div><span class="tag tag-new">NEW</span> "Hire Me" CTA button → <code>mailto:angelorabosa5@gmail.com</code></div></li>
+    <li><span class="icon">🆕</span><div><span class="tag tag-new">NEW</span> "View Work" secondary button → scrolls to #projects</div></li>
+    <li><span class="icon">✨</span><div><span class="tag tag-enhance">ENHANCE</span> Typewriter cycling animation on role subtitle (cycles through: "Full-Stack Developer", "React Specialist", "Node.js Engineer")</div></li>
+    <li><span class="icon">✨</span><div><span class="tag tag-enhance">ENHANCE</span> Profile image: subtle greenApple glow box-shadow on hover</div></li>
+    <li><span class="icon">✨</span><div><span class="tag tag-enhance">ENHANCE</span> Social buttons: magnetic hover micro-interaction (slight pull toward cursor)</div></li>
+    <li><span class="icon">🔧</span><div><span class="tag tag-fix">FIX</span> aria-labels on all 4 social icon buttons</div></li>
+  </ul>
+</div>
+
+<!-- ACADEMIC/JOB -->
+<div class="section-card">
+  <h2>🎓 Academic / Job Section</h2>
+  <div class="grid" style="margin-bottom:12px">
+    <div class="mockup-box">
+      <div class="mockup-label">Academic Timeline — After (custom, no MUI)</div>
+      <div class="mock-timeline">
+        <div class="mock-tl-item">
+          <div class="mock-tl-dot"></div>
+          <div class="mock-tl-date">2017 – 2021</div>
+          <div class="mock-tl-title">BS Information Technology</div>
+          <div class="mock-tl-sub">Cavite State University</div>
+        </div>
+        <div class="mock-tl-item">
+          <div class="mock-tl-dot" style="background:#A78295"></div>
+          <div class="mock-tl-date">2015 – 2017</div>
+          <div class="mock-tl-title">Higher Secondary Certificate</div>
+          <div class="mock-tl-sub">Tagaytay City Science NHS</div>
+        </div>
+      </div>
+    </div>
+    <div class="mockup-box">
+      <div class="mockup-label">Job Experience — Enhanced</div>
+      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:8px">
+        <div style="width:32px;height:32px;border-radius:50%;background:#1e8449;display:flex;align-items:center;justify-content:center;font-size:9px;color:#EFE1D1;font-weight:bold;flex-shrink:0">AB</div>
+        <div style="flex:1;background:#331D2C80;border:1px solid #A7829520;border-radius:8px;padding:8px">
+          <div style="display:flex;justify-content:space-between">
+            <div style="font-size:11px;color:#CECE5A">Mid Frontend Dev</div>
+            <span class="badge-current">Current</span>
+          </div>
+          <div style="font-size:10px;color:#EFE1D1">ABSI</div>
+          <div style="font-size:9px;color:#A78295;margin-top:3px">Dec 2025 – Present</div>
+        </div>
+      </div>
+      <div style="font-size:10px;color:#A78295;padding-left:40px;border-left:1px solid #A7829530;margin-left:16px">...more entries</div>
+    </div>
+  </div>
+  <ul class="change-list">
+    <li><span class="icon">🔧</span><div><span class="tag tag-fix">FIX</span> Replace MUI Lab Timeline with custom Tailwind + framer-motion component — consistent with existing aesthetic</div></li>
+    <li><span class="icon">🔧</span><div><span class="tag tag-fix">FIX</span> Add graduation dates to academic entries (estimated from degree durations)</div></li>
+    <li><span class="icon">🔧</span><div><span class="tag tag-fix">FIX</span> Replace <code>react-device-detect</code> isMobile with <code>useCustomMediaQuery</code> (already in project)</div></li>
+    <li><span class="icon">🔧</span><div><span class="tag tag-fix">FIX</span> Remove hardcoded inline <code>backgroundColor: "#331D2C"</code> — use Tailwind tokens</div></li>
+    <li><span class="icon">✨</span><div><span class="tag tag-enhance">ENHANCE</span> Unify section header style across Academic and Job subsections</div></li>
+  </ul>
+</div>
+
+<!-- SKILLS -->
+<div class="section-card">
+  <h2>⚡ Skills Section</h2>
+  <div class="grid" style="margin-bottom:12px">
+    <div class="mockup-box">
+      <div class="mockup-label">Before — Inconsistent (icon vs text abbr)</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <div class="mock-skill"><div style="font-size:16px">⚛</div><div>React JS</div></div>
+        <div class="mock-skill"><div style="font-size:16px">⚛</div><div>Next.js</div></div>
+        <div class="mock-skill" style="border-color:#e74c3c30"><div style="font-size:10px;font-weight:bold;color:#A78295">ZST</div><div style="color:#e74c3c80">Zustand</div></div>
+        <div class="mock-skill" style="border-color:#e74c3c30"><div style="font-size:10px;font-weight:bold;color:#A78295">TF</div><div style="color:#e74c3c80">TanStack</div></div>
+      </div>
+    </div>
+    <div class="mockup-box">
+      <div class="mockup-label">After — Consistent styled fallback + hover ring</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <div class="mock-skill"><div style="font-size:16px">⚛</div><div>React JS</div></div>
+        <div class="mock-skill"><div style="font-size:16px">⚛</div><div>Next.js</div></div>
+        <div class="mock-skill" style="border-color:#CECE5A30"><div class="mock-progress-ring" style="width:24px;height:24px;font-size:7px">ZST</div><div>Zustand</div></div>
+        <div class="mock-skill" style="border-color:#CECE5A30"><div class="mock-progress-ring" style="width:24px;height:24px;font-size:7px">TF</div><div>TanStack</div></div>
+      </div>
+    </div>
+  </div>
+  <ul class="change-list">
+    <li><span class="icon">🔧</span><div><span class="tag tag-fix">FIX</span> Unified fallback for skill cards without icons — styled circular badge with abbreviation (matches design tokens)</div></li>
+    <li><span class="icon">✨</span><div><span class="tag tag-enhance">ENHANCE</span> Hover state: animated progress ring appears around skill card icon on hover</div></li>
+    <li><span class="icon">✨</span><div><span class="tag tag-enhance">ENHANCE</span> Section subtitle added below "Skills" heading</div></li>
+  </ul>
+</div>
+
+<!-- PROJECTS -->
+<div class="section-card">
+  <h2>📁 Projects Section</h2>
+  <ul class="change-list">
+    <li><span class="icon">✨</span><div><span class="tag tag-enhance">ENHANCE</span> First-load swipe hint animation on deck — cards subtly shift left/right once to show they're draggable</div></li>
+    <li><span class="icon">✨</span><div><span class="tag tag-enhance">ENHANCE</span> Drag instruction text below deck: "Swipe to explore ←→" with animated arrow</div></li>
+    <li><span class="icon">🔧</span><div><span class="tag tag-fix">FIX</span> aria-label on modal close button and open button</div></li>
+  </ul>
+</div>
+
+<!-- CONTACT -->
+<div class="section-card">
+  <h2>✉️ Contact Section</h2>
+  <div class="grid" style="margin-bottom:12px">
+    <div class="mockup-box">
+      <div class="mockup-label">Before — No validation feedback</div>
+      <input class="form-field" placeholder="Your name" value="" />
+      <input class="form-field" placeholder="Your email" value="not-an-email" />
+      <textarea class="form-field" rows="2" placeholder="Your message..."></textarea>
+    </div>
+    <div class="mockup-box">
+      <div class="mockup-label">After — Inline validation + char count</div>
+      <input class="form-field" placeholder="Your name" value="Lucky" style="border-color:#CECE5A50" />
+      <div class="form-ok">✓ Looks good</div>
+      <input class="form-field" placeholder="Your email" value="not-an-email" style="border-color:#e74c3c50" />
+      <div class="form-error">✗ Please enter a valid email</div>
+      <textarea class="form-field" rows="2" placeholder="Your message...">Hello! I'd like to...</textarea>
+      <div class="char-count">18 / 500</div>
+    </div>
+  </div>
+  <ul class="change-list">
+    <li><span class="icon">🆕</span><div><span class="tag tag-new">NEW</span> Client-side validation: inline per-field error messages on blur</div></li>
+    <li><span class="icon">🆕</span><div><span class="tag tag-new">NEW</span> Character counter on textarea (max 500)</div></li>
+    <li><span class="icon">✨</span><div><span class="tag tag-enhance">ENHANCE</span> Input border color changes to greenApple on valid, red on invalid</div></li>
+    <li><span class="icon">🔧</span><div><span class="tag tag-fix">FIX</span> Email field marked as <code>required</code> (currently optional)</div></li>
+  </ul>
+</div>
+
+<div style="background:#CECE5A15;border:1px solid #CECE5A30;border-radius:12px;padding:16px;margin-top:8px">
+  <h3 style="color:#CECE5A;margin-bottom:8px">Summary: 25 total improvements</h3>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:12px">
+    <div style="text-align:center"><div style="font-size:20px;color:#e74c3c;font-weight:bold">10</div><div style="color:#A78295">Bug Fixes</div></div>
+    <div style="text-align:center"><div style="font-size:20px;color:#CECE5A;font-weight:bold">7</div><div style="color:#A78295">New Features</div></div>
+    <div style="text-align:center"><div style="font-size:20px;color:#A78295;font-weight:bold">8</div><div style="color:#A78295">Enhancements</div></div>
+  </div>
+</div>
+
+<p style="margin-top:20px;color:#A78295;font-size:13px">Does this design look right? Let me know if you'd like to add, remove, or adjust anything before I write the spec and implementation plan.</p>
+
+</body>
+</html>

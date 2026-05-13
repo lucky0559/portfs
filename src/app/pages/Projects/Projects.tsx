@@ -13,7 +13,7 @@ import {
   ModalHeader
 } from "@nextui-org/react";
 import { useSprings, animated, to as interpolate } from "@react-spring/web";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import React, { useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { useDrag } from "react-use-gesture";
@@ -93,6 +93,7 @@ const cardVariants = {
 const Projects = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deckViewingProject, setDeckViewingProject] = useState<ViewingDeckProject | undefined>();
+  const shouldReduce = useReducedMotion();
 
   const onClickProjectHandler = (name: string) => {
     const project = projects.find(p => p.name === name);
@@ -104,7 +105,7 @@ const Projects = () => {
     <div className="p-8 xl:p-10">
       <motion.div
         className="mb-10"
-        initial={{ opacity: 0, y: 30 }}
+        initial={shouldReduce ? false : { opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
@@ -116,8 +117,8 @@ const Projects = () => {
 
       <motion.div
         className="flex flex-row flex-wrap justify-center xl:justify-start"
-        variants={containerVariants}
-        initial="hidden"
+        variants={shouldReduce ? {} : containerVariants}
+        initial={shouldReduce ? false : "hidden"}
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
       >

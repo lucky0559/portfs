@@ -1,0 +1,83 @@
+<h2>Portfolio UI/UX — 3 Improvement Approaches</h2>
+<p class="subtitle">Based on a full audit of all 6 sections. Pick the approach that fits your goal.</p>
+
+<div class="section">
+  <h3 style="color:#CECE5A;margin-bottom:8px">Audit Findings (affects all approaches)</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;color:#A78295;font-family:sans-serif">
+    <div>⚠️ MUI Timeline inconsistent with custom aesthetic</div>
+    <div>⚠️ No active section in nav menu</div>
+    <div>⚠️ Academic entries missing dates</div>
+    <div>⚠️ Skill cards inconsistent (icons vs abbreviations)</div>
+    <div>⚠️ No scroll-to-top button</div>
+    <div>⚠️ Social icon buttons missing aria-labels</div>
+    <div>⚠️ No scroll progress indicator</div>
+    <div>⚠️ Hero section missing a CTA button</div>
+    <div>⚠️ <code>isMobile</code> from react-device-detect not SSR-safe</div>
+    <div>⚠️ No client-side form validation feedback</div>
+  </div>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Refined & Polished <span style="font-size:11px;background:#CECE5A22;color:#CECE5A;padding:2px 8px;border-radius:20px;margin-left:6px">Recommended</span></h3>
+      <p>Fix all audit issues, enhance every section without changing the design language. Keep the dark purple aesthetic, custom fonts, and interactions — just make everything feel more complete and professional.</p>
+      <ul style="margin-top:8px;font-size:12px;color:#A78295;padding-left:16px">
+        <li>Replace MUI Timeline with custom Tailwind component + add dates</li>
+        <li>Add active-section highlight to desktop nav</li>
+        <li>Add scroll progress bar (top of page)</li>
+        <li>Add "Hire Me" CTA button in hero</li>
+        <li>Scroll-to-top button (appears after scrolling)</li>
+        <li>Fix skill card inconsistency (consistent icon treatment)</li>
+        <li>Add aria-labels everywhere missing</li>
+        <li>Client-side form validation with inline feedback</li>
+        <li>Section dividers with subtle gradient transitions</li>
+      </ul>
+      <div class="pros-cons" style="margin-top:10px">
+        <div class="pros"><h4>Pros</h4><ul><li>Lowest risk — preserves existing feel</li><li>Fast to implement</li><li>Fixes real usability issues</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>No dramatic visual "wow" factor</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Enhanced Interactions</h3>
+      <p>Everything in Option A, plus richer micro-interactions and motion design that make the portfolio feel alive and memorable.</p>
+      <ul style="margin-top:8px;font-size:12px;color:#A78295;padding-left:16px">
+        <li>Everything in Option A, plus:</li>
+        <li>Typewriter/cycling animation for role title in hero</li>
+        <li>Magnetic hover effect on social buttons</li>
+        <li>Skill cards with animated progress rings on hover</li>
+        <li>Section entrance animations tuned for drama</li>
+        <li>Cursor glow effect (desktop only)</li>
+        <li>Project card deck — swipe hint animation on first load</li>
+      </ul>
+      <div class="pros-cons" style="margin-top:10px">
+        <div class="pros"><h4>Pros</h4><ul><li>Memorable, "wow" experience</li><li>Shows front-end depth</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Risk of feeling overdone</li><li>More complex to implement</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Both (A + B)</h3>
+      <p>Full comprehensive upgrade: fix every issue AND add all enhanced interactions for the most impressive result possible.</p>
+      <ul style="margin-top:8px;font-size:12px;color:#A78295;padding-left:16px">
+        <li>All fixes from A</li>
+        <li>All interactions from B</li>
+        <li>Animated skill proficiency indicators</li>
+        <li>Custom cursor trail (subtle, not distracting)</li>
+        <li>Smooth section-to-section gradient blending</li>
+      </ul>
+      <div class="pros-cons" style="margin-top:10px">
+        <div class="pros"><h4>Pros</h4><ul><li>Maximum impact</li><li>The most "fantastic" result</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Largest scope — most time to implement</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>

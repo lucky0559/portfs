@@ -8,7 +8,7 @@ const jsonLd = {
   jobTitle: "Full-Stack Developer",
   url: "https://luckyme.vercel.app",
   email: "angelorabosa5@gmail.com",
-  image: "https://luckyme.vercel.app/opengraph-image",
+  image: "https://luckyme.vercel.app/og-image.png",
   sameAs: [
     "https://github.com/lucky0559",
     "https://www.linkedin.com/in/lucky-angelo-aa7253217/"
@@ -36,7 +36,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="overflow-hiden">
+      <main className="overflow-hidden">
         <HomePage />
       </main>
     </>

@@ -1,0 +1,4 @@
+{"type":"server-started","port":49672,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:49672","screen_dir":"/Users/luckyangelo/Dev/portfs/.superpowers/brainstorm/3268-1778644418/content","state_dir":"/Users/luckyangelo/Dev/portfs/.superpowers/brainstorm/3268-1778644418/state"}
+{"type":"screen-added","file":"/Users/luckyangelo/Dev/portfs/.superpowers/brainstorm/3268-1778644418/content/approaches.html"}
+{"type":"screen-added","file":"/Users/luckyangelo/Dev/portfs/.superpowers/brainstorm/3268-1778644418/content/design-section1.html"}
+{"type":"server-stopped","reason":"owner process exited"}
