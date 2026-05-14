@@ -30,12 +30,18 @@ module.exports = {
       spacing: {
         "15%": "15%"
       },
-      content: {
-        // profile: 'url("/src/app/assets/icons/profile.svg")',
-        // experience: 'url("/src/app/assets/icons/experience.png.png")',
-        // skills: 'url("/src/app/assets/icons/skills.png")',
-        // projects: 'url("/src/app/assets/icons/projects.png")'
-      }
+      letterSpacing: {
+        tighter: "-0.02em",
+        tight: "-0.01em",
+        wide: "0.025em",
+        wider: "0.05em",
+        widest: "0.1em"
+      },
+      boxShadow: {
+        glow: "0 0 20px rgba(206, 206, 90, 0.15)",
+        "glow-pink": "0 0 20px rgba(167, 130, 149, 0.15)",
+        "glow-lg": "0 0 30px rgba(206, 206, 90, 0.2)"
+      },
     },
     colors: {
       primaryBackground: "#331D2C",

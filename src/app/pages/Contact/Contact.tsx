@@ -176,9 +176,10 @@ const Contact = () => {
             <motion.button
               type="submit"
               disabled={status === "loading"}
-              whileHover={shouldReduce || status === "loading" ? {} : { scale: 1.03, y: -2 }}
-              whileTap={shouldReduce || status === "loading" ? {} : { scale: 0.97 }}
-              className="flex items-center gap-2 bg-greenApple text-primaryBackground font-LouisBold px-8 py-3 rounded-xl disabled:opacity-60 disabled:cursor-not-allowed transition-opacity duration-200"
+              whileHover={shouldReduce || status === "loading" ? {} : { y: -3, boxShadow: "0 16px 32px rgba(206,206,90,0.3)" }}
+              whileTap={shouldReduce || status === "loading" ? {} : { scale: 0.97, y: 0 }}
+              transition={{ type: "spring", stiffness: 400, damping: 22 }}
+              className="flex items-center gap-2 bg-greenApple text-primaryBackground font-LouisBold px-8 py-3 rounded-xl disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {status === "loading" ? (
                 <>

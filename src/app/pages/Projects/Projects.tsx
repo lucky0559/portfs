@@ -113,6 +113,9 @@ const Projects = () => {
         <span className="text-light font-LouisBold text-2xl md:text-4xl xl:text-6xl">
           Projects
         </span>
+        <p className="text-pastelPink font-Louis text-sm xl:text-base mt-2">
+          A selection of work I&apos;ve built professionally and independently
+        </p>
       </motion.div>
 
       <motion.div

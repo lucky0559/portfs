@@ -87,7 +87,7 @@ const containerVariants = {
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20, scale: 0.9 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.35, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 200, damping: 20 } }
 };
 
 type SkillCardProps = SkillEntry;
@@ -103,6 +103,7 @@ const SkillCard = ({ label, url, Icon, abbr }: SkillCardProps) => {
       variants={shouldReduce ? {} : cardVariants}
       whileHover={shouldReduce ? {} : { y: -6, scale: 1.08 }}
       whileTap={shouldReduce ? {} : { scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 350, damping: 22 }}
       className="flex flex-col items-center justify-center gap-2 w-20 h-20 bg-primaryBackground/70 border border-pastelPink/20 rounded-2xl cursor-pointer hover:border-pastelPink/60 hover:bg-primaryBackground hover:shadow-lg hover:shadow-pastelPink/10 transition-colors duration-200 no-underline"
     >
       {Icon ? (
@@ -156,6 +157,9 @@ const Skills = () => {
         <span className="text-light font-LouisBold text-2xl md:text-4xl xl:text-6xl">
           Skills
         </span>
+        <p className="text-pastelPink font-Louis text-sm xl:text-base mt-2">
+          Technologies and tools I work with daily
+        </p>
       </motion.div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-x-16">
