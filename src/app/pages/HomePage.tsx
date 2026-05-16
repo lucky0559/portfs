@@ -7,29 +7,72 @@ import Projects from "@/pages/Projects/Projects";
 import Skills from "@/pages/Skills/Skills";
 import React from "react";
 
+const SectionLabel = ({ number, label }: { number: string; label: string }) => (
+  <div className="section-label">
+    <span className="text-greenApple/40">{number}</span>
+    {label}
+  </div>
+);
+
 const HomePage = () => {
   return (
     <>
       <Menu />
-      <div
-        className="flex flex-col xl:flex-row bg-primaryBackground px-4 py-10 xl:px-10 xl:py-16 pb-24 xl:pb-16"
+
+      {/* Hero — Profile */}
+      <section
         id="profile"
+        className="relative bg-primaryBackground px-4 py-12 xl:px-16 xl:py-20 min-h-screen flex items-center"
       >
-        <MyProfile />
-        <DetailsColumn />
-      </div>
-      <div className="bg-secondaryBackground px-4 py-10 xl:px-10 xl:py-14" id="academicJob">
-        <AcademicJob />
-      </div>
-      <div className="bg-primaryBackground" id="skills">
-        <Skills />
-      </div>
-      <div className="bg-secondaryBackground pb-4 xl:pb-0" id="projects">
-        <Projects />
-      </div>
-      <div className="bg-primaryBackground pb-24 xl:pb-0" id="contact">
-        <Contact />
-      </div>
+        <div className="relative z-10 w-full flex flex-col xl:flex-row xl:items-center gap-10 xl:gap-16 max-w-7xl mx-auto">
+          <MyProfile />
+          <DetailsColumn />
+        </div>
+      </section>
+
+      {/* Academic & Job */}
+      <section
+        id="academicJob"
+        className="relative bg-secondaryBackground px-4 py-14 xl:px-16 xl:py-20"
+      >
+        <div className="max-w-7xl mx-auto">
+          <SectionLabel number="02" label="Background" />
+          <AcademicJob />
+        </div>
+      </section>
+
+      {/* Skills */}
+      <section
+        id="skills"
+        className="relative bg-primaryBackground px-4 py-14 xl:px-16 xl:py-20"
+      >
+        <div className="max-w-7xl mx-auto">
+          <SectionLabel number="03" label="Expertise" />
+          <Skills />
+        </div>
+      </section>
+
+      {/* Projects */}
+      <section
+        id="projects"
+        className="relative bg-secondaryBackground px-4 py-14 xl:px-16 xl:py-20 pb-8 xl:pb-20"
+      >
+        <div className="max-w-7xl mx-auto">
+          <SectionLabel number="04" label="Work" />
+          <Projects />
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section
+        id="contact"
+        className="relative bg-primaryBackground px-4 py-14 xl:px-16 xl:py-20 pb-28 xl:pb-20"
+      >
+        <div className="max-w-7xl mx-auto">
+          <SectionLabel number="05" label="Connect" />
+          <Contact />
+        </div>
+      </section>
     </>
   );
 };

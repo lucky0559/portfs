@@ -44,6 +44,16 @@ module.exports = {
       },
     },
     colors: {
+      transparent: "transparent",
+      current: "currentColor",
+      inherit: "inherit",
+      white: "#ffffff",
+      black: "#000000",
+      red: {
+        300: "#fca5a5",
+        400: "#f87171",
+        500: "#ef4444",
+      },
       primaryBackground: "#331D2C",
       secondaryBackground: "#3F2E3E",
       pastelPink: "#A78295",

@@ -5,24 +5,27 @@ import React from "react";
 import { FaFacebook, FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 
-type MagneticLinkProps = {
-  href: string;
-  ariaLabel: string;
-  children: React.ReactNode;
-};
+const socialLinks = [
+  { href: "https://www.facebook.com/Geloyzxc", Icon: FaFacebook, label: "Facebook" },
+  { href: "https://www.instagram.com/luckyangelorbs/", Icon: FaInstagram, label: "Instagram" },
+  { href: "https://github.com/lucky0559", Icon: FaGithub, label: "GitHub" },
+  { href: "https://www.linkedin.com/in/lucky-angelo-aa7253217/", Icon: FaLinkedin, label: "LinkedIn" },
+];
 
-const MagneticLink = ({ href, ariaLabel, children }: MagneticLinkProps) => {
+const MyProfile = () => {
+  const year = new Date().getFullYear();
   const shouldReduce = useReducedMotion();
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 200, damping: 18 });
-  const springY = useSpring(y, { stiffness: 200, damping: 18 });
+  const rotateX = useSpring(y, { stiffness: 120, damping: 18 });
+  const rotateY = useSpring(x, { stiffness: 120, damping: 18 });
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (shouldReduce) return;
     const rect = e.currentTarget.getBoundingClientRect();
-    x.set((e.clientX - rect.left - rect.width / 2) * 0.35);
-    y.set((e.clientY - rect.top - rect.height / 2) * 0.35);
+    x.set(((e.clientX - rect.left) / rect.width - 0.5) * 10);
+    y.set(((e.clientY - rect.top) / rect.height - 0.5) * -10);
   };
 
   const handleMouseLeave = () => {
@@ -31,83 +34,104 @@ const MagneticLink = ({ href, ariaLabel, children }: MagneticLinkProps) => {
   };
 
   return (
-    <motion.a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={ariaLabel}
-      style={shouldReduce ? {} : { x: springX, y: springY }}
+    <motion.div
+      initial={shouldReduce ? false : { opacity: 0, x: -40 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+      className="w-72 sm:w-80 xl:w-64 2xl:w-72 flex-shrink-0 mx-auto xl:mx-0"
+      style={shouldReduce ? {} : { perspective: 800 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      whileTap={{ scale: 0.92 }}
-      className="text-primaryBackground hover:text-light bg-light hover:bg-secondaryBackground h-auto w-auto rounded-2xl ease-in-out duration-300 hover:shadow-lg hover:shadow-pastelPink border-pastelPink border-2 border-solid flex justify-center items-center p-2"
     >
-      {children}
-    </motion.a>
-  );
-};
+      <motion.div
+        style={shouldReduce ? {} : { rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="relative rounded-3xl overflow-hidden bg-gradient-to-b from-secondaryBackground/90 to-primaryBackground/80 border border-pastelPink/10 shadow-2xl shadow-black/40"
+      >
+        {/* Top accent stripe */}
+        <div className="h-px bg-gradient-to-r from-transparent via-greenApple/40 to-transparent" />
 
-const MyProfile = () => {
-  const year = new Date().getFullYear();
-  const shouldReduce = useReducedMotion();
+        <div className="p-5 2xl:p-6">
+          {/* Header row */}
+          <div className="flex items-start justify-between mb-5">
+            <span className="font-Alphaget text-3xl 2xl:text-4xl text-light tracking-tighter leading-none">
+              Lucky
+            </span>
+            <div className="text-right">
+              <p className="text-[9px] font-Louis text-pastelPink/50 uppercase tracking-[0.14em] leading-relaxed">
+                Full-Stack<br />Developer
+              </p>
+              <div className="mt-1 flex justify-end">
+                <span className="inline-block w-4 h-px bg-greenApple/40" />
+              </div>
+            </div>
+          </div>
 
-  return (
-    <motion.div
-      initial={shouldReduce ? false : { opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-    >
-      <div className="border-2 border-solid rounded-lg border-pastelPink p-6 xl:p-10 shadow-lg shadow-pastelPink/10 backdrop-blur-sm bg-gradient-to-br from-primaryBackground to-secondaryBackground/30">
-        <div className="flex justify-between items-center gap-4">
-          <span className="text-light font-Alphaget text-5xl md:text-6xl xl:text-7xl tracking-tighter">
-            Lucky
-          </span>
-          <span className="text-light font-LouisBold text-xs md:text-sm xl:text-lg uppercase tracking-widest text-right">
-            Full-Stack<br/>Developer
-          </span>
-        </div>
-        <motion.div
-          className="flex justify-center items-center my-8 xl:my-12"
-          whileHover={shouldReduce ? {} : { scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 300, damping: 10 }}
-        >
-          <div className="rounded-lg w-52 md:w-60 xl:w-72 overflow-hidden ring-2 ring-greenApple/20 shadow-lg shadow-greenApple/10">
+          {/* Profile photo */}
+          <motion.div
+            className="relative rounded-2xl overflow-hidden mb-5 shadow-lg shadow-black/30"
+            style={{ aspectRatio: "3/4" }}
+            whileHover={shouldReduce ? {} : { scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 260, damping: 22 }}
+          >
             <Image
               src="https://storage.googleapis.com/portfs-images/profile.jpg"
               alt="Lucky Angelo Rabosa"
-              className="w-full h-auto"
-              width={500}
-              height={500}
+              fill
+              sizes="(max-width: 1280px) 280px, 288px"
+              className="object-cover"
               priority
             />
+            {/* Subtle vignette overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-primaryBackground/50 via-transparent to-transparent pointer-events-none" />
+            {/* Availability badge */}
+            <div className="absolute bottom-3 left-3 flex items-center gap-1.5 bg-primaryBackground/80 backdrop-blur-sm border border-greenApple/20 rounded-full px-2.5 py-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-greenApple animate-pulse" />
+              <span className="text-[9px] font-Louis text-greenApple/80 tracking-wide">Available</span>
+            </div>
+          </motion.div>
+
+          {/* Contact details */}
+          <div className="space-y-1 mb-5 text-center">
+            <p className="text-light/60 font-Louis text-[11px] tracking-wide">
+              angelorabosa5@gmail.com
+            </p>
+            <p className="text-pastelPink/70 font-Louis text-[10px] tracking-wider uppercase">
+              Philippines
+            </p>
           </div>
-        </motion.div>
-        <div className="flex flex-col items-center gap-1">
-          <span className="text-light font-Louis text-sm md:text-base xl:text-lg text-center">
-            angelorabosa5@gmail.com
-          </span>
-          <span className="text-light font-Louis text-sm md:text-base xl:text-lg text-center">
-            Based in Philippines
-          </span>
-          <span className="text-pastelPink font-Louis text-xs xl:text-sm text-center">
-            ©{year} Lucky. All rights reserved.
-          </span>
+
+          {/* Divider */}
+          <div className="h-px bg-gradient-to-r from-transparent via-pastelPink/15 to-transparent mb-4" />
+
+          {/* Social links */}
+          <div className="grid grid-cols-4 gap-2">
+            {socialLinks.map(({ href, Icon, label }) => (
+              <motion.a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                whileHover={shouldReduce ? {} : { y: -3, backgroundColor: "rgba(206,206,90,0.08)" }}
+                whileTap={{ scale: 0.94 }}
+                className="flex items-center justify-center h-9 rounded-xl border border-pastelPink/30 text-pastelPink/70 hover:text-greenApple hover:border-greenApple/30 transition-colors duration-200"
+              >
+                <Icon size={14} aria-hidden="true" />
+              </motion.a>
+            ))}
+          </div>
         </div>
-        <div className="flex justify-evenly mt-6">
-          <MagneticLink href="https://www.facebook.com/Geloyzxc" ariaLabel="Facebook">
-            <FaFacebook size={22} aria-hidden="true" />
-          </MagneticLink>
-          <MagneticLink href="https://www.instagram.com/luckyangelorbs/" ariaLabel="Instagram">
-            <FaInstagram size={22} aria-hidden="true" />
-          </MagneticLink>
-          <MagneticLink href="https://github.com/lucky0559" ariaLabel="GitHub">
-            <FaGithub size={22} aria-hidden="true" />
-          </MagneticLink>
-          <MagneticLink href="https://www.linkedin.com/in/lucky-angelo-aa7253217/" ariaLabel="LinkedIn">
-            <FaLinkedin size={22} aria-hidden="true" />
-          </MagneticLink>
+
+        {/* Copyright footer */}
+        <div className="px-5 pb-4">
+          <p className="text-pastelPink/25 font-Louis text-[9px] text-center tracking-[0.15em]">
+            ©{year} Lucky Angelo
+          </p>
         </div>
-      </div>
+
+        {/* Corner accent */}
+        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-greenApple/5 to-transparent pointer-events-none" />
+      </motion.div>
     </motion.div>
   );
 };

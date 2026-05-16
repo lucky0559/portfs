@@ -82,17 +82,22 @@ const otherSkills: SkillEntry[] = [
 
 const containerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.06 } }
+  visible: { transition: { staggerChildren: 0.04 } }
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.9 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 200, damping: 20 } }
+const pillVariants = {
+  hidden: { opacity: 0, y: 16, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 220, damping: 22 }
+  }
 };
 
-type SkillCardProps = SkillEntry;
+type SkillPillProps = SkillEntry;
 
-const SkillCard = ({ label, url, Icon, abbr }: SkillCardProps) => {
+const SkillPill = ({ label, url, Icon, abbr }: SkillPillProps) => {
   const shouldReduce = useReducedMotion();
   return (
     <motion.a
@@ -100,18 +105,29 @@ const SkillCard = ({ label, url, Icon, abbr }: SkillCardProps) => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      variants={shouldReduce ? {} : cardVariants}
-      whileHover={shouldReduce ? {} : { y: -6, scale: 1.08 }}
-      whileTap={shouldReduce ? {} : { scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 350, damping: 22 }}
-      className="flex flex-col items-center justify-center gap-2 w-20 h-20 bg-primaryBackground/70 border border-pastelPink/20 rounded-2xl cursor-pointer hover:border-pastelPink/60 hover:bg-primaryBackground hover:shadow-lg hover:shadow-pastelPink/10 transition-colors duration-200 no-underline"
+      variants={shouldReduce ? {} : pillVariants}
+      whileHover={shouldReduce ? {} : { y: -3, borderColor: "rgba(206,206,90,0.35)" }}
+      whileTap={shouldReduce ? {} : { scale: 0.96 }}
+      transition={{ type: "spring", stiffness: 320, damping: 24 }}
+      className="group flex items-center gap-2.5 px-3.5 py-2 rounded-xl border border-pastelPink/18 bg-secondaryBackground/50 hover:bg-secondaryBackground/80 hover:border-greenApple/30 hover:shadow-md hover:shadow-black/20 transition-all duration-200 no-underline cursor-pointer"
     >
-      {Icon ? (
-        <Icon size={22} className="text-light" aria-hidden="true" />
-      ) : (
-        <span className="text-light font-LouisBold text-[11px] tracking-wider" aria-hidden="true">{abbr}</span>
-      )}
-      <span className="text-pastelPink font-Louis text-[9px] text-center leading-tight px-1">
+      <span className="flex-shrink-0 w-4 h-4 flex items-center justify-center">
+        {Icon ? (
+          <Icon
+            size={15}
+            className="text-pastelPink/70 group-hover:text-greenApple/90 transition-colors duration-200"
+            aria-hidden="true"
+          />
+        ) : (
+          <span
+            className="text-pastelPink/50 group-hover:text-greenApple/80 font-LouisBold text-[9px] tracking-widest transition-colors duration-200"
+            aria-hidden="true"
+          >
+            {abbr}
+          </span>
+        )}
+      </span>
+      <span className="text-light/75 group-hover:text-light font-Louis text-[11px] tracking-wide whitespace-nowrap transition-colors duration-200">
         {label}
       </span>
     </motion.a>
@@ -121,22 +137,28 @@ const SkillCard = ({ label, url, Icon, abbr }: SkillCardProps) => {
 type SkillGroupProps = {
   title: string;
   skills: SkillEntry[];
+  accentColor?: string;
 };
 
 const SkillGroup = ({ title, skills }: SkillGroupProps) => {
   const shouldReduce = useReducedMotion();
   return (
-    <div className="mb-10">
-      <p className="text-greenApple font-LouisBold text-lg xl:text-2xl mb-5">{title}</p>
+    <div className="flex flex-col">
+      <div className="flex items-center gap-3 mb-5">
+        <span className="text-greenApple font-LouisBold text-sm xl:text-base tracking-wide">
+          {title}
+        </span>
+        <div className="flex-1 h-px bg-gradient-to-r from-greenApple/20 to-transparent" />
+      </div>
       <motion.div
-        className="flex flex-wrap gap-3"
+        className="flex flex-wrap gap-2"
         variants={shouldReduce ? {} : containerVariants}
         initial={shouldReduce ? false : "hidden"}
         whileInView="visible"
-        viewport={{ once: true, margin: "-40px" }}
+        viewport={{ once: true, margin: "-30px" }}
       >
-        {skills.map((skill) => (
-          <SkillCard key={skill.label} {...skill} />
+        {skills.map(skill => (
+          <SkillPill key={skill.label} {...skill} />
         ))}
       </motion.div>
     </div>
@@ -146,23 +168,25 @@ const SkillGroup = ({ title, skills }: SkillGroupProps) => {
 const Skills = () => {
   const shouldReduce = useReducedMotion();
   return (
-    <div className="p-8 xl:p-10">
+    <div>
+      {/* Section title */}
       <motion.div
-        initial={shouldReduce ? false : { opacity: 0, y: 30 }}
+        initial={shouldReduce ? false : { opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="mb-10"
+        transition={{ duration: 0.55 }}
+        className="mb-12"
       >
-        <span className="text-light font-LouisBold text-2xl md:text-4xl xl:text-6xl">
+        <h2 className="text-light font-LouisBold text-3xl md:text-5xl xl:text-6xl leading-tight">
           Skills
-        </span>
-        <p className="text-pastelPink font-Louis text-sm xl:text-base mt-2">
+        </h2>
+        <p className="text-light/75 font-LouisBold text-xl xl:text-2xl mt-2 max-w-sm">
           Technologies and tools I work with daily
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-x-16">
+      {/* Skills grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-12 gap-y-10">
         <SkillGroup title="Front-End" skills={frontendSkills} />
         <SkillGroup title="Back-End" skills={backendSkills} />
         <SkillGroup title="Other Tools" skills={otherSkills} />

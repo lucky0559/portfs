@@ -15,7 +15,7 @@ import {
 import { useSprings, animated, to as interpolate } from "@react-spring/web";
 import { motion, useReducedMotion } from "framer-motion";
 import React, { useState } from "react";
-import { FaLock } from "react-icons/fa";
+import { FaLock, FaExternalLinkAlt } from "react-icons/fa";
 import { useDrag } from "react-use-gesture";
 
 const to = (i: number) => ({
@@ -82,12 +82,12 @@ const Deck = ({ project }: DeckProps) => {
 
 const containerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } }
+  visible: { transition: { staggerChildren: 0.06 } }
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } }
 };
 
 const Projects = () => {
@@ -102,28 +102,30 @@ const Projects = () => {
   };
 
   return (
-    <div className="p-8 xl:p-10">
+    <div>
+      {/* Section title */}
       <motion.div
         className="mb-10"
-        initial={shouldReduce ? false : { opacity: 0, y: 30 }}
+        initial={shouldReduce ? false : { opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <span className="text-light font-LouisBold text-2xl md:text-4xl xl:text-6xl">
+        <h2 className="text-light font-LouisBold text-3xl md:text-5xl xl:text-6xl leading-tight">
           Projects
-        </span>
-        <p className="text-pastelPink font-Louis text-sm xl:text-base mt-2">
+        </h2>
+        <p className="text-light font-LouisBold text-base xl:text-lg mt-2">
           A selection of work I&apos;ve built professionally and independently
         </p>
       </motion.div>
 
+      {/* Cards grid */}
       <motion.div
-        className="flex flex-row flex-wrap justify-center xl:justify-start"
+        className="flex flex-row flex-wrap gap-2 justify-center xl:justify-start"
         variants={shouldReduce ? {} : containerVariants}
         initial={shouldReduce ? false : "hidden"}
         whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
+        viewport={{ once: true, margin: "-40px" }}
       >
         {cards.map((card, index) => (
           <motion.div key={index} variants={cardVariants}>
@@ -138,6 +140,7 @@ const Projects = () => {
         ))}
       </motion.div>
 
+      {/* Project detail modal */}
       <Modal
         size="full"
         isOpen={isModalOpen}
@@ -146,14 +149,11 @@ const Projects = () => {
         <ModalContent>
           {onClose => (
             <div className="bg-secondaryBackground h-[76%]">
-              <ModalHeader className="flex flex-col gap-1">
-                <p className="text-tiny uppercase text-light font-LouisBold">
-                  Project in:
-                </p>
-                <small className="text-pastelPink font-Louis">
+              <ModalHeader className="flex flex-col gap-1 border-b border-pastelPink/10">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-pastelPink/50 font-Louis">
                   {deckViewingProject?.from}
-                </small>
-                <h4 className="font-LouisBold text-2xl text-greenApple">
+                </p>
+                <h4 className="font-LouisBold text-xl text-greenApple leading-tight">
                   {deckViewingProject?.name}
                 </h4>
               </ModalHeader>
@@ -161,40 +161,43 @@ const Projects = () => {
               <ModalBody className="flex items-center justify-center h-full bg-secondaryBackground">
                 {deckViewingProject?.isPrivate ? (
                   <div className="flex flex-col items-center gap-4 text-center">
-                    <FaLock size={60} className="text-pastelPink/50" />
-                    <p className="font-LouisBold text-light text-lg">
-                      This project is private and confidential
-                    </p>
-                    <p className="font-Louis text-pastelPink text-sm">
-                      Screenshots and details cannot be shared publicly.
-                    </p>
+                    <div className="w-16 h-16 rounded-2xl border border-pastelPink/15 flex items-center justify-center">
+                      <FaLock size={24} className="text-pastelPink/65" />
+                    </div>
+                    <div>
+                      <p className="font-LouisBold text-light text-base">
+                        Private &amp; Confidential
+                      </p>
+                      <p className="font-Louis text-pastelPink/50 text-sm mt-1">
+                        Screenshots and details cannot be shared publicly.
+                      </p>
+                    </div>
                   </div>
                 ) : !!deckViewingProject?.imageURLs.length ? (
                   <Deck project={deckViewingProject} />
                 ) : (
-                  <span className="font-LouisBold text-light">
-                    No Available Preview
-                  </span>
+                  <div className="flex flex-col items-center gap-3 text-center">
+                    <div className="w-12 h-12 rounded-xl border border-pastelPink/15 flex items-center justify-center">
+                      <span className="text-pastelPink/30 font-LouisBold text-lg">?</span>
+                    </div>
+                    <p className="font-Louis text-pastelPink/50 text-sm">No preview available</p>
+                  </div>
                 )}
               </ModalBody>
 
               {!deckViewingProject?.isPrivate && deckViewingProject?.projectUrl && (
-                <div className="flex items-center justify-center bg-secondaryBackground py-3">
-                  <span className="font-LouisBold text-light">
-                    Visit:{" "}
-                    <a
-                      onClick={() =>
-                        openInNewTabHandler(deckViewingProject.projectUrl)
-                      }
-                      className="text-greenApple cursor-pointer hover:opacity-70"
-                    >
-                      {deckViewingProject.name}
-                    </a>
-                  </span>
+                <div className="flex items-center justify-center bg-secondaryBackground py-3 border-t border-pastelPink/10">
+                  <a
+                    onClick={() => openInNewTabHandler(deckViewingProject.projectUrl)}
+                    className="flex items-center gap-2 text-greenApple font-LouisBold text-sm cursor-pointer hover:opacity-75 transition-opacity duration-200"
+                  >
+                    <FaExternalLinkAlt size={12} />
+                    {deckViewingProject.name}
+                  </a>
                 </div>
               )}
 
-              <ModalFooter className="bg-secondaryBackground">
+              <ModalFooter className="bg-secondaryBackground border-t border-pastelPink/8">
                 <Button
                   color="danger"
                   variant="light"
@@ -202,7 +205,7 @@ const Projects = () => {
                     setDeckViewingProject(undefined);
                     onClose();
                   }}
-                  className="font-LouisBold"
+                  className="font-LouisBold text-pastelPink/70 hover:text-pastelPink"
                 >
                   Close
                 </Button>

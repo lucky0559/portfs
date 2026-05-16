@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import { FaLock } from "react-icons/fa";
+import { FaLock, FaExternalLinkAlt } from "react-icons/fa";
 
 type CardProps = {
   cardImageUrl: string;
@@ -21,12 +21,12 @@ const Card = ({ cardImageUrl, onClick, name, from, isPrivate }: CardProps) => {
     const rect = el.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    el.style.background = `radial-gradient(180px circle at ${x}px ${y}px, rgba(206,206,90,0.55), rgba(167,130,149,0.2) 55%, rgba(167,130,149,0.15))`;
+    el.style.background = `radial-gradient(220px circle at ${x}px ${y}px, rgba(206,206,90,0.12), rgba(167,130,149,0.06) 60%, transparent)`;
   };
 
   const handleMouseLeave = () => {
     if (wrapperRef.current) {
-      wrapperRef.current.style.background = "rgba(167,130,149,0.18)";
+      wrapperRef.current.style.background = "transparent";
     }
   };
 
@@ -35,46 +35,56 @@ const Card = ({ cardImageUrl, onClick, name, from, isPrivate }: CardProps) => {
       ref={wrapperRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="m-3 rounded-2xl p-[1px] transition-[background] duration-500"
-      style={{ background: "rgba(167,130,149,0.18)" }}
+      className="p-[1px] rounded-2xl transition-[background] duration-400"
     >
       <motion.div
         onClick={onClick}
-        whileHover={{ y: -8, boxShadow: "0 24px 48px rgba(167,130,149,0.25)" }}
-        whileTap={{ scale: 0.97 }}
-        transition={{ type: "spring", stiffness: 300, damping: 22 }}
-        className="w-[168px] h-[230px] flex flex-col bg-primaryBackground rounded-2xl overflow-hidden cursor-pointer"
+        whileHover={{ y: -6, boxShadow: "0 20px 48px rgba(0,0,0,0.35)" }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 280, damping: 24 }}
+        className="w-52 h-[15rem] flex flex-col bg-primaryBackground/80 border border-pastelPink/10 hover:border-pastelPink/25 rounded-2xl overflow-hidden cursor-pointer transition-colors duration-300 group"
       >
-        {/* Fixed-height image area */}
-        <div className="h-[140px] flex-shrink-0 flex items-center justify-center bg-secondaryBackground overflow-hidden">
+        {/* Image area */}
+        <div className="h-36 flex-shrink-0 flex items-center justify-center bg-secondaryBackground/60 overflow-hidden relative">
           {isPrivate ? (
             <div className="flex flex-col items-center gap-2">
-              <FaLock size={28} className="text-pastelPink/60" />
-              <span className="font-Louis text-[10px] text-pastelPink/50">Confidential</span>
+              <FaLock size={24} className="text-pastelPink/65" />
+              <span className="font-Louis text-[9px] text-pastelPink/65 tracking-widest uppercase">
+                Confidential
+              </span>
             </div>
           ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={cardImageUrl}
-              alt={name}
-              className="w-full h-full object-contain p-4 transition-transform duration-300 hover:scale-110"
-            />
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={cardImageUrl}
+                alt={name}
+                className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+              />
+              {/* Hover overlay with external link hint */}
+              <div className="absolute inset-0 bg-primaryBackground/0 group-hover:bg-primaryBackground/30 transition-colors duration-300 flex items-center justify-center">
+                <FaExternalLinkAlt
+                  size={16}
+                  className="text-greenApple/0 group-hover:text-greenApple/80 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"
+                />
+              </div>
+            </>
           )}
-        </div>
-
-        {/* Fixed-height info area */}
-        <div className="flex-1 p-3 flex flex-col justify-between overflow-hidden">
-          <div className="overflow-hidden">
-            <p className="text-pastelPink font-Louis text-[9px] uppercase tracking-wider mb-0.5 truncate">
-              {from}
-            </p>
-            <h4 className="text-light font-LouisBold text-xs leading-snug line-clamp-2">{name}</h4>
-          </div>
           {isPrivate && (
-            <span className="inline-block px-1.5 py-0.5 bg-pastelPink/15 text-pastelPink rounded text-[9px] font-Louis w-fit">
+            <span className="absolute bottom-2 left-2.5 inline-block px-2 py-0.5 bg-primaryBackground/70 border border-pastelPink/30 text-pastelPink/80 rounded-full text-[9px] font-LouisBold tracking-wide">
               Private
             </span>
           )}
+        </div>
+
+        {/* Info */}
+        <div className="p-3.5 flex flex-col gap-1">
+          <p className="text-light/50 font-Louis text-[10px] uppercase tracking-[0.12em] truncate">
+            {from}
+          </p>
+          <h4 className="text-light font-LouisBold text-xs leading-snug line-clamp-2 group-hover:text-greenApple/90 transition-colors duration-200">
+            {name}
+          </h4>
         </div>
       </motion.div>
     </div>

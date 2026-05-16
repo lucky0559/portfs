@@ -11,63 +11,67 @@ import {
 import { isMobile } from "react-device-detect";
 import { FaBook, FaChalkboard, FaGraduationCap } from "react-icons/fa";
 
+const degrees = [
+  {
+    Icon: FaGraduationCap,
+    title: "Bachelor of Science in Information Technology",
+    school: "Cavite State University Main – Indang Campus",
+  },
+  {
+    Icon: FaBook,
+    title: "Higher Secondary Certificate",
+    school: "Tagaytay City Science National High School",
+  },
+  {
+    Icon: FaChalkboard,
+    title: "Secondary School Certificate",
+    school: "Maitim 2nd Elementary School Tagaytay",
+  },
+];
+
 const Academic = () => {
   return (
-    <div className="p-4 xl:p-8">
-      <div className="justify-center items-center flex">
-        <span className="text-base md:text-2xl xl:text-4xl text-light font-LouisBold text-center">
+    <div>
+      {/* Section header */}
+      <div className="mb-8">
+        <h3 className="text-light font-LouisBold text-xl md:text-3xl xl:text-4xl leading-tight">
           Academic <span className="text-greenApple">Qualification</span>
-        </span>
+        </h3>
+        <div className="mt-2 h-px w-16 bg-gradient-to-r from-greenApple/40 to-transparent" />
       </div>
-      <Timeline position="right">
-        <TimelineItem className="justify-center items-end flex">
-          <TimelineSeparator>
-            <TimelineConnector className="bg-pastelPink h-10 md:h-14 xl:h-20" />
-            <TimelineDot className="p-2" style={{ backgroundColor: "#331D2C" }}>
-              <FaGraduationCap size={isMobile ? 20 : 30} />
-            </TimelineDot>
-          </TimelineSeparator>
-          <TimelineContent className="xs:-mb-1 min-[423px]:mb-2 min-[662px]:mb-5 xl:mb-0">
-            <span className="text-light font-Louis text-xs sm:text-sm xl:text-base">
-              Bachelor of Science in Information Technology
-            </span>
-            <p className="text-pastelPink font-Louis text-xs xl:text-sm mt-0.5">
-              Cavite State University Main – Indang Campus
-            </p>
-          </TimelineContent>
-        </TimelineItem>
-        <TimelineItem className="justify-center items-end flex">
-          <TimelineSeparator>
-            <TimelineConnector className="bg-pastelPink h-10 md:h-14 xl:h-20" />
-            <TimelineDot className="p-2" style={{ backgroundColor: "#331D2C" }}>
-              <FaBook size={isMobile ? 20 : 30} />
-            </TimelineDot>
-          </TimelineSeparator>
-          <TimelineContent className="xs:mb-2 min-[479px]:mb-5 xl:mb-0">
-            <span className="text-light font-Louis text-xs sm:text-sm xl:text-base">
-              Higher Secondary Certificate
-            </span>
-            <p className="text-pastelPink font-Louis text-xs xl:text-sm mt-0.5">
-              Tagaytay City Science National High School
-            </p>
-          </TimelineContent>
-        </TimelineItem>
-        <TimelineItem className="justify-center items-end flex">
-          <TimelineSeparator>
-            <TimelineConnector className="bg-pastelPink h-10 md:h-14 xl:h-20" />
-            <TimelineDot className="p-2" style={{ backgroundColor: "#331D2C" }}>
-              <FaChalkboard size={isMobile ? 20 : 30} />
-            </TimelineDot>
-          </TimelineSeparator>
-          <TimelineContent className="xs:mb-2 min-[479px]:mb-5 xl:mb-0">
-            <span className="text-light font-Louis text-xs sm:text-sm xl:text-base">
-              Secondary School Certificate
-            </span>
-            <p className="text-pastelPink font-Louis text-xs xl:text-sm mt-0.5">
-              Maitim 2nd Elementary School Tagaytay
-            </p>
-          </TimelineContent>
-        </TimelineItem>
+
+      <Timeline position="right" sx={{ padding: 0, margin: 0 }}>
+        {degrees.map(({ Icon, title, school }, i) => (
+          <TimelineItem key={i} className="justify-center items-end flex">
+            <TimelineSeparator>
+              <TimelineConnector
+                sx={{ bgcolor: "rgba(167,130,149,0.25)", width: "1px", minHeight: isMobile ? 40 : 56 }}
+              />
+              <TimelineDot
+                sx={{
+                  bgcolor: "#331D2C",
+                  borderColor: "rgba(167,130,149,0.3)",
+                  borderWidth: "1px",
+                  boxShadow: "none",
+                  padding: isMobile ? "6px" : "10px",
+                }}
+              >
+                <Icon
+                  size={isMobile ? 14 : 18}
+                  style={{ color: "#CECE5A", opacity: 0.85 }}
+                />
+              </TimelineDot>
+            </TimelineSeparator>
+            <TimelineContent sx={{ paddingBottom: i < degrees.length - 1 ? "20px" : 0 }}>
+              <p className="text-light/80 font-LouisBold text-xs sm:text-sm xl:text-base leading-snug">
+                {title}
+              </p>
+              <p className="text-pastelPink/75 font-Louis text-[11px] xl:text-xs mt-1">
+                {school}
+              </p>
+            </TimelineContent>
+          </TimelineItem>
+        ))}
       </Timeline>
     </div>
   );

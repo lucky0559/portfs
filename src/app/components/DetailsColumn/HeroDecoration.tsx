@@ -2,62 +2,67 @@
 
 import { motion } from "framer-motion";
 
-const dots = [
-  { left: "18%", top: "12%", size: 4, duration: 3.2, delay: 0 },
-  { left: "78%", top: "22%", size: 3, duration: 2.8, delay: 0.6 },
-  { left: "12%", top: "68%", size: 5, duration: 3.6, delay: 1.1 },
-  { left: "72%", top: "72%", size: 3, duration: 3.0, delay: 1.5 },
-  { left: "50%", top: "8%",  size: 4, duration: 2.6, delay: 0.9 },
-  { left: "88%", top: "48%", size: 3, duration: 3.4, delay: 0.3 },
-  { left: "8%",  top: "42%", size: 4, duration: 3.1, delay: 1.3 },
-  { left: "60%", top: "88%", size: 3, duration: 2.9, delay: 0.7 },
-];
-
 const HeroDecoration = () => (
-  <div className="hidden xl:flex relative flex-shrink-0 w-72 2xl:w-96 h-72 2xl:h-96 items-center justify-center">
-    {/* Background glow */}
-    <div className="absolute inset-0 rounded-full bg-greenApple/5 blur-3xl pointer-events-none" />
+  <div className="hidden xl:flex relative flex-shrink-0 w-64 2xl:w-80 h-64 2xl:h-80 items-center justify-center">
+    {/* Ambient glow */}
+    <div className="absolute inset-0 rounded-full blur-3xl bg-greenApple/10 pointer-events-none" />
+    <div className="absolute w-24 h-24 rounded-full blur-xl bg-greenApple/20 pointer-events-none" />
 
-    {/* Outer rotating ring with marker dot */}
+    {/* Outer ring — slow clockwise */}
     <motion.div
-      className="absolute w-64 h-64 2xl:w-80 2xl:h-80 rounded-full border border-pastelPink/20"
+      className="absolute w-56 h-56 2xl:w-72 2xl:h-72 rounded-full"
+      style={{ border: "1.5px solid rgba(167,130,149,0.5)" }}
       animate={{ rotate: 360 }}
-      transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+      transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
     >
-      <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-pastelPink/60" />
+      <motion.div
+        className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full"
+        style={{
+          background: "#A78295",
+          boxShadow: "0 0 10px rgba(167,130,149,0.9), 0 0 22px rgba(167,130,149,0.5)"
+        }}
+        animate={{ scale: [1, 1.35, 1] }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+      />
     </motion.div>
 
-    {/* Middle counter-rotating ring with marker dot */}
+    {/* Middle ring — counter-clockwise */}
     <motion.div
-      className="absolute w-48 h-48 2xl:w-60 2xl:h-60 rounded-full border border-greenApple/25"
+      className="absolute w-40 h-40 2xl:w-52 2xl:h-52 rounded-full"
+      style={{ border: "1.5px dashed rgba(206,206,90,0.6)" }}
       animate={{ rotate: -360 }}
       transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
     >
-      <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-greenApple/70" />
+      <div
+        className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full"
+        style={{
+          background: "#CECE5A",
+          boxShadow: "0 0 10px rgba(206,206,90,1), 0 0 22px rgba(206,206,90,0.6)"
+        }}
+      />
     </motion.div>
 
-    {/* Inner static ring */}
-    <div className="absolute w-28 h-28 2xl:w-36 2xl:h-36 rounded-full border border-pastelPink/15 bg-greenApple/[0.04]" />
+    {/* Inner ring */}
+    <div
+      className="absolute w-24 h-24 2xl:w-32 2xl:h-32 rounded-full"
+      style={{
+        border: "1px solid rgba(167,130,149,0.3)",
+        background: "radial-gradient(circle, rgba(206,206,90,0.08) 0%, transparent 70%)",
+      }}
+    />
 
-    {/* Center code symbol */}
+    {/* Center code glyph */}
     <motion.span
-      className="font-LouisBold text-4xl 2xl:text-5xl text-greenApple/25 select-none z-10 tracking-tight"
-      animate={{ opacity: [0.25, 0.45, 0.25] }}
+      className="font-Alphaget text-4xl 2xl:text-5xl select-none z-10"
+      style={{
+        color: "#CECE5A",
+        textShadow: "0 0 16px rgba(206,206,90,0.8), 0 0 36px rgba(206,206,90,0.4)"
+      }}
+      animate={{ opacity: [0.75, 1, 0.75] }}
       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
     >
       {"</>"}
     </motion.span>
-
-    {/* Floating ambient dots */}
-    {dots.map((dot, i) => (
-      <motion.div
-        key={i}
-        className="absolute rounded-full bg-pastelPink/35 pointer-events-none"
-        style={{ left: dot.left, top: dot.top, width: dot.size, height: dot.size }}
-        animate={{ y: [0, -10, 0], opacity: [0.25, 0.6, 0.25] }}
-        transition={{ duration: dot.duration, repeat: Infinity, delay: dot.delay, ease: "easeInOut" }}
-      />
-    ))}
   </div>
 );
 
