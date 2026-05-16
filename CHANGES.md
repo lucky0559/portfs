@@ -329,3 +329,10 @@ A comprehensive visual redesign across all components applying editorial dark-lu
 - **Skills subtitle** ("Technologies and tools I work with daily"): increased from `text-base xl:text-lg` to `text-xl xl:text-2xl` with `font-LouisBold text-light/75` — renders at 24px, clearly visible.
 - **Projects subtitle** ("A selection of work I've built professionally and independently"): changed to `text-light font-LouisBold text-base xl:text-lg` — full opacity cream at 18px, clearly visible.
 - Root cause: `LouisGeorgeCafe` is a thin script font; at ≤16px it renders with barely-visible strokes. Subtitles must use `font-LouisBold` at ≥18–20px (or `text-xl`+) to be legible.
+
+---
+
+## 2026-05-16 — New Project Added
+
+### Projects (`constants/Projects.ts`)
+- Added **My HR** (Asti Business Services Inc. / ABSI) — private project, no public URL or screenshots.

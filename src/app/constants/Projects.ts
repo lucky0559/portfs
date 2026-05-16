@@ -51,6 +51,13 @@ const projects: ViewingDeckProject[] = [
     projectUrl: "https://www.vooks.com/"
   },
   {
+    name: "My HR",
+    from: "Asti Business Services Inc. (ABSI)",
+    imageURLs: [],
+    projectUrl: "",
+    isPrivate: true
+  },
+  {
     name: "Client Back-office Web Application (Telco)",
     from: "Asti Business Services Inc. (ABSI)",
     imageURLs: [],
@@ -95,6 +102,12 @@ const cards: CardType[] = [
     name: "Vooks",
     from: "Virtual Staffing Solution",
     imageURL: "https://play-lh.googleusercontent.com/H-sP3vDTwEKWdD-GQ93ksbG2YJ_qjPG8Lj54thI6Is3T_PXkfHkR8ELT5um4zKAIlV3z"
+  },
+  {
+    name: "My HR",
+    from: "Asti Business Services Inc. (ABSI)",
+    imageURL: "",
+    isPrivate: true
   },
   {
     name: "Client Back-office Web Application (Telco)",
