@@ -9,10 +9,18 @@ type CardProps = {
   name: string;
   from: string;
   isPrivate?: boolean;
+  isSaas?: boolean;
+  role?: "Full-Stack" | "Frontend" | "Backend";
   onClick: () => void;
 };
 
-const Card = ({ cardImageUrl, onClick, name, from, isPrivate }: CardProps) => {
+const roleColors: Record<string, { bg: string; border: string; color: string }> = {
+  "Full-Stack": { bg: "rgba(56,189,248,0.18)", border: "rgba(56,189,248,0.7)", color: "#bae6fd" },
+  "Frontend":   { bg: "rgba(167,139,250,0.18)", border: "rgba(167,139,250,0.7)", color: "#ddd6fe" },
+  "Backend":    { bg: "rgba(251,191,36,0.18)", border: "rgba(251,191,36,0.7)", color: "#fde68a" }
+};
+
+const Card = ({ cardImageUrl, onClick, name, from, isPrivate, isSaas, role }: CardProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -42,14 +50,14 @@ const Card = ({ cardImageUrl, onClick, name, from, isPrivate }: CardProps) => {
         whileHover={{ y: -6, boxShadow: "0 20px 48px rgba(0,0,0,0.35)" }}
         whileTap={{ scale: 0.98 }}
         transition={{ type: "spring", stiffness: 280, damping: 24 }}
-        className="w-52 h-[15rem] flex flex-col bg-primaryBackground/80 border border-pastelPink/10 hover:border-pastelPink/25 rounded-2xl overflow-hidden cursor-pointer transition-colors duration-300 group"
+        className="w-52 h-[17rem] flex flex-col bg-primaryBackground/80 border border-pastelPink/10 hover:border-pastelPink/25 rounded-2xl overflow-hidden cursor-pointer transition-colors duration-300 group"
       >
         {/* Image area */}
         <div className="h-36 flex-shrink-0 flex items-center justify-center bg-secondaryBackground/60 overflow-hidden relative">
           {isPrivate ? (
             <div className="flex flex-col items-center gap-2">
-              <FaLock size={24} className="text-pastelPink/65" />
-              <span className="font-Louis text-[9px] text-pastelPink/65 tracking-widest uppercase">
+              <FaLock size={24} className="text-pastelPink" />
+              <span className="font-Louis text-[9px] text-pastelPink tracking-widest uppercase">
                 Confidential
               </span>
             </div>
@@ -61,7 +69,6 @@ const Card = ({ cardImageUrl, onClick, name, from, isPrivate }: CardProps) => {
                 alt={name}
                 className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
               />
-              {/* Hover overlay with external link hint */}
               <div className="absolute inset-0 bg-primaryBackground/0 group-hover:bg-primaryBackground/30 transition-colors duration-300 flex items-center justify-center">
                 <FaExternalLinkAlt
                   size={16}
@@ -70,21 +77,39 @@ const Card = ({ cardImageUrl, onClick, name, from, isPrivate }: CardProps) => {
               </div>
             </>
           )}
-          {isPrivate && (
-            <span className="absolute bottom-2 left-2.5 inline-block px-2 py-0.5 bg-primaryBackground/70 border border-pastelPink/30 text-pastelPink/80 rounded-full text-[9px] font-LouisBold tracking-wide">
-              Private
-            </span>
-          )}
+          <div className="absolute bottom-2 left-2.5 flex gap-1.5">
+            {isPrivate && (
+              <span className="inline-block px-2 py-0.5 bg-primaryBackground/70 border border-pastelPink/30 text-pastelPink/80 rounded-full text-[9px] font-LouisBold tracking-wide">
+                Private
+              </span>
+            )}
+            {isSaas && (
+              <span className="inline-block px-2 py-0.5 bg-greenApple/10 border border-greenApple/30 text-greenApple/80 rounded-full text-[9px] font-LouisBold tracking-wide">
+                SaaS
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Info */}
-        <div className="p-3.5 flex flex-col gap-1">
+        <div className="p-3.5 flex flex-col gap-1.5">
           <p className="text-light/50 font-Louis text-[10px] uppercase tracking-[0.12em] truncate">
             {from}
           </p>
           <h4 className="text-light font-LouisBold text-xs leading-snug line-clamp-2 group-hover:text-greenApple/90 transition-colors duration-200">
             {name}
           </h4>
+          {role && (() => {
+            const c = roleColors[role];
+            return (
+              <span
+                style={{ backgroundColor: c.bg, borderColor: c.border, color: c.color, borderWidth: 1, borderStyle: "solid" }}
+                className="self-start inline-block px-2 py-0.5 rounded-full text-[9px] font-LouisBold tracking-wide mt-0.5"
+              >
+                {role}
+              </span>
+            );
+          })()}
         </div>
       </motion.div>
     </div>

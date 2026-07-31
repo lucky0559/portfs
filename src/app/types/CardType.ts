@@ -3,4 +3,6 @@ export type CardType = {
   from: string;
   imageURL: string;
   isPrivate?: boolean;
+  isSaas?: boolean;
+  role?: "Full-Stack" | "Frontend" | "Backend";
 };

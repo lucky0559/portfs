@@ -15,6 +15,7 @@ import {
   SiGit,
   SiGithub,
   SiGitlab,
+  SiGooglecloud,
   SiHtml5,
   SiJira,
   SiNestjs,
@@ -65,7 +66,8 @@ const backendSkills: SkillEntry[] = [
   { label: "AWS DynamoDB", url: "https://aws.amazon.com/dynamodb/", Icon: SiAmazondynamodb },
   { label: "AWS S3", url: "https://aws.amazon.com/s3/", Icon: SiAmazons3 },
   { label: "Elastic Beanstalk", url: "https://aws.amazon.com/elasticbeanstalk/", Icon: SiAmazonaws },
-  { label: "Route 53", url: "https://aws.amazon.com/route53/", abbr: "R53" }
+  { label: "Route 53", url: "https://aws.amazon.com/route53/", abbr: "R53" },
+  { label: "Google Cloud Run", url: "https://cloud.google.com/run", Icon: SiGooglecloud }
 ];
 
 const otherSkills: SkillEntry[] = [

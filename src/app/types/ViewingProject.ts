@@ -4,4 +4,7 @@ export type ViewingDeckProject = {
   imageURLs: string[];
   projectUrl: string;
   isPrivate?: boolean;
+  isSaas?: boolean;
+  description?: string;
+  role?: "Full-Stack" | "Frontend" | "Backend";
 };

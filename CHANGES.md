@@ -336,3 +336,79 @@ A comprehensive visual redesign across all components applying editorial dark-lu
 
 ### Projects (`constants/Projects.ts`)
 - Added **My HR** (Asti Business Services Inc. / ABSI) — private project, no public URL or screenshots.
+
+---
+
+## 2026-07-31 — Project Modal Click-Outside-to-Close
+
+### Projects (`pages/Projects/Projects.tsx`)
+- Since the project detail modal renders `size="full"`, there is no visible backdrop to click away from. Added an `onClick` on the modal's outer content wrapper that closes the dialog, with `stopPropagation()` on each "About this project" description box (private, image-gallery, and no-preview variants) so clicking the description text itself does not close it.
+- Clicking anywhere else in the modal — header, image gallery, dot indicators, the "Visit project" link, footer — now also closes the modal, per explicit user choice over excluding interactive elements.
+
+---
+
+## 2026-07-31 — Insurance SaaS Platform Renamed to PruServices
+
+### Projects (`constants/Projects.ts`, `public/pruservices-logo.png`)
+- Renamed **Insurance SaaS Platform** (Vertere Global Solutions) to **PruServices** in both the `cards` and `projects` data.
+- Added the Pru Life U.K. wordmark logo, downloaded from `pruservices.prulifeuk.com.ph` and saved locally at `public/pruservices-logo.png` (referenced as `/pruservices-logo.png`) rather than hotlinked, since the source is a live third-party app.
+- Flipped `isPrivate` from `true` to `false` for this project — `Card.tsx` and the modal both short-circuit to a lock icon / "Confidential" placeholder whenever `isPrivate` is true, so the logo would never have rendered otherwise. Confirmed with the user before making this change since it also removes the "Private" badge treatment.
+
+---
+
+## 2026-07-31 — Client Back-office Web App Renamed to VSAH
+
+### Projects (`constants/Projects.ts`)
+- Renamed **Client Back-office Web Application (Telco)** (ABSI) to **Vendor Service Access Hub (VSAH)** in both the `cards` and `projects` data, and marked it `isSaas: true`.
+- Stayed `isPrivate: true`, so the card and modal keep the lock icon / "Confidential" treatment — the added description still renders underneath it, same as the Stock Investment Market System entry.
+- Added description naming the end client, **Globe** (Philippine telco), and covering the ticketing workflow (vendors raise tickets for work orders, routed through a multi-level approver chain) and the user management module's blacklist feature, named **Arnitikos**, which supports flagging, searching, and managing blacklisted individuals.
+
+---
+
+## 2026-07-31 — Google Cloud Run Added to Skills
+
+### Skills (`pages/Skills/Skills.tsx`)
+- Added **Google Cloud Run** to the Back-End skills group, using the `SiGooglecloud` icon (simple-icons has no dedicated Cloud Run glyph) linking to `cloud.google.com/run`.
+
+---
+
+## 2026-07-31 — New Project Added: Himis
+
+### Projects (`constants/Projects.ts`, `public/himis-*.png`)
+- Added **Himis** (Freelance, Frontend), placed right after Vooks in both the `cards` and `projects` data. Sourced details from the live site at `https://himis.nl/` — a Dutch interim-management/freelance staffing platform for logistics, operations, and business support roles, based in Hoevelaken, Netherlands.
+- Card thumbnail uses the HIMIS wordmark logo, downloaded from the site's asset CDN and saved locally at `public/himis-logo.png` (`/himis-logo.png`) rather than hotlinked, consistent with the PruServices logo.
+- Modal gallery ("sample UI") uses three Playwright screenshots taken directly of the live homepage — hero section, job-search/services section, and the industry-knowledge grid — saved locally as `public/himis-hero.png`, `public/himis-search.png`, and `public/himis-industries.png`, since the site is a public marketing/job-board page with no separate screenshot assets to hotlink.
+
+---
+
+## 2026-07-31 — Gallery Navigation Fix & Larger Modal Images
+
+### Projects (`pages/Projects/Projects.tsx`)
+- Fixed a regression from the earlier click-outside-to-close change: clicking the gallery's next/prev arrows or dot indicators bubbled up to the modal's outer `onClick` and closed the dialog before the image could advance. Added `stopPropagation()` to all three gallery controls.
+- The gallery image was capped at `max-w-[400px]`, sized for portrait mobile screenshots (Chloe, Vurple). This made landscape screenshots like Himis's render small. Changed to `max-w-full` (still bounded by `max-h-[700px]` and `object-contain`) so images use the available pane width regardless of orientation.
+
+---
+
+## 2026-07-31 — Clicking the Gallery Image No Longer Closes the Modal
+
+### Projects (`pages/Projects/Projects.tsx`)
+- Clicking anywhere on the screenshot/mockup itself (not just the prev/next/dot controls) still bubbled up and closed the modal. Moved `stopPropagation()` from the individual gallery buttons to the `ImageGallery` component's root wrapper, so any click within the gallery pane — image, arrows, or dots — stays inside the modal; the per-button `stopPropagation()` calls became redundant and were removed.
+
+---
+
+## 2026-07-31 — New Project Added: Visual Blueprint
+
+### Projects (`constants/Projects.ts`, `public/visual-blueprint-*.png`)
+- Added **Visual Blueprint** (Freelance, Frontend), placed right after Himis in both the `cards` and `projects` data. Sourced details primarily by running the local project at `/Users/luckyangelo/Astravisium/visual-blueprint` (`npm run dev` on port 3055) rather than only the live site at `https://www.visual-blueprint.com/`, then cross-checked against the live URL set as `projectUrl`.
+- The studio is a Netherlands-based (Tilburg) 3D visualization service for architects, developers, and real estate — offering Interior Design Visualization, 360-Degree Virtual Tours, 3D Blueprint conversion, and Exterior Design Visualization.
+- Card thumbnail uses the Visual Blueprint wordmark, extracted from the live-rendered navbar logo element and re-cropped locally to trim the transparent margin (the raw source asset was correctly transparent but the PNG previewer rendered stray unmultiplied RGB in the alpha-0 regions, which looked like a muddy gradient until inspected pixel-by-pixel) — saved at `public/visual-blueprint-logo.png`.
+- Modal gallery ("sample UI") uses three Playwright screenshots taken directly from the running local dev server — hero section, 360° virtual tour service section, and the `/portfolio` project grid — saved locally as `public/visual-blueprint-hero.png`, `public/visual-blueprint-services.png`, and `public/visual-blueprint-portfolio.png`.
+
+---
+
+## 2026-07-31 — New Project Added: B&O Safety And Care
+
+### Projects (`constants/Projects.ts`, `public/bo-safety-*.png`)
+- Added **B&O Safety And Care** (Freelance, Frontend — role confirmed with the user since it wasn't specified), placed right before Vooks in both the `cards` and `projects` data. Sourced details from the live site at `https://www.bosafetyandcare.com/` — a Dutch private security company offering event, hospitality/venue, object, and personal security services, 24/7, with more than a decade of experience.
+- Card thumbnail uses the colored "B&O Safety and Care" wordmark from the site's footer brand asset (the navbar logo variant was white-on-transparent and invisible against a white background when previewed), saved locally at `public/bo-safety-logo.png`.
+- Modal gallery ("sample UI") uses three Playwright screenshots of the live site — hero section, services grid (event/hospitality/object/personal security), and the 24/7-protection CTA/footer section — saved locally as `public/bo-safety-hero.png`, `public/bo-safety-services.png`, and `public/bo-safety-cta.png`.

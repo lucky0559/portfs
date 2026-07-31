@@ -74,7 +74,7 @@ const MyProfile = () => {
             transition={{ type: "spring", stiffness: 260, damping: 22 }}
           >
             <Image
-              src="https://storage.googleapis.com/portfs-images/profile.jpg"
+              src="/profile.jpg"
               alt="Lucky Angelo Rabosa"
               fill
               sizes="(max-width: 1280px) 280px, 288px"
