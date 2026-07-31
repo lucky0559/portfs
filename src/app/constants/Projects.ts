@@ -59,7 +59,7 @@ const projects: ViewingDeckProject[] = [
   {
     name: "PruServices",
     from: "Vertere Global Solutions",
-    imageURLs: ["/pruservices-logo.png"],
+    imageURLs: ["/pruservices-onboarding.png"],
     projectUrl: "",
     isPrivate: false,
     isSaas: true,
@@ -83,9 +83,11 @@ const projects: ViewingDeckProject[] = [
   {
     name: "Vooks",
     from: "Virtual Staffing Solution",
-    imageURLs: [],
+    imageURLs: ["/vooks-hero.png", "/vooks-about.png", "/vooks-teachers.png"],
     projectUrl: "https://www.vooks.com/",
-    role: "Full-Stack"
+    role: "Full-Stack",
+    description:
+      "Vooks is an award-winning online library of animated, read-aloud storybooks for kids, turning physical picture books into gently narrated videos with read-along highlighted text, music, and sound effects. Beyond the core streaming library, the platform includes classroom tools and educator pricing (used by over 1 million teachers), a library-partnership program, activities, and a \"Vooks Creator\" offering for authors and publishers — all aimed at making screen time feel like storytime. Developed across Web, Mobile, and TV platforms so families can watch and read along wherever they are."
   },
   {
     name: "Himis",
@@ -110,6 +112,37 @@ const projects: ViewingDeckProject[] = [
       "Visual Blueprint is a Netherlands-based (Tilburg) 3D visualization studio for architects, developers, and real estate professionals. The site showcases the studio's core services — Interior Design Visualization, 360-Degree Virtual Tours, 3D Blueprint conversion (turning technical drawings into dimensionally accurate 3D models), and Exterior Design Visualization — alongside a portfolio of rendered projects and client testimonials."
   },
   {
+    name: "Pa-Abogado (Corporate Website)",
+    from: "Freelance",
+    imageURLs: [
+      "/panotaryo-hero.png",
+      "/panotaryo-services.png",
+      "/panotaryo-lawyers.png"
+    ],
+    projectUrl: "",
+    role: "Frontend",
+    description:
+      "The corporate marketing site for Pa-Abogado PH, a Philippine platform for online notarization and legal consultation. Built with Next.js and Tailwind, the site introduces the service's core offerings — remote notarization via secure video conference, licensed-lawyer consultations, and online legal support — and highlights the registered lawyers available on the platform. It also walks visitors through the end-to-end workflow: clients upload documents and join sessions from a mobile app while lawyers verify identity and conduct notarization from a desktop browser, with all actions securely logged for compliance."
+  },
+  {
+    name: "Pa-Abogado (Admin Website)",
+    from: "Freelance",
+    imageURLs: ["/panotaryo-admin-login.png", "/panotaryo-admin-dashboard.png"],
+    projectUrl: "",
+    role: "Frontend",
+    description:
+      "The internal back-office admin panel for Pa-Abogado PH, built with Next.js, TanStack Query/Table, Zustand, and shadcn/ui, authenticated via OTP email login. Administrators manage the full notarization platform from a tabbed dashboard — Users, Witnesses, Lawyers/Legal, Admins, Lawyer Categories, and Lawyer Applicants — with a stats overview covering active lawyers, registered users, total bookings, and chat, video, and notarization session counts. It also handles lawyer application review/approval, witness status updates, admin account management, and admin profile settings."
+  },
+  {
+    name: "Pa-Abogado (Lawyer Website)",
+    from: "Freelance",
+    imageURLs: ["/panotaryo-lawyer-login.png", "/panotaryo-lawyer-activities.png"],
+    projectUrl: "",
+    role: "Frontend",
+    description:
+      "The lawyer-facing web portal for Pa-Abogado PH, where licensed lawyers manage their client caseload and conduct sessions. Built with Next.js, TanStack Query/Table, Agora RTC (video/voice), Socket.IO (real-time chat), and pdf-lib/pdfjs for document handling, with OTP email authentication. The Activities dashboard is organized into Consult Now, Consult Later, Chat, and Notarization tabs, each showing scheduled sessions, client names, and live status (Ongoing, Upcoming, Pending, Finished) with a one-click Join into the video consultation or remote notarization room."
+  },
+  {
     name: "My HR",
     from: "Asti Business Services Inc. (ABSI)",
     imageURLs: [],
@@ -119,6 +152,32 @@ const projects: ViewingDeckProject[] = [
     role: "Frontend",
     description:
       "My HR is a comprehensive SaaS-based Human Resource Management System designed to streamline and automate end-to-end HR processes for organizations. It covers the full employee lifecycle — from onboarding and daily attendance tracking, to managing benefits, allowances, and leave requests. The platform handles performance evaluations and disciplinary workflows, and culminates in a fully automated payroll processing engine that computes salaries, deductions, government contributions (SSS, PhilHealth, Pag-IBIG), and generates payslips. Built to scale with multi-tenant architecture, My HR empowers HR teams to manage their workforce efficiently through a centralized, role-based web application."
+  },
+  {
+    name: "Cineserye",
+    from: "Freelance",
+    imageURLs: [
+      "/cineserye-hero.png",
+      "/cineserye-catalog.png",
+      "/cineserye-pricing.png"
+    ],
+    projectUrl: "",
+    role: "Frontend",
+    description:
+      "Cineserye is a Filipino video-on-demand streaming platform for teleseryes, movies, and exclusive originals. Built with Next.js and Redux Toolkit, the site features a Netflix-style browsing experience — a rotating featured-title hero, Top 10 and \"Only On Cineserye\" content rails, genres, cast, and tags — alongside a full membership system with tiered subscription plans (Basic, Premium, Standard), checkout/invoicing flow, watchlists, a companion merchandise store, and a blog."
+  },
+  {
+    name: "Cineserye (Admin Website)",
+    from: "Freelance",
+    imageURLs: [
+      "/cineserye-admin-login.png",
+      "/cineserye-admin-dashboard.png",
+      "/cineserye-admin-titles.png"
+    ],
+    projectUrl: "",
+    role: "Frontend",
+    description:
+      "The internal content-management back office for Cineserye, built with Next.js, Zustand, and shadcn/ui, authenticated via OTP email login (with a separate super-admin path). Content teams manage the entire catalog — Titles, Movies, Series, Seasons, Episodes, Collections/Rows, Genres, Artists (Cast & Crew), Availability rules per region, Regions, Languages, Age Ratings, and Content Warnings — plus Subscription Plans and PPV pricing, admin user management, and a dashboard with live-style stats (active subscribers, PPV purchases, revenue, playback errors), recent activity, and system health monitoring."
   },
   {
     name: "Vendor Service Access Hub (VSAH)",
@@ -207,11 +266,41 @@ const cards: CardType[] = [
     role: "Frontend"
   },
   {
+    name: "Pa-Abogado (Corporate Website)",
+    from: "Freelance",
+    imageURL: "/panotaryo-logo.png",
+    role: "Frontend"
+  },
+  {
+    name: "Pa-Abogado (Admin Website)",
+    from: "Freelance",
+    imageURL: "/panotaryo-logo.png",
+    role: "Frontend"
+  },
+  {
+    name: "Pa-Abogado (Lawyer Website)",
+    from: "Freelance",
+    imageURL: "/panotaryo-logo.png",
+    role: "Frontend"
+  },
+  {
     name: "My HR",
     from: "Asti Business Services Inc. (ABSI)",
     imageURL: "",
     isPrivate: true,
     isSaas: true,
+    role: "Frontend"
+  },
+  {
+    name: "Cineserye",
+    from: "Freelance",
+    imageURL: "/cineserye-logo.png",
+    role: "Frontend"
+  },
+  {
+    name: "Cineserye (Admin Website)",
+    from: "Freelance",
+    imageURL: "/cineserye-logo.png",
     role: "Frontend"
   },
   {

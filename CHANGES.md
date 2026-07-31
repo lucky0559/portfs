@@ -412,3 +412,85 @@ A comprehensive visual redesign across all components applying editorial dark-lu
 - Added **B&O Safety And Care** (Freelance, Frontend — role confirmed with the user since it wasn't specified), placed right before Vooks in both the `cards` and `projects` data. Sourced details from the live site at `https://www.bosafetyandcare.com/` — a Dutch private security company offering event, hospitality/venue, object, and personal security services, 24/7, with more than a decade of experience.
 - Card thumbnail uses the colored "B&O Safety and Care" wordmark from the site's footer brand asset (the navbar logo variant was white-on-transparent and invisible against a white background when previewed), saved locally at `public/bo-safety-logo.png`.
 - Modal gallery ("sample UI") uses three Playwright screenshots of the live site — hero section, services grid (event/hospitality/object/personal security), and the 24/7-protection CTA/footer section — saved locally as `public/bo-safety-hero.png`, `public/bo-safety-services.png`, and `public/bo-safety-cta.png`.
+
+---
+
+## 2026-07-31 — New Project Added: Panotaryo (Corporate Website)
+
+### Projects (`constants/Projects.ts`, `public/panotaryo-*.png`)
+- Added **Panotaryo (Corporate Website)** (Freelance, Frontend), placed right after Visual Blueprint in both the `cards` and `projects` data. Sourced details by running the local source at `/Users/luckyangelo/WhatsApp/pa-notaryo-ph/corporate-website` (`npm run dev` on port 3007) — no public production URL was found in the source (no custom domain in configs, `.well-known` files, or `next.config`), so `projectUrl` was left empty.
+- The site is the marketing front-end for PA Notaryo PH, a Philippine online notarization and legal-consultation platform — covering Notarization, Consultation, and Online Legal Support services, a "Meet Our Lawyers" roster, and a client/lawyer workflow explainer (mobile app for clients, desktop browser for lawyers).
+- Card thumbnail has no dedicated logo asset in the corporate-website repo itself (just the default Next.js favicon), so the actual brand mark — a justice-scale icon on a navy circle — was located in a sibling project in the same WhatsApp folder (`pa-notaryo-ph/admin-website/assets/common/logo.png`) and copied in as `public/panotaryo-logo.png`.
+- Modal gallery ("sample UI") uses three Playwright screenshots from the locally running dev server — hero section, services grid, and the "Meet Our Lawyers" section — saved locally as `public/panotaryo-hero.png`, `public/panotaryo-services.png`, and `public/panotaryo-lawyers.png`.
+
+---
+
+## 2026-07-31 — PruServices Sample Image Added
+
+### Projects (`constants/Projects.ts`, `public/pruservices-onboarding.png`)
+- Added a second gallery image to the existing **PruServices** entry: a Playwright screenshot of the live onboarding/sign-in screen at `https://pruservices.prulifeuk.com.ph/app/onboarding/welcome`, saved locally as `public/pruservices-onboarding.png` and appended after the existing logo in `imageURLs`.
+
+---
+
+## 2026-07-31 — PruServices Logo Removed From Details Slider
+
+### Projects (`constants/Projects.ts`)
+- Removed `/pruservices-logo.png` from the **PruServices** `imageURLs` at the user's request, leaving only `/pruservices-onboarding.png` in the modal gallery. The card-grid thumbnail (`cards` entry, separate field) still uses the logo and is unaffected.
+
+---
+
+## 2026-07-31 — New Projects Added: Panotaryo (Admin) & Panotaryo (Lawyer Website)
+
+### Projects (`constants/Projects.ts`, `public/panotaryo-admin-*.png`, `public/panotaryo-lawyer-*.png`)
+- Added **Panotaryo (Admin)** and **Panotaryo (Lawyer Website)** (both Freelance, Frontend), placed right after Panotaryo (Corporate Website) and after each other, in both `cards` and `projects` data. Both reuse the shared `/panotaryo-logo.png` card thumbnail.
+- Sourced from `/Users/luckyangelo/WhatsApp/pa-notaryo-ph/admin-website` (port 3008) and `/Users/luckyangelo/WhatsApp/pa-notaryo-ph/lawyer-website` (port 3009). Both apps require a real backend (`*-api-service.internal`, unreachable locally) to load any data, so their protected screens only rendered empty loading skeletons out of the box.
+- To get real-looking screenshots without fabricating a live backend or exposing real user data, used Playwright's `page.route` to intercept the specific API calls each screen makes and return synthetic, clearly-placeholder JSON matching each app's actual response types (`DashboardStats` for admin's `/analytics/*` calls made directly from the browser; `Activity[]` for the lawyer app's own `/api/activities` Next.js route) — then bypassed the client-side auth redirect by seeding the same `auth-storage` zustand/localStorage shape each app already uses. This is the same technique as normal browser dev-tools network mocking, just scripted; no backend or real user data was touched.
+- **Panotaryo (Admin)**: OTP email login screen (`public/panotaryo-admin-login.png`) plus the tabbed dashboard — Users, Witness, Lawyers/Legal, Admins, Lawyer Categories, Lawyer Applicants — with populated stat cards (`public/panotaryo-admin-dashboard.png`).
+- **Panotaryo (Lawyer Website)**: matching OTP login screen (`public/panotaryo-lawyer-login.png`) plus the lawyer's Activities dashboard — Consult Now/Consult Later/Chat/Notarization tabs — showing a populated schedule table with client names and live status badges (`public/panotaryo-lawyer-activities.png`).
+
+---
+
+## 2026-07-31 — All Panotaryo Projects Renamed to Pa-Abogado
+
+### Projects (`constants/Projects.ts`)
+- Renamed all three Panotaryo entries — Corporate Website, Admin, Lawyer Website — to **Pa-Abogado** in both `cards` and `projects` `name` fields, per the user's request. Also updated the "PA Notaryo PH" brand mentions inside the description copy to "Pa-Abogado PH" so the text stays consistent with the new name. Image filenames (`public/panotaryo-*.png`) and asset paths were left as-is since they're internal, not user-facing.
+- Later the same day, **Pa-Abogado (Admin)** was renamed again to **Pa-Abogado (Admin Website)** for consistency with the "Corporate Website" / "Lawyer Website" naming pattern.
+
+---
+
+## 2026-07-31 — New Project Added: Cineserye
+
+### Projects (`constants/Projects.ts`, `public/cineserye-*.png`)
+- Added **Cineserye** (Freelance, Frontend), placed right after My HR in both `cards` and `projects` data. Sourced by running the local source at `/Users/luckyangelo/WhatsApp/cinedrama/cinedrama-web` (`npm run dev` on port 3010, package name `stremit-next` — built on the "Streamit" video-streaming Next.js template) — no public production URL was found in the source, so `projectUrl` was left empty.
+- Unlike the Pa-Abogado apps, this one renders fully without any backend — it has no `fetch`/`axios` calls at all, driving everything from local `StaticData`, so the real screenshots needed no API mocking.
+- Cineserye is a Filipino teleserye/movie streaming (OTT) platform: a Netflix-style browsing home (featured-title hero, Top 10, "Only On Cineserye" rails), genres/cast/tags browsing, a tiered membership/subscription system (Basic, Premium, Standard plans with checkout), watchlists, a merchandise store, and a blog.
+- Card thumbnail uses the real brand logo found at `public/assets/images/logo.png` in the source repo, copied in as `public/cineserye-logo.png`. Modal gallery uses three Playwright screenshots from the running dev server — the featured-title hero, the Top 10/"Only On Cineserye" content rails, and the pricing/membership plans page — saved as `public/cineserye-hero.png`, `public/cineserye-catalog.png`, and `public/cineserye-pricing.png`.
+
+---
+
+## 2026-07-31 — Cineserye Card Logo Fix (Too Small)
+
+### Public assets (`public/cineserye-logo.png`)
+- The user reported the Cineserye logo looked too small on its project card. Root cause: the source PNG was a 1563×1563 canvas that was fully transparent except for a small icon+wordmark lockup in the middle, and that lockup itself was a wide ~3:1 horizontal shape — inside the card's narrow, roughly-square image slot, `object-contain` was scaling it down to fit the width, leaving it visually tiny.
+- First pass cropped tight to the full icon+wordmark's alpha bounding box (detected via PIL by reading the alpha channel, since the visible "white background" in previews was actually fully transparent pixels, not opaque white — a naive RGB-diff crop against white returned the whole canvas as bbox). This helped but the lockup's wide aspect ratio still capped how large it could render in a near-square slot.
+- Second pass cropped down further to just the square icon mark (the play-button "C" shape, dropping the "CineSerye" wordmark), matching how the other card logos in this grid are already icon-only marks in roughly square canvases. This is the version now in place.
+- Note for future image swaps: the browser's HTTP cache will keep serving a stale cached copy of a static asset if the filename doesn't change between edits — had to hard-clear the browser cache (CDP `Network.clearBrowserCache`) mid-session to see the updated crop while testing.
+
+---
+
+## 2026-07-31 — New Project Added: Cineserye (Admin Website)
+
+### Projects (`constants/Projects.ts`, `public/cineserye-admin-*.png`)
+- Added **Cineserye (Admin Website)** (Freelance, Frontend), placed right after Cineserye in both `cards` and `projects` data, reusing the shared `/cineserye-logo.png` card thumbnail.
+- Sourced from `/Users/luckyangelo/WhatsApp/cinedrama/cineserye-admin-website` (`npm run dev` on port 3011). This is a full content-management back office for the Cineserye streaming platform — Titles, Movies, Series, Seasons, Episodes, Collections/Rows, Genres, Artists (Cast & Crew), Availability rules, Regions, Languages, Age Ratings, Content Warnings, Subscription Plans, PPV pricing, and Admin user management — authenticated via OTP email login (plus a separate super-admin path).
+- The Dashboard page's stat cards, recent-activity table, and system-health table are fully hardcoded static UI (not wired to any API yet), so that screenshot needed no mocking at all. The Titles catalog page does call a real (unreachable) backend API directly from the browser (`http://weba-api-service.internal/v1`, no Next.js proxy in front of it), so that screenshot used the same Playwright `page.route` mocking technique as the Pa-Abogado admin projects — intercepting the literal internal API host and returning synthetic `TitleItem[]` data matching the app's real response shape — after bypassing the client-side auth guard by seeding the same `sessionStorage` keys (`admin_auth_tokens_v1`, `admin_auth_user_v1`) the app itself uses.
+- Screenshots: OTP login screen (`public/cineserye-admin-login.png`), the dashboard with stat cards/recent activity/system health (`public/cineserye-admin-dashboard.png`), and the Titles catalog table (`public/cineserye-admin-titles.png`).
+
+---
+
+## 2026-07-31 — Vooks Details Added
+
+### Projects (`constants/Projects.ts`, `public/vooks-*.png`)
+- Filled in the previously-empty **Vooks** entry (`imageURLs: []`, no description) by browsing the live site at `https://www.vooks.com/`. Vooks is an award-winning online library of animated, read-aloud storybooks for kids — physical picture books turned into gently narrated videos with read-along highlighted text, music, and sound — plus classroom/educator pricing (1M+ teachers), a library-partnership program, and a "Vooks Creator" program for authors/publishers.
+- Added three Playwright screenshots of the live site — the hero ("For Those Who Believe In the Magic of Storytime"), the "What is Vooks?" / award badges section, and the Teachers/classroom pricing page — saved as `public/vooks-hero.png`, `public/vooks-about.png`, and `public/vooks-teachers.png`. The existing card-grid thumbnail (Google Play Store icon URL) was left as-is; only the `projects` array (`imageURLs` + `description`) was updated, not `cards`.
+- Appended a note to the description that Vooks is developed across Web, Mobile, and TV platforms, per the user.
