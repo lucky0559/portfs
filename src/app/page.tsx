@@ -36,7 +36,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="overflow-hidden">
+      <main className="portfolio-main">
         <HomePage />
       </main>
     </>

@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef } from "react";
-import { FaLock, FaExternalLinkAlt } from "react-icons/fa";
+import { FaExternalLinkAlt, FaLock } from "react-icons/fa";
 
 type CardProps = {
   cardImageUrl: string;
@@ -11,107 +10,59 @@ type CardProps = {
   isPrivate?: boolean;
   isSaas?: boolean;
   role?: "Full-Stack" | "Frontend" | "Backend";
+  featured?: boolean;
   onClick: () => void;
 };
 
-const roleColors: Record<string, { bg: string; border: string; color: string }> = {
-  "Full-Stack": { bg: "rgba(56,189,248,0.18)", border: "rgba(56,189,248,0.7)", color: "#bae6fd" },
-  "Frontend":   { bg: "rgba(167,139,250,0.18)", border: "rgba(167,139,250,0.7)", color: "#ddd6fe" },
-  "Backend":    { bg: "rgba(251,191,36,0.18)", border: "rgba(251,191,36,0.7)", color: "#fde68a" }
-};
-
-const Card = ({ cardImageUrl, onClick, name, from, isPrivate, isSaas, role }: CardProps) => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const el = wrapperRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    el.style.background = `radial-gradient(220px circle at ${x}px ${y}px, rgba(206,206,90,0.12), rgba(167,130,149,0.06) 60%, transparent)`;
-  };
-
-  const handleMouseLeave = () => {
-    if (wrapperRef.current) {
-      wrapperRef.current.style.background = "transparent";
-    }
-  };
-
+const Card = ({
+  cardImageUrl,
+  onClick,
+  name,
+  from,
+  isPrivate,
+  isSaas,
+  role,
+  featured
+}: CardProps) => {
   return (
-    <div
-      ref={wrapperRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="p-[1px] rounded-2xl transition-[background] duration-400"
-    >
-      <motion.div
+    <div className={`project-card-shell${featured ? " project-card-shell--featured" : ""}`}>
+      <motion.button
+        type="button"
         onClick={onClick}
-        whileHover={{ y: -6, boxShadow: "0 20px 48px rgba(0,0,0,0.35)" }}
-        whileTap={{ scale: 0.98 }}
-        transition={{ type: "spring", stiffness: 280, damping: 24 }}
-        className="w-52 h-[17rem] flex flex-col bg-primaryBackground/80 border border-pastelPink/10 hover:border-pastelPink/25 rounded-2xl overflow-hidden cursor-pointer transition-colors duration-300 group"
+        whileTap={{ scale: 0.985 }}
+        className={`project-card${featured ? " project-card--featured" : ""}`}
+        aria-label={`Open project details for ${name}`}
       >
-        {/* Image area */}
-        <div className="h-36 flex-shrink-0 flex items-center justify-center bg-secondaryBackground/60 overflow-hidden relative">
+        <div className="project-card__image">
           {isPrivate ? (
-            <div className="flex flex-col items-center gap-2">
-              <FaLock size={24} className="text-pastelPink" />
-              <span className="font-Louis text-[9px] text-pastelPink tracking-widest uppercase">
-                Confidential
-              </span>
+            <div className="project-card__private">
+              <FaLock size={20} aria-hidden="true" />
+              <span>Confidential</span>
             </div>
+          ) : cardImageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={cardImageUrl} alt={`${name} project mark`} />
           ) : (
-            <>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={cardImageUrl}
-                alt={name}
-                className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-primaryBackground/0 group-hover:bg-primaryBackground/30 transition-colors duration-300 flex items-center justify-center">
-                <FaExternalLinkAlt
-                  size={16}
-                  className="text-greenApple/0 group-hover:text-greenApple/80 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"
-                />
-              </div>
-            </>
+            <div className="project-card__private">
+              <span>No public preview</span>
+            </div>
           )}
-          <div className="absolute bottom-2 left-2.5 flex gap-1.5">
-            {isPrivate && (
-              <span className="inline-block px-2 py-0.5 bg-primaryBackground/70 border border-pastelPink/30 text-pastelPink/80 rounded-full text-[9px] font-LouisBold tracking-wide">
-                Private
-              </span>
-            )}
-            {isSaas && (
-              <span className="inline-block px-2 py-0.5 bg-greenApple/10 border border-greenApple/30 text-greenApple/80 rounded-full text-[9px] font-LouisBold tracking-wide">
-                SaaS
-              </span>
-            )}
+
+          <div className="project-card__badges">
+            {isPrivate && <span className="project-badge">Private</span>}
+            {isSaas && <span className="project-badge project-badge--accent">SaaS</span>}
           </div>
         </div>
 
-        {/* Info */}
-        <div className="p-3.5 flex flex-col gap-1.5">
-          <p className="text-light/50 font-Louis text-[10px] uppercase tracking-[0.12em] truncate">
-            {from}
-          </p>
-          <h4 className="text-light font-LouisBold text-xs leading-snug line-clamp-2 group-hover:text-greenApple/90 transition-colors duration-200">
-            {name}
-          </h4>
-          {role && (() => {
-            const c = roleColors[role];
-            return (
-              <span
-                style={{ backgroundColor: c.bg, borderColor: c.border, color: c.color, borderWidth: 1, borderStyle: "solid" }}
-                className="self-start inline-block px-2 py-0.5 rounded-full text-[9px] font-LouisBold tracking-wide mt-0.5"
-              >
-                {role}
-              </span>
-            );
-          })()}
+        <div className="project-card__content">
+          <p className="project-card__from">{from}</p>
+          <h3 className="project-card__name">{name}</h3>
+          <div className="project-card__footer">
+            {role && <span className="project-role">{role}</span>}
+            <FaExternalLinkAlt className="project-card__arrow" size={11} aria-hidden="true" />
+          </div>
         </div>
-      </motion.div>
+      </motion.button>
     </div>
   );
 };
