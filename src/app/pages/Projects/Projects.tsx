@@ -200,6 +200,7 @@ const Projects = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deckViewingProject, setDeckViewingProject] = useState<ViewingDeckProject | undefined>();
   const shouldReduce = useReducedMotion();
+  const displayCards = [...cards].reverse();
 
   const onClickProjectHandler = (name: string) => {
     const project = projects.find(p => p.name === name);
@@ -232,9 +233,9 @@ const Projects = () => {
         whileInView="visible"
         viewport={{ once: true, margin: "-40px" }}
       >
-        {cards.map((card, index) => (
+        {displayCards.map((card, index) => (
           <motion.div
-            key={index}
+            key={card.name}
             variants={cardVariants}
             className={index === 0 ? "project-grid-item--featured" : undefined}
           >
