@@ -47,7 +47,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section id="contact" className="section-panel section-spacing">
+      <section id="contact" className="section-panel section-spacing contact-section">
         <div className="section-shell">
           <SectionLabel number="05" label="Connect" />
           <Contact />

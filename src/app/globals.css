@@ -700,6 +700,10 @@ textarea:focus-visible {
   padding: clamp(5.5rem, 10vw, 9rem) 0 clamp(6.5rem, 12vw, 10rem);
 }
 
+.contact-section {
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
 .section-heading {
   display: flex;
   align-items: flex-end;
@@ -1035,10 +1039,6 @@ textarea:focus-visible {
   background: var(--surface);
 }
 
-.project-card--featured .project-card__image {
-  height: 14.5rem;
-}
-
 .project-card__image img {
   position: absolute;
   inset: 1rem;
@@ -1353,7 +1353,8 @@ textarea:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1.4rem 0 2rem;
+  margin-top: clamp(1.75rem, 3vw, 3rem);
+  padding: 1.1rem 0 1rem;
   border-top: 1px solid var(--line);
   color: var(--faint);
   font-family: Louis, sans-serif;
@@ -1695,10 +1696,6 @@ textarea:focus-visible {
   .project-card__image,
   .project-card--featured .project-card__image {
     height: 8rem;
-  }
-
-  .project-card--featured .project-card__image {
-    height: 11rem;
   }
 
   .project-card__content {
