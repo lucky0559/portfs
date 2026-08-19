@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { FaCheckCircle, FaTimes } from "react-icons/fa";
+import { FaCheckCircle, FaExclamationTriangle, FaTimes } from "react-icons/fa";
 import Message from "@/components/Chat/Message";
 import { useChat } from "@/lib/hooks/useChat";
 
@@ -38,7 +38,7 @@ const Panel = ({ open, onClose }: PanelProps) => {
       if (event.key !== "Tab" || !panelRef.current) return;
 
       const focusable = panelRef.current.querySelectorAll<HTMLElement>(
-        'button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])'
+        'button:not(:disabled), [href], input:not(:disabled), textarea:not(:disabled), select:not(:disabled), [tabindex]:not([tabindex="-1"])'
       );
       if (focusable.length === 0) return;
 
@@ -128,6 +128,7 @@ const Panel = ({ open, onClose }: PanelProps) => {
 
         {error ? (
           <p className="chat-notice chat-notice--error" role="alert">
+            <FaExclamationTriangle aria-hidden="true" />
             {error} You can also <a href="#contact" onClick={onClose}>use the contact form</a>.
           </p>
         ) : null}
