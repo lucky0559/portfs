@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { MAX_MESSAGES } from "@/lib/ai/validateChatRequest";
 import type { ChatMessage, ChatStreamEvent } from "@/types/Chat";
 
 export type ChatStatus = "idle" | "streaming" | "error";
@@ -45,7 +46,8 @@ export function useChat() {
       const trimmed = text.trim();
       if (!trimmed || status === "streaming") return;
 
-      const outgoing: ChatMessage[] = [...messages, { role: "user", content: trimmed }];
+      const userMessage: ChatMessage = { role: "user", content: trimmed };
+      const outgoing: ChatMessage[] = [...messages, userMessage].slice(-(MAX_MESSAGES - 1));
       setMessages([...outgoing, { role: "assistant", content: "" }]);
       setStatus("streaming");
       setError(null);
@@ -102,8 +104,9 @@ export function useChat() {
 
         setStatus("idle");
         setMessages((current) => {
-          writeStoredHistory(current);
-          return current;
+          const cleaned = current.filter((message) => message.content.length > 0);
+          writeStoredHistory(cleaned);
+          return cleaned;
         });
       } catch (caught) {
         setStatus("error");

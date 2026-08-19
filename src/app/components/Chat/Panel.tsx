@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { FaCheckCircle, FaExclamationTriangle, FaTimes } from "react-icons/fa";
+import { FaCheckCircle, FaExclamationTriangle, FaPlus, FaTimes } from "react-icons/fa";
 import Message from "@/components/Chat/Message";
 import { useChat } from "@/lib/hooks/useChat";
 
@@ -17,7 +17,7 @@ type PanelProps = {
 };
 
 const Panel = ({ open, onClose }: PanelProps) => {
-  const { messages, status, leadSent, error, send } = useChat();
+  const { messages, status, leadSent, error, send, reset } = useChat();
   const [draft, setDraft] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
@@ -87,12 +87,24 @@ const Panel = ({ open, onClose }: PanelProps) => {
           <p className="chat-panel__title">Ask about Lucky&apos;s work</p>
           <p className="chat-panel__subtitle">Answers come from this site&apos;s content</p>
         </div>
-        <button type="button" className="chat-panel__close" onClick={onClose} aria-label="Close chat">
-          <FaTimes aria-hidden="true" />
-        </button>
+        <div className="chat-panel__header-actions">
+          <button
+            type="button"
+            className="chat-panel__new"
+            onClick={reset}
+            disabled={status === "streaming"}
+            aria-label="Start a new chat"
+          >
+            <FaPlus aria-hidden="true" />
+            New chat
+          </button>
+          <button type="button" className="chat-panel__close" onClick={onClose} aria-label="Close chat">
+            <FaTimes aria-hidden="true" />
+          </button>
+        </div>
       </header>
 
-      <div className="chat-log" ref={logRef} aria-live="polite" aria-atomic="false">
+      <div className="chat-log" ref={logRef} aria-atomic="false">
         {messages.length === 0 ? (
           <div className="chat-empty">
             <p className="chat-empty__lead">
@@ -132,6 +144,12 @@ const Panel = ({ open, onClose }: PanelProps) => {
             {error} You can also <a href="#contact" onClick={onClose}>use the contact form</a>.
           </p>
         ) : null}
+      </div>
+
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {status !== "streaming" && lastMessage?.role === "assistant" && lastMessage.content.length > 0
+          ? lastMessage.content
+          : ""}
       </div>
 
       <form className="chat-composer" onSubmit={submit}>

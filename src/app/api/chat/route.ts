@@ -10,9 +10,15 @@ export const dynamic = "force-dynamic";
 const encoder = new TextEncoder();
 
 const getClientIp = (req: NextRequest): string => {
+  if (req.ip) return req.ip;
+  const realIp = req.headers.get("x-real-ip");
+  if (realIp) return realIp;
   const forwarded = req.headers.get("x-forwarded-for");
-  if (forwarded) return forwarded.split(",")[0].trim();
-  return req.headers.get("x-real-ip") || "unknown";
+  if (forwarded) {
+    const parts = forwarded.split(",").map((part) => part.trim());
+    return parts[parts.length - 1];
+  }
+  return "unknown";
 };
 
 const sse = (event: ChatStreamEvent): Uint8Array =>
