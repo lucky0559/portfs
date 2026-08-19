@@ -494,3 +494,32 @@ A comprehensive visual redesign across all components applying editorial dark-lu
 - Filled in the previously-empty **Vooks** entry (`imageURLs: []`, no description) by browsing the live site at `https://www.vooks.com/`. Vooks is an award-winning online library of animated, read-aloud storybooks for kids — physical picture books turned into gently narrated videos with read-along highlighted text, music, and sound — plus classroom/educator pricing (1M+ teachers), a library-partnership program, and a "Vooks Creator" program for authors/publishers.
 - Added three Playwright screenshots of the live site — the hero ("For Those Who Believe In the Magic of Storytime"), the "What is Vooks?" / award badges section, and the Teachers/classroom pricing page — saved as `public/vooks-hero.png`, `public/vooks-about.png`, and `public/vooks-teachers.png`. The existing card-grid thumbnail (Google Play Store icon URL) was left as-is; only the `projects` array (`imageURLs` + `description`) was updated, not `cards`.
 - Appended a note to the description that Vooks is developed across Web, Mobile, and TV platforms, per the user.
+
+---
+
+## 2026-08-19 — AI chat assistant
+
+- Added a floating chat assistant (`components/Chat/Launcher`, `Panel`, `Message`) that answers
+  questions from existing site content — projects, work experience, and a new hand-written
+  `constants/Voice.ts` — backed by `/api/chat` streaming from the Anthropic Messages API
+  (`claude-haiku-4-5-20251001` by default, overridable via `ANTHROPIC_MODEL`).
+- Added conversational lead capture: a `submit_lead` tool (`lib/ai/tools.ts`), validated
+  server-side, that emails structured details (name, email, intent, company) plus the recent
+  transcript through the shared nodemailer module.
+- Extracted the nodemailer transport from `api/contact/route.ts` into
+  `lib/email/sendLead.ts` (`sendPortfolioEmail`); contact-form behavior is unchanged. Removed
+  credential logging from that route.
+- Added guards: 15 chat requests per IP per 5 minutes, 2 lead sends per IP per hour
+  (`lib/ai/rateLimit.ts`), 20 messages and 2000 characters per request
+  (`lib/ai/validateChatRequest.ts`), 600 max output tokens, and a 3-iteration tool-loop cap
+  (`lib/ai/conversation.ts`).
+- Added Vitest covering the knowledge compiler, lead validation, rate limiting, and payload
+  validation — 32 tests across `lib/ai/knowledge.test.ts`, `tools.test.ts`, `rateLimit.test.ts`,
+  and `validateChatRequest.test.ts`. Run with `npm test`.
+- Gated the launcher behind `NEXT_PUBLIC_CHAT_ENABLED` — set to anything other than `"true"` to
+  hide it. With no `ANTHROPIC_API_KEY` configured, the panel shows a generic "Chat is unavailable
+  right now" notice with a working link to the contact form instead of a stack trace.
+- Chat components are styled with the same hand-written BEM CSS as the rest of the site
+  (`.chat-launcher`, `.chat-panel`, `.chat-log`, etc. in `globals.css`), including a
+  `prefers-reduced-motion` block that disables the panel's slide-in, the launcher's hover lift,
+  and the thinking-dots animation.
