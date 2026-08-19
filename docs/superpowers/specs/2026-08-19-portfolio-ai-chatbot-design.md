@@ -125,7 +125,9 @@ itself and does not trust the model's output shape. Depends only on `sendLead`; 
 hand-written, no new validation dependency.
 
 **`lib/ai/rateLimit.ts`**
-`check(ip) -> { allowed, retryAfter }`, backed by an in-memory Map.
+`checkChatRate(ip)` and `checkLeadQuota(ip)`, both returning `{ allowed, retryAfterSeconds }`, plus
+`recordLead(ip)`. Backed by an in-memory Map. Owns both the per-message throttle and the per-IP
+lead quota that §7 relies on for dedupe.
 
 > **Known limitation, accepted deliberately.** On Vercel's serverless model this Map is
 > per-instance and resets on cold start, so it is a speed bump rather than a wall. Genuine
@@ -217,8 +219,12 @@ The model proposes; the server decides.
 
 - **Email validation.** Malformed addresses return a `tool_result` error, and the model asks the
   visitor again in natural language rather than failing the conversation.
-- **Dedupe.** Before sending, scan the incoming history for an already-successful lead
-  `tool_result`. This keeps dedupe stateless — no session store required.
+- **Lead quota, not history scanning.** The wire format between client and server carries plain
+  strings, so a prior `tool_result` never reaches the server and cannot be scanned for. Dedupe is
+  therefore enforced as a **per-IP lead quota** held in the same in-memory store as the rate
+  limiter (default: 2 leads per hour), sharing its cold-start caveat. The client additionally
+  tracks a `leadSent` flag to suppress redundant asks in the UI — that flag is a courtesy, never
+  the enforcement, since a client can only spoof it in the harmless direction.
 - **Minimum engagement.** At least two user turns must precede the tool call, so a drive-by
   cannot trigger an email on the first message.
 
