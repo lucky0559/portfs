@@ -494,3 +494,22 @@ A comprehensive visual redesign across all components applying editorial dark-lu
 - Filled in the previously-empty **Vooks** entry (`imageURLs: []`, no description) by browsing the live site at `https://www.vooks.com/`. Vooks is an award-winning online library of animated, read-aloud storybooks for kids — physical picture books turned into gently narrated videos with read-along highlighted text, music, and sound — plus classroom/educator pricing (1M+ teachers), a library-partnership program, and a "Vooks Creator" program for authors/publishers.
 - Added three Playwright screenshots of the live site — the hero ("For Those Who Believe In the Magic of Storytime"), the "What is Vooks?" / award badges section, and the Teachers/classroom pricing page — saved as `public/vooks-hero.png`, `public/vooks-about.png`, and `public/vooks-teachers.png`. The existing card-grid thumbnail (Google Play Store icon URL) was left as-is; only the `projects` array (`imageURLs` + `description`) was updated, not `cards`.
 - Appended a note to the description that Vooks is developed across Web, Mobile, and TV platforms, per the user.
+
+---
+
+## 2026-08-19 — AI Chatbot: Launcher, Mounting, and Configuration
+
+### New (`src/app/components/Chat/Launcher.tsx`)
+- Added the floating "Ask about my work" launcher button (bottom-right, `FaCommentDots` icon) that mounts `Panel` (the chat dialog built in an earlier task) and controls its `open` state. Entirely gated behind `NEXT_PUBLIC_CHAT_ENABLED === "true"` — returns `null` otherwise, so the panel's hook and network code never run for visitors who ignore the chat, and the launcher itself never renders when the flag is off.
+- Implemented focus restoration: closing the panel (via the close button, Escape, or otherwise) moves keyboard focus back to the launcher button, matching the design spec's accessibility requirement (§8, "returns focus to the launcher on close"). Done with a `useEffect` keyed on the `open` state transitioning from `true` to `false`, rather than an inline `.focus()` call in the close handler — the launcher button unmounts while the panel is open, so its ref is only populated again after React commits the re-render that brings the button back into the DOM; an effect fires after that commit, an inline call in the handler would not. Verified in-browser (Playwright) for both the close button and Escape.
+
+### Modified (`src/app/pages/HomePage.tsx`)
+- Mounted `<Launcher />` as the last element of the page, after the contact section's closing `</section>`.
+
+### Modified (`.env.local.example`)
+- Documented `ANTHROPIC_API_KEY`, optional `ANTHROPIC_MODEL` (defaults to `claude-haiku-4-5-20251001`), and `NEXT_PUBLIC_CHAT_ENABLED` (must be exactly `"true"` to show the launcher).
+
+### Verification
+- `npx tsc --noEmit` clean.
+- Manual browser pass (Playwright): launcher renders bottom-right and doesn't auto-open; click and Enter-key both open the panel with the three suggested questions; sending a message (no `ANTHROPIC_API_KEY` configured locally) hits the graceful "chat unavailable" 503 path as expected; closing and reopening preserves the conversation; narrow viewport (375px) makes the panel fill the screen; setting `NEXT_PUBLIC_CHAT_ENABLED=false` and restarting removes the launcher entirely, restoring it back to `true` afterward.
+- `npm run build` + `grep -r "sk-ant" .next/static/` confirmed no key material reaches the client bundle (this worktree has no real `ANTHROPIC_API_KEY` set, so this is a mechanical check of the pattern rather than a real-leak test). Note: `npm run build`'s lint step fails in this worktree on an unrelated ESLint config-conflict caused by the nested worktree path (same issue `npm run lint` has) — `next.config.js`'s `eslint.ignoreDuringBuilds` was toggled on only for the duration of this one build/grep check and reverted immediately after; it is not part of the committed diff.
