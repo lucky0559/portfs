@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { sendPortfolioEmail } from "@/lib/email/sendLead";
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,24 +9,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Required fields missing" }, { status: 400 });
     }
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD
-      }
-    });
-
-    console.log("[contact route] Attempting to send email...");
-    console.log("[contact route] Gmail user:", process.env.GMAIL_USER);
-    console.log("[contact route] App password set:", !!process.env.GMAIL_APP_PASSWORD);
-
-    const result = await transporter.sendMail({
-      from: `"Lucky Angelo Portfolio" <${process.env.GMAIL_USER}>`,
-      replyTo: from_email || undefined,
-      to: process.env.GMAIL_USER,
+    await sendPortfolioEmail({
+      fromName: from_name,
+      replyTo: from_email,
       subject: `[Portfolio] ${subject}`,
-      html: `
+      bodyHtml: `
         <div style="font-family:sans-serif;max-width:600px;color:#331D2C">
           <h2 style="color:#331D2C;border-bottom:2px solid #A78295;padding-bottom:8px">
             New message from your portfolio
@@ -41,7 +28,6 @@ export async function POST(req: NextRequest) {
       `
     });
 
-    console.log("[contact route] Email sent successfully:", result.messageId);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("[contact route] ERROR:", error);
