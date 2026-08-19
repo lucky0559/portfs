@@ -1,3 +1,4 @@
+import Launcher from "@/components/Chat/Launcher";
 import Menu from "@/components/Menu";
 import MyProfile from "@/components/MyProfile";
 import AcademicJob from "@/pages/AcademicJob/AcademicJob";
@@ -57,6 +58,8 @@ const HomePage = () => {
           </footer>
         </div>
       </section>
+
+      <Launcher />
     </>
   );
 };
