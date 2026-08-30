@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { themeBootstrapScript } from "@/lib/theme";
 
 const BASE_URL = "https://luckyme.vercel.app";
 
@@ -75,7 +76,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
+      </head>
       <body>{children}</body>
     </html>
   );

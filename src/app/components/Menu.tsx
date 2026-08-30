@@ -8,6 +8,7 @@ import {
   FaFolderOpen,
   FaUser
 } from "react-icons/fa";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
   { label: "Profile", href: "#profile", Icon: FaUser },
@@ -71,7 +72,10 @@ const Menu = () => {
             </ul>
           </nav>
 
-          <span className="site-nav__availability">Open to good work</span>
+          <div className="site-nav__actions">
+            <ThemeToggle />
+            <span className="site-nav__availability">Open to good work</span>
+          </div>
         </div>
       </header>
 
