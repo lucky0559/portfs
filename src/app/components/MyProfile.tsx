@@ -31,11 +31,20 @@ const MyProfile = () => {
 
       <div className="profile-card__photo">
         <Image
-          src="/profile.jpg"
+          src="/profile-light.jpeg"
           alt="Lucky Angelo Rabosa"
           fill
           sizes="(max-width: 767px) 352px, (max-width: 1023px) 240px, 320px"
-          className="object-cover"
+          className="profile-card__image profile-card__image--light object-cover"
+          priority
+        />
+        <Image
+          src="/profile-dark.jpeg"
+          alt=""
+          aria-hidden="true"
+          fill
+          sizes="(max-width: 767px) 352px, (max-width: 1023px) 240px, 320px"
+          className="profile-card__image profile-card__image--dark object-cover"
           priority
         />
         <span className="profile-card__availability">Available</span>
