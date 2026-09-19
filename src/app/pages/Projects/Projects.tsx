@@ -196,11 +196,18 @@ const cardVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } }
 };
 
+const INITIAL_PROJECT_COUNT = 7;
+
 const Projects = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deckViewingProject, setDeckViewingProject] = useState<ViewingDeckProject | undefined>();
+  const [isProjectsExpanded, setIsProjectsExpanded] = useState(false);
   const shouldReduce = useReducedMotion();
   const displayCards = [...cards].reverse();
+  const visibleCards = isProjectsExpanded
+    ? displayCards
+    : displayCards.slice(0, INITIAL_PROJECT_COUNT);
+  const hasMoreProjects = displayCards.length > INITIAL_PROJECT_COUNT;
 
   const onClickProjectHandler = (name: string) => {
     const project = projects.find(p => p.name === name);
@@ -227,13 +234,15 @@ const Projects = () => {
       </motion.div>
 
       <motion.div
+        id="projects-grid"
         className="projects-grid"
         variants={shouldReduce ? {} : containerVariants}
         initial={shouldReduce ? false : "hidden"}
+        animate={isProjectsExpanded && !shouldReduce ? "visible" : undefined}
         whileInView="visible"
         viewport={{ once: true, margin: "-40px" }}
       >
-        {displayCards.map((card, index) => (
+        {visibleCards.map((card, index) => (
           <motion.div
             key={card.name}
             variants={cardVariants}
@@ -252,6 +261,20 @@ const Projects = () => {
           </motion.div>
         ))}
       </motion.div>
+
+      {hasMoreProjects && (
+        <div className="projects-more">
+          <button
+            type="button"
+            className="projects-more__button"
+            aria-controls="projects-grid"
+            aria-expanded={isProjectsExpanded}
+            onClick={() => setIsProjectsExpanded(isExpanded => !isExpanded)}
+          >
+            {isProjectsExpanded ? "Show fewer projects" : "View more projects"}
+          </button>
+        </div>
+      )}
 
       <p className="projects-note">Click a project to read the case note and preview available screens.</p>
 
