@@ -1,44 +1,36 @@
 export const THEME_STORAGE_KEY = "portfolio-theme";
-export const DAY_THEME_START_HOUR = 7;
-export const DAY_THEME_END_HOUR = 19;
+export const SYSTEM_THEME_QUERY = "(prefers-color-scheme: dark)";
 export const THEME_TRANSITION_DURATION_MS = 440;
 
 export type Theme = "light" | "dark";
+export type ThemePreference = Theme | "system";
 
 export function isTheme(value: unknown): value is Theme {
   return value === "light" || value === "dark";
 }
 
-export function getTimeBasedTheme(date = new Date()): Theme {
-  const hour = date.getHours();
-  return hour >= DAY_THEME_START_HOUR && hour < DAY_THEME_END_HOUR
-    ? "light"
-    : "dark";
+export function isThemePreference(value: unknown): value is ThemePreference {
+  return value === "system" || isTheme(value);
 }
 
-export function getNextThemeTransition(date = new Date()): Date {
-  const next = new Date(date);
-  const hour = date.getHours();
+export function resolveThemePreference(
+  preference: ThemePreference,
+  systemTheme: Theme
+): Theme {
+  return preference === "system" ? systemTheme : preference;
+}
 
-  if (hour < DAY_THEME_START_HOUR) {
-    next.setHours(DAY_THEME_START_HOUR, 0, 0, 0);
-    return next;
-  }
-
-  if (hour < DAY_THEME_END_HOUR) {
-    next.setHours(DAY_THEME_END_HOUR, 0, 0, 0);
-    return next;
-  }
-
-  next.setDate(next.getDate() + 1);
-  next.setHours(DAY_THEME_START_HOUR, 0, 0, 0);
-  return next;
+export function getNextThemePreference(
+  preference: ThemePreference
+): ThemePreference {
+  if (preference === "system") return "light";
+  if (preference === "light") return "dark";
+  return "system";
 }
 
 export const themeBootstrapScript = `(() => {
   const storageKey = ${JSON.stringify(THEME_STORAGE_KEY)};
-  const dayStart = ${DAY_THEME_START_HOUR};
-  const dayEnd = ${DAY_THEME_END_HOUR};
+  const systemThemeQuery = ${JSON.stringify(SYSTEM_THEME_QUERY)};
   let storedTheme = null;
 
   try {
@@ -47,11 +39,18 @@ export const themeBootstrapScript = `(() => {
     storedTheme = null;
   }
 
-  const hour = new Date().getHours();
-  const timeTheme = hour >= dayStart && hour < dayEnd ? "light" : "dark";
-  const hasStoredTheme = storedTheme === "light" || storedTheme === "dark";
-  const theme = hasStoredTheme ? storedTheme : timeTheme;
+  const systemTheme = window.matchMedia(systemThemeQuery).matches
+    ? "dark"
+    : "light";
+  const hasStoredTheme =
+    storedTheme === "system" ||
+    storedTheme === "light" ||
+    storedTheme === "dark";
+  const theme = hasStoredTheme && storedTheme !== "system"
+    ? storedTheme
+    : systemTheme;
 
   document.documentElement.dataset.theme = theme;
-  document.documentElement.dataset.themeSource = hasStoredTheme ? "stored" : "time";
+  document.documentElement.dataset.themeSource =
+    hasStoredTheme && storedTheme !== "system" ? "stored" : "system";
 })();`;

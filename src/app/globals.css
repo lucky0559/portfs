@@ -458,22 +458,10 @@ html[data-theme="dark"] .theme-toggle__moon {
 }
 
 .theme-toggle__label {
-  min-width: 2.15rem;
+  min-width: 2.9rem;
   font-family: LouisBold, sans-serif;
   font-size: 0.68rem;
   letter-spacing: 0.04em;
-}
-
-.theme-toggle__label--light {
-  display: none;
-}
-
-html[data-theme="light"] .theme-toggle__label--light {
-  display: inline;
-}
-
-html[data-theme="light"] .theme-toggle__label--dark {
-  display: none;
 }
 
 .mobile-nav {
@@ -1972,8 +1960,7 @@ html[data-theme="light"] .profile-card__image--dark {
     padding-bottom: 6rem;
   }
 
-  .theme-toggle__label,
-  html[data-theme="light"] .theme-toggle__label--light {
+  .theme-toggle__label {
     display: none;
   }
 }

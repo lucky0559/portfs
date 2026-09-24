@@ -1,42 +1,27 @@
 import { describe, expect, it } from "vitest";
 import {
-  getNextThemeTransition,
-  getTimeBasedTheme,
+  getNextThemePreference,
+  isThemePreference,
+  resolveThemePreference,
   isTheme,
   themeBootstrapScript
 } from "./theme";
 
-const localDate = (hour: number, minute = 0) =>
-  new Date(2026, 7, 30, hour, minute, 0, 0);
-
-describe("getTimeBasedTheme", () => {
-  it("uses dark mode before 07:00", () => {
-    expect(getTimeBasedTheme(localDate(6, 59))).toBe("dark");
+describe("theme preferences", () => {
+  it("resolves system to the current operating system theme", () => {
+    expect(resolveThemePreference("system", "dark")).toBe("dark");
+    expect(resolveThemePreference("system", "light")).toBe("light");
   });
 
-  it("uses light mode from 07:00 through 18:59", () => {
-    expect(getTimeBasedTheme(localDate(7))).toBe("light");
-    expect(getTimeBasedTheme(localDate(18, 59))).toBe("light");
+  it("preserves explicit light and dark preferences", () => {
+    expect(resolveThemePreference("light", "dark")).toBe("light");
+    expect(resolveThemePreference("dark", "light")).toBe("dark");
   });
 
-  it("uses dark mode from 19:00", () => {
-    expect(getTimeBasedTheme(localDate(19))).toBe("dark");
-  });
-});
-
-describe("getNextThemeTransition", () => {
-  it("targets the same-day morning boundary overnight", () => {
-    expect(getNextThemeTransition(localDate(2))).toEqual(localDate(7));
-  });
-
-  it("targets the same-day evening boundary during daytime", () => {
-    expect(getNextThemeTransition(localDate(12))).toEqual(localDate(19));
-  });
-
-  it("targets the next morning after the evening boundary", () => {
-    expect(getNextThemeTransition(localDate(22))).toEqual(
-      new Date(2026, 7, 31, 7, 0, 0, 0)
-    );
+  it("cycles from system to light to dark and back to system", () => {
+    expect(getNextThemePreference("system")).toBe("light");
+    expect(getNextThemePreference("light")).toBe("dark");
+    expect(getNextThemePreference("dark")).toBe("system");
   });
 });
 
@@ -47,60 +32,69 @@ describe("isTheme", () => {
     expect(isTheme("system")).toBe(false);
     expect(isTheme(null)).toBe(false);
   });
+
+  it("accepts system alongside explicit theme names", () => {
+    expect(isThemePreference("system")).toBe(true);
+    expect(isThemePreference("light")).toBe(true);
+    expect(isThemePreference("dark")).toBe(true);
+    expect(isThemePreference("time")).toBe(false);
+  });
 });
 
 describe("themeBootstrapScript", () => {
-  const runBootstrap = (hour: number, storedTheme: string | null) => {
+  const runBootstrap = (systemPrefersDark: boolean, storedTheme: string | null) => {
     const dataset: Record<string, string> = {};
     const windowStub = {
       localStorage: {
         getItem: () => storedTheme
-      }
+      },
+      matchMedia: (_query: string) => ({ matches: systemPrefersDark })
     };
     const documentStub = {
       documentElement: { dataset }
     };
-    class DateStub extends Date {
-      constructor() {
-        super(2026, 7, 30, hour, 0, 0, 0);
-      }
-    }
 
     const bootstrap = new Function(
       "window",
       "document",
-      "Date",
       themeBootstrapScript
     );
-    bootstrap(windowStub, documentStub, DateStub);
+    bootstrap(windowStub, documentStub);
     return dataset;
   };
 
-  it("sets the daytime default before hydration", () => {
-    expect(runBootstrap(12, null)).toEqual({
+  it("uses the system dark preference before hydration", () => {
+    expect(runBootstrap(true, null)).toEqual({
+      theme: "dark",
+      themeSource: "system"
+    });
+  });
+
+  it("uses the system light preference before hydration", () => {
+    expect(runBootstrap(false, null)).toEqual({
       theme: "light",
-      themeSource: "time"
+      themeSource: "system"
     });
   });
 
-  it("sets the overnight default before hydration", () => {
-    expect(runBootstrap(22, null)).toEqual({
-      theme: "dark",
-      themeSource: "time"
-    });
-  });
-
-  it("gives a valid stored preference precedence over local time", () => {
-    expect(runBootstrap(12, "dark")).toEqual({
-      theme: "dark",
+  it("gives a valid stored preference precedence over the system theme", () => {
+    expect(runBootstrap(true, "light")).toEqual({
+      theme: "light",
       themeSource: "stored"
     });
   });
 
-  it("ignores unsupported stored values", () => {
-    expect(runBootstrap(22, "system")).toEqual({
+  it("lets a stored system preference follow the system theme", () => {
+    expect(runBootstrap(false, "system")).toEqual({
+      theme: "light",
+      themeSource: "system"
+    });
+  });
+
+  it("ignores unsupported stored values and uses the system theme", () => {
+    expect(runBootstrap(true, "time")).toEqual({
       theme: "dark",
-      themeSource: "time"
+      themeSource: "system"
     });
   });
 });

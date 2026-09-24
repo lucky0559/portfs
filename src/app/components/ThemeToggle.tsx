@@ -1,19 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
 import {
-  getNextThemeTransition,
-  getTimeBasedTheme,
+  getNextThemePreference,
   isTheme,
+  isThemePreference,
+  resolveThemePreference,
+  SYSTEM_THEME_QUERY,
   THEME_STORAGE_KEY,
   THEME_TRANSITION_DURATION_MS,
-  type Theme
+  type Theme,
+  type ThemePreference
 } from "@/lib/theme";
 
 let themeTransitionTimer: number | undefined;
 
-function applyTheme(theme: Theme, source: "stored" | "time") {
+const THEME_PREFERENCE_LABELS: Record<ThemePreference, string> = {
+  system: "System",
+  light: "Light",
+  dark: "Dark"
+};
+
+function applyTheme(theme: Theme, source: "stored" | "system") {
   const root = document.documentElement;
   const shouldAnimate =
     isTheme(root.dataset.theme) &&
@@ -40,91 +49,97 @@ function applyTheme(theme: Theme, source: "stored" | "time") {
 }
 
 const ThemeToggle = () => {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [preference, setPreference] = useState<ThemePreference>("system");
+  const preferenceRef = useRef<ThemePreference>("system");
 
   useEffect(() => {
-    const currentTheme = document.documentElement.dataset.theme;
-    const resolvedTheme = isTheme(currentTheme)
-      ? currentTheme
-      : getTimeBasedTheme();
+    const mediaQuery = window.matchMedia(SYSTEM_THEME_QUERY);
 
-    applyTheme(
-      resolvedTheme,
-      document.documentElement.dataset.themeSource === "stored"
-        ? "stored"
-        : "time"
-    );
-    setTheme(resolvedTheme);
-
-    let transitionTimer: number | undefined;
-
-    const scheduleTimeTheme = () => {
-      window.clearTimeout(transitionTimer);
-
-      let storedTheme: string | null = null;
+    const readStoredPreference = (): ThemePreference => {
       try {
-        storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
-      } catch (error) {
-        storedTheme = null;
+        const storedPreference = window.localStorage.getItem(THEME_STORAGE_KEY);
+        return isThemePreference(storedPreference) ? storedPreference : "system";
+      } catch {
+        return "system";
       }
+    };
 
-      if (isTheme(storedTheme)) return;
+    const applyPreference = (nextPreference: ThemePreference) => {
+      const nextTheme = resolveThemePreference(
+        nextPreference,
+        mediaQuery.matches ? "dark" : "light"
+      );
 
-      const nextTransition = getNextThemeTransition();
-      const delay = Math.max(nextTransition.getTime() - Date.now(), 1_000);
+      preferenceRef.current = nextPreference;
+      applyTheme(nextTheme, nextPreference === "system" ? "system" : "stored");
+      setPreference(nextPreference);
+    };
 
-      transitionTimer = window.setTimeout(() => {
-        const nextTheme = getTimeBasedTheme();
-        applyTheme(nextTheme, "time");
-        setTheme(nextTheme);
-        scheduleTimeTheme();
-      }, delay);
+    applyPreference(readStoredPreference());
+
+    const handleSystemThemeChange = () => {
+      if (preferenceRef.current !== "system") return;
+      applyPreference("system");
     };
 
     const handleStorage = (event: StorageEvent) => {
       if (event.key !== THEME_STORAGE_KEY) return;
 
-      const nextTheme = isTheme(event.newValue)
-        ? event.newValue
-        : getTimeBasedTheme();
-      applyTheme(nextTheme, isTheme(event.newValue) ? "stored" : "time");
-      setTheme(nextTheme);
-      scheduleTimeTheme();
+      applyPreference(
+        isThemePreference(event.newValue) ? event.newValue : "system"
+      );
     };
 
-    scheduleTimeTheme();
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", handleSystemThemeChange);
+    } else {
+      mediaQuery.addListener(handleSystemThemeChange);
+    }
     window.addEventListener("storage", handleStorage);
 
     return () => {
-      window.clearTimeout(transitionTimer);
       window.clearTimeout(themeTransitionTimer);
       document.documentElement.classList.remove("theme-is-changing");
+      if (typeof mediaQuery.removeEventListener === "function") {
+        mediaQuery.removeEventListener("change", handleSystemThemeChange);
+      } else {
+        mediaQuery.removeListener(handleSystemThemeChange);
+      }
       window.removeEventListener("storage", handleStorage);
     };
   }, []);
 
-  const isLight = theme === "light";
-  const nextTheme: Theme = isLight ? "dark" : "light";
+  const nextPreference = getNextThemePreference(preference);
+  const preferenceLabel = THEME_PREFERENCE_LABELS[preference];
+  const nextPreferenceLabel = THEME_PREFERENCE_LABELS[nextPreference];
 
   const handleToggle = () => {
+    const nextTheme = resolveThemePreference(
+      nextPreference,
+      window.matchMedia(SYSTEM_THEME_QUERY).matches ? "dark" : "light"
+    );
+
     try {
-      window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-    } catch (error) {
+      window.localStorage.setItem(THEME_STORAGE_KEY, nextPreference);
+    } catch {
       // The toggle still works when storage is unavailable.
     }
 
-    applyTheme(nextTheme, "stored");
-    setTheme(nextTheme);
+    preferenceRef.current = nextPreference;
+    applyTheme(
+      nextTheme,
+      nextPreference === "system" ? "system" : "stored"
+    );
+    setPreference(nextPreference);
   };
 
   return (
     <button
       type="button"
       className="theme-toggle"
-      role="switch"
-      aria-checked={isLight}
-      aria-label={`Switch to ${nextTheme} theme`}
-      title={`Switch to ${nextTheme} theme`}
+      data-theme-preference={preference}
+      aria-label={`Theme: ${preferenceLabel}. Switch to ${nextPreferenceLabel} theme`}
+      title={`Theme: ${preferenceLabel}. Switch to ${nextPreferenceLabel} theme`}
       onClick={handleToggle}
     >
       <span className="theme-toggle__track" aria-hidden="true">
@@ -132,8 +147,7 @@ const ThemeToggle = () => {
         <FaMoon className="theme-toggle__moon" />
         <span className="theme-toggle__thumb" />
       </span>
-      <span className="theme-toggle__label theme-toggle__label--light">Light</span>
-      <span className="theme-toggle__label theme-toggle__label--dark">Dark</span>
+      <span className="theme-toggle__label">{preferenceLabel}</span>
     </button>
   );
 };
