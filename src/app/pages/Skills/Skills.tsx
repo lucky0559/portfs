@@ -95,6 +95,7 @@ const otherSkills: SkillEntry[] = [
   { label: "Bitbucket", url: "https://bitbucket.org/", Icon: SiBitbucket },
   { label: "Jira", url: "https://www.atlassian.com/software/jira", Icon: SiJira },
   { label: "Trello", url: "https://trello.com/", Icon: SiTrello },
+  { label: "n8n", url: "https://n8n.io/", abbr: "n8n" },
   { label: "Vercel", url: "https://vercel.com/", Icon: SiVercel },
   { label: "Claude", url: "https://claude.ai/", Icon: ClaudeIcon },
   { label: "Codex", url: "https://openai.com/codex/", Icon: SiOpenai }

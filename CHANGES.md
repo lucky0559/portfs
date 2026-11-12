@@ -523,3 +523,8 @@ A comprehensive visual redesign across all components applying editorial dark-lu
   (`.chat-launcher`, `.chat-panel`, `.chat-log`, etc. in `globals.css`), including a
   `prefers-reduced-motion` block that disables the panel's slide-in, the launcher's hover lift,
   and the thinking-dots animation.
+
+## 2026-11-12
+
+- Added n8n to the Workflow skills group in `pages/Skills/Skills.tsx`. It uses a text badge
+  because the installed react-icons has no n8n icon.
