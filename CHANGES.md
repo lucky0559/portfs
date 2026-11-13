@@ -528,3 +528,18 @@ A comprehensive visual redesign across all components applying editorial dark-lu
 
 - Added n8n to the Workflow skills group in `pages/Skills/Skills.tsx`. It uses a text badge
   because the installed react-icons has no n8n icon.
+
+## 2026-11-13
+
+- Removed the "Stock Investment Market System" project from both `projects` and `cards` in
+  `constants/Projects.ts`. Project counts derive from the arrays, so nothing else needed changing.
+
+- Added the Photobooth Kiosk Software project (deck card + project data) and a details page at
+  `/projects/photobooth-kiosk` (`src/app/projects/photobooth-kiosk/page.tsx`), built from the
+  artifact content. Screens live in `public/photobooth/`; styles are `.project-page*` in
+  `globals.css`. The modal's "Visit" button opens the details page.
+- Restyled `/projects/photobooth-kiosk` to match the artifact's "Pop Film Lab" look (navy, lime,
+  tangerine, aqua; Bungee + Outfit via `next/font/google`; film-strip screens, checklist cards,
+  tags). Colors are scoped to `.project-page` so the rest of the site is unaffected.
+- Added a Photobooth Kiosk app icon (`public/photobooth/photobooth-logo.svg` + 512px `.png`) using the
+  page palette: camera lens over a print slot with a photo strip. It is now the project card image.

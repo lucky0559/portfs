@@ -191,14 +191,18 @@ const projects: ViewingDeckProject[] = [
       "A private back-office web application built for Globe, a Philippine telecommunications company, serving as a vendor service access and ticketing hub. Vendors raise tickets for work orders, which are routed through a multi-level approver workflow before execution. The system includes a user management module with a dedicated blacklist feature, Arnitikos, that lets administrators flag, search, and manage blacklisted individuals to prevent them from being engaged for future work orders."
   },
   {
-    name: "Stock Investment Market System",
-    from: "Asti Business Services Inc. (ABSI)",
-    imageURLs: [],
-    projectUrl: "",
-    isPrivate: true,
-    role: "Frontend",
+    name: "Photobooth Kiosk Software",
+    from: "Freelance",
+    imageURLs: [
+      "/photobooth/1-welcome.png",
+      "/photobooth/2-payment.png",
+      "/photobooth/4-pick-a-look.png",
+      "/photobooth/5-qr-download.png"
+    ],
+    projectUrl: "/projects/photobooth-kiosk",
+    role: "Full-Stack",
     description:
-      "A private, enterprise-grade Stock Investment Market System developed for an insurance company client. The platform enables the company to manage and monitor stock investment portfolios, process trade orders, track real-time market data, and generate financial reporting dashboards — all within a secure, role-based internal system tailored for institutional investment operations."
+      "A self-service photobooth kiosk for events and pop-up booths in the Philippines. Guests pay with GCash or Maya through QR Ph, take 1 to 4 photos with a live preview and countdown, pick a filter, get a print on the spot, and scan a QR code to download the soft copy. Owners run prices, frame templates and sales from a web admin panel. The kiosk runs on a Windows PC or an Android tablet, works offline in free mode, and locks down to a single screen with a PIN-protected staff menu."
   }
 ];
 
@@ -312,11 +316,10 @@ const cards: CardType[] = [
     role: "Frontend"
   },
   {
-    name: "Stock Investment Market System",
-    from: "Asti Business Services Inc. (ABSI)",
-    imageURL: "",
-    isPrivate: true,
-    role: "Frontend"
+    name: "Photobooth Kiosk Software",
+    from: "Freelance",
+    imageURL: "/photobooth/photobooth-logo.png",
+    role: "Full-Stack"
   }
 ];
 

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Photobooth Kiosk Software logo">
+  <defs>
+    <clipPath id="tile"><rect width="512" height="512" rx="112"/></clipPath>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1F2E5C"/>
+      <stop offset="1" stop-color="#0F1B3D"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect width="512" height="512" fill="url(#bg)"/>
+
+    <!-- printed photo strip coming out of the slot -->
+    <g transform="rotate(-6 256 400)">
+      <rect x="170" y="300" width="172" height="260" rx="10" fill="#FAF7F0"/>
+      <rect x="186" y="324" width="140" height="84" rx="8" fill="#FF6B2C"/>
+      <rect x="186" y="422" width="140" height="84" rx="8" fill="#2EE6D6"/>
+      <circle cx="232" cy="356" r="14" fill="#FAF7F0" opacity=".9"/>
+      <path d="M186 408 l44 -34 l34 26 l26 -18 l36 26z" fill="#0F1B3D" opacity=".35"/>
+    </g>
+
+    <!-- print slot -->
+    <rect x="112" y="290" width="288" height="30" rx="15" fill="#C6F432"/>
+    <rect x="124" y="298" width="264" height="8" rx="4" fill="#0F1B3D" opacity=".55"/>
+
+    <!-- camera lens -->
+    <circle cx="256" cy="158" r="104" fill="#C6F432"/>
+    <circle cx="256" cy="158" r="84" fill="#0F1B3D"/>
+    <circle cx="256" cy="158" r="62" fill="#2EE6D6"/>
+    <circle cx="256" cy="158" r="40" fill="#1F2E5C"/>
+    <circle cx="256" cy="158" r="16" fill="#0F1B3D"/>
+    <circle cx="228" cy="130" r="12" fill="#FAF7F0"/>
+    <circle cx="276" cy="178" r="5" fill="#FAF7F0" opacity=".8"/>
+  </g>
+</svg>
