@@ -543,3 +543,9 @@ A comprehensive visual redesign across all components applying editorial dark-lu
   tags). Colors are scoped to `.project-page` so the rest of the site is unaffected.
 - Added a Photobooth Kiosk app icon (`public/photobooth/photobooth-logo.svg` + 512px `.png`) using the
   page palette: camera lens over a print slot with a photo strip. It is now the project card image.
+- Fixed unreadable text in the project modal in light mode: its Tailwind dark-palette classes
+  (`text-light`, `text-pastelPink`, `text-greenApple`, ...) are remapped to theme tokens under
+  `html[data-theme="light"] .project-modal` in `globals.css`.
+- Photobooth details page: added "The admin panel" section (dashboard, settings, templates
+  screenshots) and a click-to-enlarge lightbox (arrows, Esc, focus return) for the kiosk and admin
+  screens, mirroring the updated artifact. New client component: `projects/photobooth-kiosk/Lightbox.tsx`.

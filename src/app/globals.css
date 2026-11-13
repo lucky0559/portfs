@@ -2243,6 +2243,48 @@ html[data-theme="light"] .profile-card__image--dark {
   .chat-message__thinking span { animation: none; opacity: 0.6; }
 }
 
+/* The project modal uses Tailwind classes from the dark palette (text-light,
+   text-pastelPink, text-greenApple, ...). Remap them to theme tokens in light mode. */
+html[data-theme="light"] .project-modal [class*="text-light"] {
+  color: var(--paper);
+}
+
+html[data-theme="light"] .project-modal [class*="text-pastelPink"] {
+  color: var(--muted);
+}
+
+html[data-theme="light"] .project-modal [class*="text-greenApple"] {
+  color: var(--accent);
+}
+
+html[data-theme="light"] .project-modal [class*="border-pastelPink"] {
+  border-color: var(--line-strong);
+}
+
+html[data-theme="light"] .project-modal [class*="border-greenApple"] {
+  border-color: var(--accent-border);
+}
+
+html[data-theme="light"] .project-modal [class*="bg-primaryBackground"] {
+  background-color: var(--surface-raised);
+}
+
+html[data-theme="light"] .project-modal [class*="bg-greenApple"] {
+  background-color: var(--accent);
+}
+
+html[data-theme="light"] .project-modal [class*="bg-greenApple/10"] {
+  background-color: var(--accent-soft);
+}
+
+html[data-theme="light"] .project-modal [class*="bg-pastelPink"] {
+  background-color: var(--line-strong);
+}
+
+html[data-theme="light"] .project-modal [class*="border-t-greenApple"] {
+  border-top-color: var(--accent);
+}
+
 /* Project detail page (e.g. /projects/photobooth-kiosk): "Pop Film Lab" look */
 .project-page {
   --ink: #0f1b3d;
@@ -2613,6 +2655,136 @@ html[data-theme="light"] .profile-card__image--dark {
 
   .project-page__groups,
   .project-page__two {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.project-page__frames img,
+.project-page__shots img {
+  cursor: zoom-in;
+}
+
+.project-page__frames img:focus-visible,
+.project-page__shots img:focus-visible {
+  outline: 3px solid var(--lime);
+  outline-offset: 3px;
+}
+
+.project-page__shots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+}
+
+.project-page__shots figure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.project-page__shots img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--ink-2);
+  border-radius: 10px;
+}
+
+.project-page__shots figcaption {
+  color: var(--pp-muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.project-page__shots figcaption b {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--lime);
+  font-family: var(--font-bungee), sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.project-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(8, 14, 34, 0.94);
+}
+
+.project-lightbox figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+}
+
+.project-lightbox img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 110px);
+  object-fit: contain;
+  cursor: zoom-out;
+}
+
+.project-lightbox figcaption {
+  color: var(--pp-paper, #faf7f0);
+  text-align: center;
+}
+
+.project-lightbox__btn {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--lime, #c6f432);
+  color: var(--ink, #0f1b3d);
+  font-family: var(--font-bungee), sans-serif;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.project-lightbox__btn:hover {
+  opacity: 0.8;
+}
+
+.project-lightbox__btn:focus-visible {
+  outline: 3px solid var(--pp-paper, #faf7f0);
+  outline-offset: 2px;
+}
+
+.project-lightbox__close {
+  top: 1rem;
+  right: 1rem;
+}
+
+.project-lightbox__prev,
+.project-lightbox__next {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.project-lightbox__prev {
+  left: 0.75rem;
+}
+
+.project-lightbox__next {
+  right: 0.75rem;
+}
+
+@media (max-width: 760px) {
+  .project-page__shots {
     grid-template-columns: minmax(0, 1fr);
   }
 }

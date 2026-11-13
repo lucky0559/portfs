@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Bungee, Outfit } from "next/font/google";
+import { LightboxProvider, ZoomImage, type LightboxImage } from "./Lightbox";
 
 const bungee = Bungee({ weight: "400", subsets: ["latin"], variable: "--font-bungee", display: "swap" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
@@ -16,6 +17,32 @@ const screens = [
   { src: "/photobooth/2-payment.png", alt: "Payment screen showing a QR Ph code for GCash or Maya", caption: "Pay by QR" },
   { src: "/photobooth/4-pick-a-look.png", alt: "Pick a look screen with Original, Black and White and Warm filters", caption: "Pick a look" },
   { src: "/photobooth/5-qr-download.png", alt: "Screen with a QR code for downloading the photo", caption: "Print & download" }
+];
+
+const adminShots = [
+  {
+    src: "/photobooth/admin-dashboard.png",
+    alt: "Admin dashboard showing today's paid sessions, sales, a refund needing attention and recent sessions",
+    title: "Dashboard",
+    text: "Today's paid sessions and sales, anything that needs your attention such as a payment to refund, and the latest sessions."
+  },
+  {
+    src: "/photobooth/admin-settings.png",
+    alt: "Admin settings form for price, free mode, shots, countdown, copies and link expiry",
+    title: "Settings",
+    text: "Set the price, turn free mode on for events, and choose shots, countdown, printed copies and how long download links last."
+  },
+  {
+    src: "/photobooth/admin-templates.png",
+    alt: "Admin templates page with a template upload form and the list of templates",
+    title: "Templates",
+    text: "Upload your own frame design, choose which one the kiosk uses, and archive old ones."
+  }
+];
+
+const lightboxImages: LightboxImage[] = [
+  ...screens.map(s => ({ src: s.src, alt: s.alt, label: s.caption })),
+  ...adminShots.map(s => ({ src: s.src, alt: s.alt, label: s.title }))
 ];
 
 const flow = [
@@ -131,6 +158,7 @@ const comingNext = [
 export default function PhotoboothKioskPage() {
   return (
     <main className={`project-page ${bungee.variable} ${outfit.variable}`}>
+      <LightboxProvider images={lightboxImages}>
       <div className="project-page__inner">
         <Link href="/#projects" className="project-page__back">
           ← Back to projects
@@ -161,8 +189,7 @@ export default function PhotoboothKioskPage() {
           <div className="project-page__frames">
             {screens.map((screen, i) => (
               <figure key={screen.src}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={screen.src} alt={screen.alt} loading="lazy" />
+                <ZoomImage src={screen.src} alt={screen.alt} />
                 <figcaption>
                   <b>{i + 1}</b>
                   {screen.caption}
@@ -182,6 +209,24 @@ export default function PhotoboothKioskPage() {
               <li key={step}>{step}</li>
             ))}
           </ol>
+        </section>
+
+        <section className="project-page__section">
+          <h2>The admin panel</h2>
+          <p className="project-page__sub">
+            Manage the booth from any browser. Dashboard figures below are sample data.
+          </p>
+          <div className="project-page__shots">
+            {adminShots.map(shot => (
+              <figure key={shot.src}>
+                <ZoomImage src={shot.src} alt={shot.alt} />
+                <figcaption>
+                  <b>{shot.title}</b>
+                  {shot.text}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </section>
 
         <section className="project-page__section">
@@ -315,6 +360,7 @@ export default function PhotoboothKioskPage() {
           Screens shown are from the kiosk app in portrait (1080×1920). It also runs in landscape.
         </p>
       </div>
+      </LightboxProvider>
     </main>
   );
 }
