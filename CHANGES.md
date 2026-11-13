@@ -549,3 +549,53 @@ A comprehensive visual redesign across all components applying editorial dark-lu
 - Photobooth details page: added "The admin panel" section (dashboard, settings, templates
   screenshots) and a click-to-enlarge lightbox (arrows, Esc, focus return) for the kiosk and admin
   screens, mirroring the updated artifact. New client component: `projects/photobooth-kiosk/Lightbox.tsx`.
+
+## 2026-11-13 (critique: clarify)
+
+- Home page proof: each job in `constants/Experience.ts` now has a one-line `summary` (rendered as
+  `.job-summary`), and every card in `constants/Projects.ts` has a `summary` (rendered as
+  `.project-card__summary`, clamped to 3 lines). Copy uses only facts already on the site; no
+  invented metrics. Real outcomes (numbers, results) still need to be supplied by the owner.
+- Photobooth page (critique: clarify): added a "What I built" section (role plus four hard parts: payment
+  first, offline resilience, locked kiosk, exact preview), a "Ask about a booth" CTA in the header and
+  a "Want a booth like this?" closing CTA, both linking to `/#contact`. Pricing now reads "ask for a
+  quote". Project description now says it was designed and built end to end (owner confirmed).
+
+- Skills section distilled (critique: distill): 37 linked pills became 13 plain pills in three groups
+  (Product UI, APIs and data, Shipping), each with a one-line summary and an "Also:" text line that
+  keeps the remaining tools. Pills no longer link out or lift on hover; the tiny "N tools" counters
+  and their CSS are gone. Edited `pages/Skills/Skills.tsx` and the `.skill-*` rules in `globals.css`.
+
+- Photobooth bridge (critique: layout): sticky top bar (Lucky Angelo, All projects, Contact) with an
+  in-page jump nav; section ids with scroll offset; dark `color-scheme` and a lime focus ring scoped to
+  `.project-page`; the "Coming in the full version" side-stripe became numbered items with a top rule.
+
+- Photobooth mobile tables (critique: adapt): below 760px the devices, requirements and costs tables
+  stack as rows with inline labels (Used for, Notes, Minimum, Recommended) so no column scrolls off-screen.
+
+- Photobooth lightbox (critique: harden): Tab and Shift+Tab loop inside the dialog, the page behind is
+  `inert` and `aria-hidden` while it is open, focus returns to the opener on close, the dialog is labelled
+  by the current screen ("Dashboard, screen 5 of 7"), and the arrow glyphs are now SVG icons. Zoomable
+  images are wrapped in real `<button>`s instead of `img role=button`.
+
+- Home page type (critique: typeset): every UI label under 12px in `globals.css` (32 rules: nav, hero,
+  profile card, section labels, project card meta, badges, contact labels, mobile nav) is now 12px (0.75rem).
+  Contrast: `--faint` raised in dark (61% to 67% lightness), `--copyright` alpha raised in both themes
+  (dark 0.42 to 0.85, light 0.62 to 0.85). Mobile bottom nav labels are sentence case with no tracking so
+  the larger size fits five items at 390px.
+
+- Quieter pass (both pages). Photobooth (light touch): Bungee kept only for the title and section
+  headings (labels, tags, tables, numbers now Outfit bold); eyebrow no longer tilted; tags, check chips and
+  step dots use tinted fills instead of solid lime/aqua/tangerine; thinner aqua borders; group headings in
+  paper color; "Not included" bullets are small muted dots. Home: hero decoration is static (no looping
+  rotate/pulse, no glow), the "01 Introduction" and numbered section kickers are gone, hero stat numbers
+  are about 30% smaller.
+
+- Polish pass (both pages): ABSI job logo now uses local `/absi_logo.png` (the hotlink 404ed); nav links use
+  `aria-current="location"` (CSS updated); hidden `h2` "Background" fixes the H1 to H3 heading gap; hero
+  heading keeps its spaces for screen readers; Photobooth strip captions lose the 1-4 numbers that clashed
+  with the 1-6 flow; zoom images carry width/height (no layout shift) and table headers have `scope="col"`;
+  removed a dead caption rule and duplicate font-weight declarations; CLAUDE.md no longer describes a
+  draggable deck.
+- Replaced `public/absi_logo.png` with the official ABSI logo supplied by the owner (1024x371).
+- Lightbox buttons: icons are now centered (grid, zero padding) inside the lime squares.

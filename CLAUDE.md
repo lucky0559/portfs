@@ -71,5 +71,5 @@ NextUI (v2) is used for the `Modal` in `Projects`. MUI Lab `Timeline` is used in
 
 - Components that use hooks (`useState`, `useMediaQuery`, `useSprings`, etc.) must include `"use client"` at the top.
 - `Menu` renders a `site-nav` header (desktop) and a separate fixed-position `mobile-nav` bottom bar (mobile), both BEM-styled in `globals.css`; the active section is tracked via a scroll listener and reflected with `aria-current`.
-- `Projects` uses `@react-spring/web` + `react-use-gesture` to implement a draggable card deck; project data (image URLs, live URLs) lives in `constants/Projects.ts` — add new projects there.
+- `Projects` renders a responsive card grid (first 7, then "View more") that opens a full-screen modal; project data (image URLs, live URLs) lives in `constants/Projects.ts` — add new projects there.
 - Images are hosted on Google Cloud Storage (`storage.googleapis.com`). Update `next.config.js` image domains if a new host is added.

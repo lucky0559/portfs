@@ -202,7 +202,7 @@ const projects: ViewingDeckProject[] = [
     projectUrl: "/projects/photobooth-kiosk",
     role: "Full-Stack",
     description:
-      "A self-service photobooth kiosk for events and pop-up booths in the Philippines. Guests pay with GCash or Maya through QR Ph, take 1 to 4 photos with a live preview and countdown, pick a filter, get a print on the spot, and scan a QR code to download the soft copy. Owners run prices, frame templates and sales from a web admin panel. The kiosk runs on a Windows PC or an Android tablet, works offline in free mode, and locks down to a single screen with a PIN-protected staff menu."
+      "I designed and built this self-service photobooth kiosk for events and pop-up booths in the Philippines. Guests pay with GCash or Maya through QR Ph, take 1 to 4 photos with a live preview and countdown, pick a filter, get a print on the spot, and scan a QR code to download the soft copy. Owners run prices, frame templates and sales from a web admin panel. The kiosk runs on a Windows PC or an Android tablet, works offline in free mode, and locks down to a single screen with a PIN-protected staff menu."
   }
 ];
 
@@ -211,36 +211,42 @@ const cards: CardType[] = [
     name: "Chloe by People Science",
     from: "Internet Strategy Branding Execution (ISBX)",
     imageURL: "https://storage.googleapis.com/chloe/chloe-logo.png",
+    summary: "Mobile app for remote clinical trials, with questionnaires and wearable data.",
     role: "Full-Stack"
   },
   {
     name: "Vurple",
     from: "Internet Strategy Branding Execution (ISBX)",
     imageURL: "https://storage.googleapis.com/vurple/vurple.png",
+    summary: "Livestream town hall that connects citizens with elected officials.",
     role: "Full-Stack"
   },
   {
     name: "Brass Capital",
     from: "Internet Strategy Branding Execution (ISBX)",
     imageURL: "https://storage.googleapis.com/brass-capital/brass-capital.png",
+    summary: "Marketing site that presents a blockchain platform to investors.",
     role: "Frontend"
   },
   {
     name: "Guard Grabber",
     from: "Internet Strategy Branding Execution (ISBX)",
     imageURL: "https://storage.googleapis.com/guard-grabber/guard-grabber.png",
+    summary: "Marketplace that matches clients with licensed security professionals.",
     role: "Full-Stack"
   },
   {
     name: "Digitized Document Processing System of the CvSU Faculty Workload",
     from: "Freelance",
     imageURL: "https://storage.googleapis.com/ddps/cvsu-logo.png",
+    summary: "Replaces paper faculty workload filing with a digital review flow.",
     role: "Full-Stack"
   },
   {
     name: "PruServices",
     from: "Vertere Global Solutions",
     imageURL: "/pruservices-logo.png",
+    summary: "Policyholder portal for Pru Life UK: payments, beneficiaries, withdrawals.",
     isPrivate: false,
     isSaas: true,
     role: "Backend"
@@ -249,48 +255,56 @@ const cards: CardType[] = [
     name: "B&O Safety And Care",
     from: "Freelance",
     imageURL: "/bo-safety-logo.png",
+    summary: "Marketing site for a Dutch security firm, with consultation booking.",
     role: "Frontend"
   },
   {
     name: "Vooks",
     from: "Virtual Staffing Solution",
     imageURL: "https://play-lh.googleusercontent.com/H-sP3vDTwEKWdD-GQ93ksbG2YJ_qjPG8Lj54thI6Is3T_PXkfHkR8ELT5um4zKAIlV3z",
+    summary: "Streaming library of animated read-aloud storybooks for kids.",
     role: "Full-Stack"
   },
   {
     name: "Himis",
     from: "Freelance",
     imageURL: "/himis-logo.png",
+    summary: "Job marketplace for interim managers, with separate sign-up for seekers and employers.",
     role: "Frontend"
   },
   {
     name: "Visual Blueprint",
     from: "Freelance",
     imageURL: "/visual-blueprint-logo.png",
+    summary: "Portfolio site for a 3D visualization studio serving architects.",
     role: "Frontend"
   },
   {
     name: "Pa-Abogado (Corporate Website)",
     from: "Freelance",
     imageURL: "/panotaryo-logo.png",
+    summary: "Marketing site for an online notarization and legal consultation service.",
     role: "Frontend"
   },
   {
     name: "Pa-Abogado (Admin Website)",
     from: "Freelance",
     imageURL: "/panotaryo-logo.png",
+    summary: "Back office for managing users, lawyers and bookings.",
     role: "Frontend"
   },
   {
     name: "Pa-Abogado (Lawyer Website)",
     from: "Freelance",
     imageURL: "/panotaryo-logo.png",
+    summary: "Portal where lawyers run consultations, chats and notarizations.",
     role: "Frontend"
   },
   {
     name: "My HR",
     from: "Asti Business Services Inc. (ABSI)",
     imageURL: "",
+    summary: "HR suite covering attendance, leave, evaluations and payroll.",
     isPrivate: true,
     isSaas: true,
     role: "Frontend"
@@ -299,18 +313,21 @@ const cards: CardType[] = [
     name: "Cineserye",
     from: "Freelance",
     imageURL: "/cineserye-logo.png",
+    summary: "Filipino streaming site with subscription plans and a Netflix-style catalog.",
     role: "Frontend"
   },
   {
     name: "Cineserye (Admin Website)",
     from: "Freelance",
     imageURL: "/cineserye-logo.png",
+    summary: "Back office for the catalog, regions, plans and subscriber stats.",
     role: "Frontend"
   },
   {
     name: "Vendor Service Access Hub (VSAH)",
     from: "Asti Business Services Inc. (ABSI)",
     imageURL: "",
+    summary: "Vendor ticketing hub with multi-level approvals and a blacklist module.",
     isPrivate: true,
     isSaas: true,
     role: "Frontend"
@@ -319,6 +336,7 @@ const cards: CardType[] = [
     name: "Photobooth Kiosk Software",
     from: "Freelance",
     imageURL: "/photobooth/photobooth-logo.png",
+    summary: "Self-service photo kiosk with QR payments, instant prints and a web admin panel.",
     role: "Full-Stack"
   }
 ];

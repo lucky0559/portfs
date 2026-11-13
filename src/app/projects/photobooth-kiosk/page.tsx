@@ -22,18 +22,24 @@ const screens = [
 const adminShots = [
   {
     src: "/photobooth/admin-dashboard.png",
+    width: 1920,
+    height: 1358,
     alt: "Admin dashboard showing today's paid sessions, sales, a refund needing attention and recent sessions",
     title: "Dashboard",
     text: "Today's paid sessions and sales, anything that needs your attention such as a payment to refund, and the latest sessions."
   },
   {
     src: "/photobooth/admin-settings.png",
+    width: 1920,
+    height: 1200,
     alt: "Admin settings form for price, free mode, shots, countdown, copies and link expiry",
     title: "Settings",
     text: "Set the price, turn free mode on for events, and choose shots, countdown, printed copies and how long download links last."
   },
   {
     src: "/photobooth/admin-templates.png",
+    width: 1920,
+    height: 1340,
     alt: "Admin templates page with a template upload form and the list of templates",
     title: "Templates",
     text: "Upload your own frame design, choose which one the kiosk uses, and archive old ones."
@@ -149,6 +155,25 @@ const costs = [
   ["Email delivery service", "Full version, monthly", "Only if emailing photos to guests is added."]
 ];
 
+const hardParts = [
+  {
+    title: "Payment comes first",
+    text: "A session starts only after GCash or Maya confirms through QR Ph. If a payment lands late, it is flagged so staff can refund it."
+  },
+  {
+    title: "It keeps working offline",
+    text: "Free mode needs no internet. When the connection drops, uploads wait and retry instead of failing."
+  },
+  {
+    title: "Guests can't wander off",
+    text: "The kiosk is locked to one screen, resets itself when someone walks away, and hides a PIN-protected staff menu."
+  },
+  {
+    title: "What you see is what prints",
+    text: "The preview matches the printed strip exactly, and prints go straight out with no dialog."
+  }
+];
+
 const comingNext = [
   { title: "More creative options", text: "10 filters, props and stickers, green screen" },
   { title: "More ways to deliver", text: "Email delivery, paid extra prints, reprint from admin" },
@@ -159,10 +184,29 @@ export default function PhotoboothKioskPage() {
   return (
     <main className={`project-page ${bungee.variable} ${outfit.variable}`}>
       <LightboxProvider images={lightboxImages}>
+      <div className="project-page__bar">
+        <div className="project-page__inner">
+          <div className="project-page__bar-top">
+            <Link href="/" className="project-page__brand">
+              Lucky Angelo
+            </Link>
+            <div className="project-page__bar-links">
+              <Link href="/#projects">← All projects</Link>
+              <Link href="/#contact">Contact</Link>
+            </div>
+          </div>
+          <nav className="project-page__jump" aria-label="On this page">
+            <a href="#built">What I built</a>
+            <a href="#admin">Admin panel</a>
+            <a href="#included">Included</a>
+            <a href="#devices">Devices</a>
+            <a href="#needs">Requirements</a>
+            <a href="#costs">Costs</a>
+          </nav>
+        </div>
+      </div>
+
       <div className="project-page__inner">
-        <Link href="/#projects" className="project-page__back">
-          ← Back to projects
-        </Link>
 
         <header className="project-page__header">
           <span className="project-page__eyebrow">Lean MVP · Software only</span>
@@ -174,6 +218,9 @@ export default function PhotoboothKioskPage() {
             Maya, take their photos, get a print on the spot, and scan a QR code to download the soft copy.
             Prices, templates and sales are managed from a web admin panel.
           </p>
+          <Link href="/#contact" className="project-page__cta">
+            Ask about a booth
+          </Link>
           <ul className="project-page__facts">
             <li>GCash &amp; Maya via QR Ph</li>
             <li>Printed + soft copy</li>
@@ -187,13 +234,10 @@ export default function PhotoboothKioskPage() {
       <div className="project-page__strip" aria-label="Kiosk screens">
         <div className="project-page__inner">
           <div className="project-page__frames">
-            {screens.map((screen, i) => (
+            {screens.map(screen => (
               <figure key={screen.src}>
-                <ZoomImage src={screen.src} alt={screen.alt} />
-                <figcaption>
-                  <b>{i + 1}</b>
-                  {screen.caption}
-                </figcaption>
+                <ZoomImage src={screen.src} alt={screen.alt} width={1080} height={1920} />
+                <figcaption>{screen.caption}</figcaption>
               </figure>
             ))}
           </div>
@@ -201,6 +245,22 @@ export default function PhotoboothKioskPage() {
       </div>
 
       <div className="project-page__inner">
+        <section id="built" className="project-page__section">
+          <h2>What I built</h2>
+          <p className="project-page__sub">
+            I designed and built this end to end: the kiosk app, the payment flow, the print pipeline, the
+            guest download page and the admin panel. These are the parts that were hardest to get right.
+          </p>
+          <dl className="project-page__hard">
+            {hardParts.map(part => (
+              <div key={part.title}>
+                <dt>{part.title}</dt>
+                <dd>{part.text}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
         <section className="project-page__section">
           <h2>The guest&apos;s session</h2>
           <p className="project-page__sub">From tap to print, no staff needed.</p>
@@ -211,7 +271,7 @@ export default function PhotoboothKioskPage() {
           </ol>
         </section>
 
-        <section className="project-page__section">
+        <section id="admin" className="project-page__section">
           <h2>The admin panel</h2>
           <p className="project-page__sub">
             Manage the booth from any browser. Dashboard figures below are sample data.
@@ -219,7 +279,7 @@ export default function PhotoboothKioskPage() {
           <div className="project-page__shots">
             {adminShots.map(shot => (
               <figure key={shot.src}>
-                <ZoomImage src={shot.src} alt={shot.alt} />
+                <ZoomImage src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} />
                 <figcaption>
                   <b>{shot.title}</b>
                   {shot.text}
@@ -229,7 +289,7 @@ export default function PhotoboothKioskPage() {
           </div>
         </section>
 
-        <section className="project-page__section">
+        <section id="included" className="project-page__section">
           <h2>What&apos;s included</h2>
           <div className="project-page__groups">
             {featureGroups.map(group => (
@@ -245,7 +305,7 @@ export default function PhotoboothKioskPage() {
           </div>
         </section>
 
-        <section className="project-page__section">
+        <section id="devices" className="project-page__section">
           <h2>Supported devices</h2>
           <p className="project-page__sub">
             The kiosk runs on a Windows PC or an Android tablet at the booth. Guests and staff use their own
@@ -255,17 +315,17 @@ export default function PhotoboothKioskPage() {
             <table className="project-page__table">
               <thead>
                 <tr>
-                  <th>Device</th>
-                  <th>Used for</th>
-                  <th>Notes</th>
+                  <th scope="col">Device</th>
+                  <th scope="col">Used for</th>
+                  <th scope="col">Notes</th>
                 </tr>
               </thead>
               <tbody>
                 {devices.map(([device, usedFor, notes]) => (
                   <tr key={`${device}-${usedFor}`}>
                     <td>{device}</td>
-                    <td>{usedFor}</td>
-                    <td>{notes}</td>
+                    <td data-label="Used for">{usedFor}</td>
+                    <td data-label="Notes">{notes}</td>
                   </tr>
                 ))}
               </tbody>
@@ -273,7 +333,7 @@ export default function PhotoboothKioskPage() {
           </div>
         </section>
 
-        <section className="project-page__section">
+        <section id="needs" className="project-page__section">
           <h2>What you need</h2>
           <p className="project-page__sub">For the Windows kiosk PC.</p>
           <div className="project-page__two">
@@ -281,17 +341,17 @@ export default function PhotoboothKioskPage() {
               <table className="project-page__table">
                 <thead>
                   <tr>
-                    <th>Item</th>
-                    <th>Minimum</th>
-                    <th>Recommended</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Minimum</th>
+                    <th scope="col">Recommended</th>
                   </tr>
                 </thead>
                 <tbody>
                   {requirements.map(([item, min, rec]) => (
                     <tr key={item}>
                       <td>{item}</td>
-                      <td>{min}</td>
-                      <td>{rec}</td>
+                      <td data-label="Minimum">{min}</td>
+                      <td data-label="Recommended">{rec}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -312,18 +372,18 @@ export default function PhotoboothKioskPage() {
           </div>
         </section>
 
-        <section className="project-page__section">
+        <section id="costs" className="project-page__section">
           <h2>Running costs paid to other providers</h2>
           <p className="project-page__sub">
-            Not part of the software price. These services are paid directly, based on your own volume.
+            Software pricing depends on your booth setup, so ask for a quote. These services are paid directly to their providers, based on your own volume.
           </p>
           <div className="project-page__table-wrap">
             <table className="project-page__table">
               <thead>
                 <tr>
-                  <th>Item</th>
-                  <th>When</th>
-                  <th>What it covers</th>
+                  <th scope="col">Item</th>
+                  <th scope="col">When</th>
+                  <th scope="col">What it covers</th>
                 </tr>
               </thead>
               <tbody>
@@ -354,6 +414,16 @@ export default function PhotoboothKioskPage() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className="project-page__section project-page__closing">
+          <h2>Want a booth like this?</h2>
+          <p className="project-page__sub">
+            Tell me about your events and where the booth will run. I&apos;ll reply with a quote and what it would take to set up.
+          </p>
+          <Link href="/#contact" className="project-page__cta">
+            Get a quote
+          </Link>
         </section>
 
         <p className="project-page__footer">

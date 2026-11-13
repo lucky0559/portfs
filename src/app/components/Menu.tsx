@@ -61,7 +61,7 @@ const Menu = () => {
                     <a
                       href={href}
                       className="site-nav__link"
-                      aria-current={isActive ? "true" : undefined}
+                      aria-current={isActive ? "location" : undefined}
                     >
                       <span className="site-nav__link-dot" aria-hidden="true" />
                       {label}
@@ -87,7 +87,7 @@ const Menu = () => {
               <a
                 key={label}
                 href={href}
-                aria-current={isActive ? "true" : undefined}
+                aria-current={isActive ? "location" : undefined}
               >
                 <Icon size={15} aria-hidden="true" />
                 <span>{label}</span>

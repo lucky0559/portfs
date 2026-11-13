@@ -252,6 +252,7 @@ const Projects = () => {
               cardImageUrl={card.imageURL}
               name={card.name}
               from={card.from}
+              summary={card.summary}
               isPrivate={card.isPrivate}
               isSaas={card.isSaas}
               role={card.role}

@@ -77,6 +77,7 @@ const Job = () => {
                   <span className="job-date">{formatDateRange(exp.startDate, exp.endDate)}</span>
                 </div>
               </div>
+              <p className="job-summary">{exp.summary}</p>
             </div>
           </motion.li>
         ))}

@@ -18,19 +18,14 @@ const DetailsColumn = () => {
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
     >
       <div>
-        <div className="section-label">
-          <span>01</span>
-          Introduction
-        </div>
-
         <p className="hero-kicker">
           <span className="hero-kicker__dot" aria-hidden="true" />
           Software developer · product-minded
         </p>
 
         <h1 className="hero-heading">
-          I make
-          <span className="hero-heading__accent">complex products</span>
+          I make{" "}
+          <span className="hero-heading__accent">complex products</span>{" "}
           feel clear.
         </h1>
 

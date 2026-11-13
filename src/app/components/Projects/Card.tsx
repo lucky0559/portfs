@@ -7,6 +7,7 @@ type CardProps = {
   cardImageUrl: string;
   name: string;
   from: string;
+  summary?: string;
   isPrivate?: boolean;
   isSaas?: boolean;
   role?: "Full-Stack" | "Frontend" | "Backend";
@@ -19,6 +20,7 @@ const Card = ({
   onClick,
   name,
   from,
+  summary,
   isPrivate,
   isSaas,
   role,
@@ -57,6 +59,7 @@ const Card = ({
         <div className="project-card__content">
           <p className="project-card__from">{from}</p>
           <h3 className="project-card__name">{name}</h3>
+          {summary && <p className="project-card__summary">{summary}</p>}
           <div className="project-card__footer">
             {role && <span className="project-role">{role}</span>}
             <FaExternalLinkAlt className="project-card__arrow" size={11} aria-hidden="true" />

@@ -22,6 +22,7 @@ export type WorkExperienceEntry = {
   initials: string;
   avatarColor: string;
   logoUrl?: string;
+  summary: string;
 };
 
 // Ordered newest → oldest so the timeline shows current role first
@@ -29,16 +30,18 @@ export const workExperiences: WorkExperienceEntry[] = [
   {
     company: "Asti Business Services Inc. (ABSI)",
     shortName: "ABSI",
+    summary: "Frontend on internal business platforms: the My HR suite and the Globe vendor service access hub.",
     role: "Mid Frontend Developer",
     startDate: "2025-12",
     endDate: null,
     initials: "AB",
     avatarColor: "#1e8449",
-    logoUrl: "https://ccap.ph/wp-content/uploads/2023/06/absi276x206.png"
+    logoUrl: "/absi_logo.png"
   },
   {
     company: "Virtual Staffing Solution",
     shortName: "VSS",
+    summary: "Full-stack work on Vooks, the animated storybook library used by classrooms and families.",
     role: "Javascript Fullstack Developer",
     startDate: "2025-03",
     endDate: "2025-10",
@@ -49,6 +52,7 @@ export const workExperiences: WorkExperienceEntry[] = [
   {
     company: "Vertere Global Solutions",
     shortName: "Vertere",
+    summary: "Backend for the PruServices portal that Pru Life UK policyholders use to pay and manage policies.",
     role: "Junior Fullstack Developer",
     startDate: "2023-12",
     endDate: "2025-03",
@@ -59,6 +63,7 @@ export const workExperiences: WorkExperienceEntry[] = [
   {
     company: "Internet Strategy Branding and Execution (ISBX)",
     shortName: "ISBX",
+    summary: "Full-stack on startup products: a clinical-trial app, a civic livestream app and a security-guard marketplace.",
     role: "Javascript Fullstack Developer",
     startDate: "2021-11",
     endDate: "2023-04",

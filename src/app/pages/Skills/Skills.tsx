@@ -4,32 +4,16 @@ import { motion, useReducedMotion } from "framer-motion";
 import { IconType } from "react-icons";
 import { FaReact } from "react-icons/fa";
 import {
-  SiAmazondynamodb,
-  SiAmazons3,
   SiAmazonaws,
-  SiAxios,
-  SiBitbucket,
-  SiCss3,
-  SiExpress,
   SiFirebase,
-  SiGit,
   SiGithub,
-  SiGitlab,
-  SiGooglecloud,
-  SiHtml5,
-  SiJira,
   SiNestjs,
   SiNextdotjs,
   SiNodedotjs,
-  SiOpenai,
   SiPostgresql,
-  SiReactquery,
-  SiStyledcomponents,
   SiTailwindcss,
-  SiTrello,
   SiTypescript,
-  SiVercel,
-  SiVisualstudiocode
+  SiVercel
 } from "react-icons/si";
 
 const ClaudeIcon: IconType = ({ size, color, ...props }) => (
@@ -50,55 +34,51 @@ const ClaudeIcon: IconType = ({ size, color, ...props }) => (
 
 type SkillEntry = {
   label: string;
-  url: string;
-  Icon?: IconType;
-  abbr?: string;
+  Icon: IconType;
 };
 
-const frontendSkills: SkillEntry[] = [
-  { label: "React JS", url: "https://react.dev/", Icon: FaReact },
-  { label: "Next.js", url: "https://nextjs.org/", Icon: SiNextdotjs },
-  { label: "React Native", url: "https://reactnative.dev/", Icon: FaReact },
-  { label: "TypeScript", url: "https://www.typescriptlang.org/", Icon: SiTypescript },
-  { label: "Tailwind CSS", url: "https://tailwindcss.com/", Icon: SiTailwindcss },
-  { label: "Styled Components", url: "https://styled-components.com/", Icon: SiStyledcomponents },
-  { label: "HTML", url: "https://developer.mozilla.org/en-US/docs/Web/HTML", Icon: SiHtml5 },
-  { label: "CSS", url: "https://developer.mozilla.org/en-US/docs/Web/CSS", Icon: SiCss3 },
-  { label: "TanStack Query", url: "https://tanstack.com/query", Icon: SiReactquery },
-  { label: "TanStack Form", url: "https://tanstack.com/form", abbr: "TF" },
-  { label: "Zustand", url: "https://zustand-demo.pmnd.rs/", abbr: "ZST" },
-  { label: "Zod", url: "https://zod.dev/", abbr: "ZOD" },
-  { label: "shadcn/ui", url: "https://ui.shadcn.com/", abbr: "UI" },
-  { label: "Axios", url: "https://axios-http.com/docs/intro", Icon: SiAxios }
-];
+type SkillGroupData = {
+  title: string;
+  summary: string;
+  core: SkillEntry[];
+  also: string;
+};
 
-const backendSkills: SkillEntry[] = [
-  { label: "NestJS", url: "https://nestjs.com/", Icon: SiNestjs },
-  { label: "Node.js", url: "https://nodejs.org/", Icon: SiNodedotjs },
-  { label: "Express", url: "https://expressjs.com/", Icon: SiExpress },
-  { label: "TypeScript", url: "https://www.typescriptlang.org/", Icon: SiTypescript },
-  { label: "PostgreSQL", url: "https://www.postgresql.org/", Icon: SiPostgresql },
-  { label: "Firebase", url: "https://firebase.google.com/", Icon: SiFirebase },
-  { label: "Firestore", url: "https://firebase.google.com/docs/firestore", Icon: SiFirebase },
-  { label: "AWS DynamoDB", url: "https://aws.amazon.com/dynamodb/", Icon: SiAmazondynamodb },
-  { label: "AWS S3", url: "https://aws.amazon.com/s3/", Icon: SiAmazons3 },
-  { label: "Elastic Beanstalk", url: "https://aws.amazon.com/elasticbeanstalk/", Icon: SiAmazonaws },
-  { label: "Route 53", url: "https://aws.amazon.com/route53/", abbr: "R53" },
-  { label: "Google Cloud Run", url: "https://cloud.google.com/run", Icon: SiGooglecloud }
-];
-
-const otherSkills: SkillEntry[] = [
-  { label: "VS Code", url: "https://code.visualstudio.com/", Icon: SiVisualstudiocode },
-  { label: "Git", url: "https://git-scm.com/", Icon: SiGit },
-  { label: "GitHub", url: "https://github.com/", Icon: SiGithub },
-  { label: "GitLab", url: "https://gitlab.com/", Icon: SiGitlab },
-  { label: "Bitbucket", url: "https://bitbucket.org/", Icon: SiBitbucket },
-  { label: "Jira", url: "https://www.atlassian.com/software/jira", Icon: SiJira },
-  { label: "Trello", url: "https://trello.com/", Icon: SiTrello },
-  { label: "n8n", url: "https://n8n.io/", abbr: "n8n" },
-  { label: "Vercel", url: "https://vercel.com/", Icon: SiVercel },
-  { label: "Claude", url: "https://claude.ai/", Icon: ClaudeIcon },
-  { label: "Codex", url: "https://openai.com/codex/", Icon: SiOpenai }
+const groups: SkillGroupData[] = [
+  {
+    title: "Product UI",
+    summary: "Responsive, maintainable interfaces for web and mobile.",
+    core: [
+      { label: "React", Icon: FaReact },
+      { label: "Next.js", Icon: SiNextdotjs },
+      { label: "React Native", Icon: FaReact },
+      { label: "TypeScript", Icon: SiTypescript },
+      { label: "Tailwind CSS", Icon: SiTailwindcss }
+    ],
+    also: "TanStack Query and Form, Zustand, Zod, shadcn/ui, Styled Components, Axios"
+  },
+  {
+    title: "APIs and data",
+    summary: "Backend services, databases and the integrations between them.",
+    core: [
+      { label: "NestJS", Icon: SiNestjs },
+      { label: "Node.js", Icon: SiNodedotjs },
+      { label: "PostgreSQL", Icon: SiPostgresql },
+      { label: "Firebase", Icon: SiFirebase }
+    ],
+    also: "Express, Firestore, DynamoDB, S3"
+  },
+  {
+    title: "Shipping",
+    summary: "Deploying, iterating and working in teams, with AI assistants in the loop.",
+    core: [
+      { label: "GitHub", Icon: SiGithub },
+      { label: "Vercel", Icon: SiVercel },
+      { label: "AWS", Icon: SiAmazonaws },
+      { label: "Claude", Icon: ClaudeIcon }
+    ],
+    also: "GitLab, Bitbucket, Google Cloud Run, Elastic Beanstalk, Route 53, Jira, Trello, Codex"
+  }
 ];
 
 const containerVariants = {
@@ -115,46 +95,41 @@ const pillVariants = {
   }
 };
 
-const SkillPill = ({ label, url, Icon, abbr }: SkillEntry) => {
+const SkillPill = ({ label, Icon }: SkillEntry) => {
   const shouldReduce = useReducedMotion();
 
   return (
-    <motion.a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={label}
-      variants={shouldReduce ? {} : pillVariants}
-      whileHover={shouldReduce ? {} : { y: -2 }}
-      whileTap={shouldReduce ? {} : { scale: 0.97 }}
-      className="skill-pill"
-    >
+    <motion.li variants={shouldReduce ? {} : pillVariants} className="skill-pill">
       <span className="skill-pill__icon" aria-hidden="true">
-        {Icon ? <Icon size={15} /> : <span>{abbr}</span>}
+        <Icon size={15} />
       </span>
       <span>{label}</span>
-    </motion.a>
+    </motion.li>
   );
 };
 
-const SkillGroup = ({ title, skills }: { title: string; skills: SkillEntry[] }) => {
+const SkillGroup = ({ title, summary, core, also }: SkillGroupData) => {
   const shouldReduce = useReducedMotion();
 
   return (
     <div className="skill-group">
       <div className="skill-group__header">
         <h3 className="skill-group__title">{title}</h3>
-        <span className="skill-group__count">{String(skills.length).padStart(2, "0")} tools</span>
       </div>
-      <motion.div
+      <p className="skill-group__summary">{summary}</p>
+      <motion.ul
         className="skill-list"
         variants={shouldReduce ? {} : containerVariants}
         initial={shouldReduce ? false : "hidden"}
         whileInView="visible"
         viewport={{ once: true, margin: "-30px" }}
       >
-        {skills.map(skill => <SkillPill key={skill.label} {...skill} />)}
-      </motion.div>
+        {core.map(skill => <SkillPill key={skill.label} {...skill} />)}
+      </motion.ul>
+      <p className="skill-group__also">
+        <span>Also: </span>
+        {also}
+      </p>
     </div>
   );
 };
@@ -176,9 +151,7 @@ const Skills = () => {
       </motion.div>
 
       <div className="skills-layout">
-        <SkillGroup title="Front-end" skills={frontendSkills} />
-        <SkillGroup title="Back-end" skills={backendSkills} />
-        <SkillGroup title="Workflow" skills={otherSkills} />
+        {groups.map(group => <SkillGroup key={group.title} {...group} />)}
       </div>
     </div>
   );

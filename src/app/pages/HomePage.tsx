@@ -8,12 +8,7 @@ import Projects from "@/pages/Projects/Projects";
 import Skills from "@/pages/Skills/Skills";
 import React from "react";
 
-const SectionLabel = ({ number, label }: { number: string; label: string }) => (
-  <div className="section-label">
-    <span>{number}</span>
-    {label}
-  </div>
-);
+const SectionLabel = ({ label }: { label: string }) => <div className="section-label">{label}</div>;
 
 const HomePage = () => {
   return (
@@ -29,28 +24,29 @@ const HomePage = () => {
 
       <section id="academicJob" className="section-panel section-panel--alt section-spacing">
         <div className="section-shell">
-          <SectionLabel number="02" label="Background" />
+          <SectionLabel label="Background" />
+          <h2 className="sr-only">Background</h2>
           <AcademicJob />
         </div>
       </section>
 
       <section id="skills" className="section-panel section-spacing">
         <div className="section-shell">
-          <SectionLabel number="03" label="Expertise" />
+          <SectionLabel label="Expertise" />
           <Skills />
         </div>
       </section>
 
       <section id="projects" className="section-panel section-panel--alt section-spacing">
         <div className="section-shell">
-          <SectionLabel number="04" label="Work" />
+          <SectionLabel label="Work" />
           <Projects />
         </div>
       </section>
 
       <section id="contact" className="section-panel section-spacing contact-section">
         <div className="section-shell">
-          <SectionLabel number="05" label="Connect" />
+          <SectionLabel label="Connect" />
           <Contact />
           <footer className="site-footer">
             <p>Lucky Angelo Rabosa · Software developer</p>
